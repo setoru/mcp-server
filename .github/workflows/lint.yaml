@@ -1,8 +1,12 @@
 name: Lint
 
 on:
-  push:
   pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
 
 jobs:
   lint:
@@ -17,7 +21,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "uv"
 
       - name: Install uv
         run: |
