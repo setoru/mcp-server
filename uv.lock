@@ -383,7 +383,7 @@ dependencies = [
 requires-dist = [
     { name = "esdk-obs-python" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "mcp", extras = ["cli"], specifier = ">=1.7.1" },
+    { name = "mcp", extras = ["cli"], specifier = ">=1.8.0" },
 ]
 
 
