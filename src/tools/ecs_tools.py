@@ -164,7 +164,7 @@ def create_post_paid_ecs_instance(config:ECSInstanceConfig):
             raise
 
 # 删除ECS实例
-@tools.append
+# @tools.append
 def delete_ecs_instance(instance_id,region="cn-south-1"):
         """
         删除ECS实例
@@ -196,7 +196,7 @@ def delete_ecs_instance(instance_id,region="cn-south-1"):
 
 
 # 查询云服务器列表
-@tools.append
+# @tools.append
 def select_ecs_instance(region="cn-south-1", ecs_id=None, ecs_name=None):
     """
     Query ECS instances based on filters (ID, name, or both)
@@ -254,5 +254,5 @@ if __name__ == "__main__":
     
     # create_post_paid_ecs_instance(instance_config)
     
-    # select_ecs_instance(instance_config.region,ecs_name="ai_mcp_build")
-    delete_ecs_instance(instance_id="2ee90ecb-51fb-4d60-8fd2-2d84c6a5215e",region=instance_config.region)
+    # select_ecs_instance(region="cn-south-1")
+    delete_ecs_instance(instance_id="0af52f6c-a4de-450a-9dc6-269c3e877a2d",region="cn-south-1")
