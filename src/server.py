@@ -1,17 +1,19 @@
-from mcp.server.fastmcp import FastMCP
-
+import click
 import logging
+from mcp.config import config
+from mcp.server import api_tools
+from mcp.server.fastmcp import FastMCP
 
 from tools import ecs_tools
 
 logger = logging.getLogger(__name__)
 
 # Create an MCP server
-mcp = FastMCP("HuaweiCloud-ECS-ops-mcp-server")  
+mcp = FastMCP("HuaweiCloud-ECS-ops-mcp-server")
+
+
 @mcp.tool()
-
 @click.command()
-
 @click.option(
     "--transport",
     type=click.Choice(["stdio", "sse"]),
@@ -23,7 +25,7 @@ def main(transport: str):
     mcp = FastMCP("alibaba-cloud-ops-mcp-server")
     for tool in ecs_tools.tools:
         mcp.add_tool(tool)
-    
+
     api_tools.create_api_tools(mcp, config)
 
     # Initialize and run the server
