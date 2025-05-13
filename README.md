@@ -37,5 +37,3 @@ To use huaweicloud-ecs-ops-mcp-server MCP Server with any other MCP Client, you 
 Cline
 
 # Tools
-# OpenManus-image
-
