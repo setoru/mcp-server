@@ -2,12 +2,19 @@
 # mcp-server
 
 Huawei MCP Server is a Model Context Protocol server built on Huawei Cloud services, providing secure and controlled cloud access capabilities for large AI models. Through standardized MCP specifications, it enables AI assistants to operate Huawei Cloud resources within conversational workflows, supporting core services including ECS, OBS, GaussDB, and other widely-used cloud products.
+<<<<<<< HEAD
 
 
 # Prepare
 Install uv
 
 # On macOS and Linux.
+=======
+# Prepare
+Install uv
+
+## On macOS and Linux.
+>>>>>>> cd32abbc3932e85ffaeb8c3ab68fa1b874672e9f
 curl -LsSf https://astral.sh/uv/install.sh | sh
 Configuration
 Use VS Code + Cline to config MCP Server.
@@ -36,7 +43,11 @@ To use huaweicloud-ecs-ops-mcp-server MCP Server with any other MCP Client, you 
 # MCP Maketplace Integration
 Cline
 
+<<<<<<< HEAD
 # Tools
 =======
 # OpenManus-image
 >>>>>>> upstream/master-dev
+=======
+# Tools
+>>>>>>> cd32abbc3932e85ffaeb8c3ab68fa1b874672e9f
