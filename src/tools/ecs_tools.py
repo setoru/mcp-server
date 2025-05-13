@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from typing import List, Optional, Dict
 from pydantic import BaseModel, Field
 import logging
-load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
+# load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,

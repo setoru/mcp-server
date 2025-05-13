@@ -9,26 +9,27 @@ from typing import List, Optional, Dict
 from mcp.server.fastmcp import FastMCP
 import os
 import logging
-load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
+
+# load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
+tools = []
 
 # 配置华为云认证信息
 def get_credentials():
     # 从环境变量获取AK/SK，或者直接写在这里（不推荐）
     ak = os.getenv("HUAWEI_CLOUD_AK")
     sk = os.getenv("HUAWEI_CLOUD_SK")
-    project_id = os.getenv("HUAWEI_REGION_CN_GUANGZHOU_PROJECT_ID")  # 项目ID
     
-    if not all([ak, sk,project_id]):
-        raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK, HUAWEI_CLOUD_PROJECT_ID")
     
-    return BasicCredentials(ak, sk,project_id)
+    if not all([ak, sk]):
+        raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK")
+    
+    return BasicCredentials(ak, sk)
 
 
 #创建vpc客户端
@@ -40,7 +41,9 @@ def get_vpc_client(regin="cn-south-1"):
         .with_region(VpcRegion.value_of(regin)) \
         .build()
 
+
 # 获取vpcid
+@tools.append
 def get_vpc_id(target_vpc_name=None):
     """
     获取VPC ID，如果target_vpc_name为None，则打印所有VPC及其ID。
@@ -73,6 +76,7 @@ def get_vpc_id(target_vpc_name=None):
         print(e.error_msg)
 
 # 获取所有子网id 列表
+@tools.append
 def list_all_subnets()-> List[Dict[str, str]]:
         """获取所有子网信息列表"""
         try:
@@ -99,6 +103,7 @@ def list_all_subnets()-> List[Dict[str, str]]:
             raise
 
 # 获取子网id
+@tools.append
 def get_subnet_id(subnet_name: Optional[str] = None, 
                      vpc_id: Optional[str] = None) -> Optional[str]:
         """
