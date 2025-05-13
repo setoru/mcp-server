@@ -1,4 +1,4 @@
-from tools.utils import *
+from tools.utils import get_aksk
 import logging
 from obs import ObsClient
 

@@ -1,10 +1,8 @@
-from obs import ObsClient
 from obs import CreateBucketHeader, HeadPermission
-import os
 import traceback
 import logging
-from pydantic import BaseModel, Field
-from tools.obs_utils import *
+from pydantic import Field
+from tools.obs_utils import get_endpoint, get_obsclient, get_location_from_server
 
 
 logger = logging.getLogger(__name__)
@@ -47,13 +45,13 @@ def bucket_exist(bucket_name: str = Field("桶名称", description="桶名称"),
             return "不存在"
         else:
             return get_resp_msg(resp)
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败，错误信息：" + str(traceback.format_exc())
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
 
 
 @tools.append
-def get_buckets(region: str = Field("地域", description="地域，例如：北京四, 上海二, 香港")) -> str:
+def get_buckets(region_name: str = Field("地域", description="地域，例如：北京四, 上海二, 香港")) -> str:
     """根据地域信息获取用户桶列表.
 
     Args:
@@ -61,7 +59,7 @@ def get_buckets(region: str = Field("地域", description="地域，例如：北
     """
     
     try:
-        server = get_endpoint(region)
+        server = get_endpoint(region_name)
         obsClient = get_obsclient(server)
         # 列举桶，并设置isQueryLocation参数为True，同时查询桶区域
         resp = obsClient.listBuckets(True)
@@ -78,13 +76,14 @@ def get_buckets(region: str = Field("地域", description="地域，例如：北
             return "\n".join(buckets_info)
         else:
             return get_resp_msg(resp) 
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败，错误信息: " + traceback.format_exc()
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
 
 
 @tools.append
-def delete_bucket(bucket_name:str, region_name: str) -> str:
+def delete_bucket(bucket_name:str = Field("桶名称", description="桶名称"), 
+                  region_name:str = Field("地域", description="地域，例如：北京四, 上海二, 香港")) -> str:
     """根据桶名称、地域信息删除桶.
 
     Args:
@@ -97,14 +96,16 @@ def delete_bucket(bucket_name:str, region_name: str) -> str:
         obsClient = get_obsclient(server)
         resp = obsClient.deleteBucket(bucket_name)
         return get_resp_msg(resp)
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败，错误信息：" + traceback.format_exc()
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
 
 
 @tools.append
-def create_bucket(bucket_name:str, region_name: str, storage_class:str,
-                  available_zone:str) -> str:
+def create_bucket(bucket_name:str = Field("桶名称", description="桶名称"), 
+                  region_name: str = Field("地域", description="地域，例如：北京四, 上海二, 香港"), 
+                  storage_class:str = Field("存储类别", description="存储类别 ，包括, 标准存储:STANDARD;低频访问存储:WARM;归档存储:COLD"),
+                  available_zone:str = Field("AZ类别", description="AZ类别 ，包括: 多AZ:3az;单AZ:默认值")) -> str:
     """根据桶名称、地域、存储类别、AZ类型创建用户桶.
 
     Args:
@@ -119,7 +120,7 @@ def create_bucket(bucket_name:str, region_name: str, storage_class:str,
         location = get_location_from_server(server)
         obsClient = get_obsclient(server)
         sc = {"归档存储": "COLD", "低频访问存储": "WARM"}.get(storage_class, "STANDARD")
-        az = "3az" if not az.strip() else None
+        az = "3az" if not available_zone.strip() else None
         if az:
             header = CreateBucketHeader(aclControl=HeadPermission.PRIVATE, storageClass=sc, availableZone=az)
         else:
@@ -128,13 +129,14 @@ def create_bucket(bucket_name:str, region_name: str, storage_class:str,
         # 创建桶
         resp = obsClient.createBucket(bucket_name, header, location)
         return get_resp_msg(resp)
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败，错误信息：" + traceback.format_exc()
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
 
 
 @tools.append
-def get_objects(bucket_name:str, region: str = "北京四") -> str:
+def get_objects(bucket_name:str = Field("桶名称", description="桶名称"),
+                region_name:str = Field("地域", description="地域，例如：北京四, 上海二, 香港")) -> str:
     """根据桶名称、地域获取用户桶中对象列表.
 
     Args:
@@ -143,7 +145,7 @@ def get_objects(bucket_name:str, region: str = "北京四") -> str:
     """
 
     try:
-        server = get_bucket_region_url(bucket_name, region)
+        server = get_endpoint(region_name)
         obsClient = get_obsclient(server)
         # 指定单次列举对象个数为100
         max_keys = 100
@@ -166,14 +168,16 @@ def get_objects(bucket_name:str, region: str = "北京四") -> str:
             return "\n".join(contents_info)
         else:
             return get_resp_msg(resp)
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败,错误信息：" + traceback.format_exc()
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
 
 
 @tools.append
-def download_object(bucket_name:str, region_name: str, 
-                       object_key:str, local_file:str) -> str:
+def download_object(bucket_name:str = Field("桶名称", description="桶名称"),
+                    region_name:str = Field("地域", description="地域，例如：北京四, 上海二, 香港"), 
+                    object_key:str = Field("对象名称", description="桶中对象的名称"), 
+                    local_file:str = Field("本地文件", description="本地文件，需要包含路径")) -> str:
     """根据桶名称、地域、对象名称下载对象的内容保存到本地文件中.
 
     Args:
@@ -188,14 +192,15 @@ def download_object(bucket_name:str, region_name: str,
         obsClient = get_obsclient(server)
         resp = obsClient.getObject(bucket_name, object_key, local_file)
         return get_resp_msg(resp)
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败，错误信息：" + traceback.format_exc()
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
 
 
 @tools.append
-def delete_object(bucket_name:str, region_name: str, 
-                       object_key:str) -> str:
+def delete_object(bucket_name:str = Field("桶名称", description="桶名称"),
+                  region_name:str = Field("地域", description="地域，例如：北京四, 上海二, 香港"), 
+                  object_key:str = Field("对象名称", description="桶中对象的名称")) -> str:
     """根据桶名称、地域、对象名称删除桶中对象.
 
     Args:
@@ -209,6 +214,6 @@ def delete_object(bucket_name:str, region_name: str,
         obsClient = get_obsclient(server)
         resp = obsClient.deleteObject(bucket_name, object_key)
         return get_resp_msg(resp)
-    except:
-        logger.error(str(traceback.format_exc()))
-        return "操作失败，错误信息：" + traceback.format_exc()
+    except Exception as ex:
+        logger.error("发生异常：\n%s", traceback.format_exc())
+        return f"操作失败，错误信息: {str(ex)}"
