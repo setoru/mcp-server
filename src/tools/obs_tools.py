@@ -1,10 +1,8 @@
-from obs import ObsClient
 from obs import CreateBucketHeader, HeadPermission
-import os
 import traceback
 import logging
-from pydantic import BaseModel, Field
-from tools.obs_utils import *
+from pydantic import Field
+from tools.obs_utils import get_endpoint, get_obsclient, get_location_from_server
 
 
 logger = logging.getLogger(__name__)
@@ -134,7 +132,7 @@ def create_bucket(bucket_name:str, region_name: str, storage_class:str,
 
 
 @tools.append
-def get_objects(bucket_name:str, region: str = "北京四") -> str:
+def get_objects(bucket_name:str, region_name: str = "北京四") -> str:
     """根据桶名称、地域获取用户桶中对象列表.
 
     Args:
@@ -143,7 +141,7 @@ def get_objects(bucket_name:str, region: str = "北京四") -> str:
     """
 
     try:
-        server = get_bucket_region_url(bucket_name, region)
+        server = get_endpoint(region_name)
         obsClient = get_obsclient(server)
         # 指定单次列举对象个数为100
         max_keys = 100
