@@ -1,16 +1,21 @@
 from mcp.server.fastmcp import FastMCP
-
 import logging
+from tools import ecs_tools
+from tools import obs_tools
+from tools import utils
 
-from tools import ecs_tools,vpc_tools
 
 logger = logging.getLogger(__name__)
 
 
 def main(transport: str):
+
     # Create an MCP server
-    mcp = FastMCP("huawei-cloud-ops-mcp-server")
+    mcp = FastMCP("huawei-cloud-mcp-server")
     for tool in ecs_tools.tools:
+        mcp.add_tool(tool)
+    
+    for tool in obs_tools.tools:
         mcp.add_tool(tool)
     
     for tool in vpc_tools.tools:
