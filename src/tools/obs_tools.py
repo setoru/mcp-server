@@ -217,3 +217,4 @@ def delete_object(bucket_name:str = Field("桶名称", description="桶名称"),
     except Exception as ex:
         logger.error("发生异常：\n%s", traceback.format_exc())
         return f"操作失败，错误信息: {str(ex)}"
+

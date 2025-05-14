@@ -41,3 +41,4 @@ def get_obsclient(server:str) -> ObsClient:
 
 def get_location_from_server(server:str) -> str:
     return server.split('.')[1]
+
