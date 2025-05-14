@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from typing import List, Optional, Dict
 from pydantic import BaseModel, Field
 import logging
-load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
+# load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
@@ -164,7 +164,7 @@ def create_post_paid_ecs_instance(config:ECSInstanceConfig):
             raise
 
 # 删除ECS实例
-# @tools.append
+@tools.append
 def delete_ecs_instance(instance_id,region="cn-south-1"):
         """
         删除ECS实例
@@ -196,7 +196,7 @@ def delete_ecs_instance(instance_id,region="cn-south-1"):
 
 
 # 查询云服务器列表
-# @tools.append
+@tools.append
 def select_ecs_instance(region="cn-south-1", ecs_id=None, ecs_name=None):
     """
     Query ECS instances based on filters (ID, name, or both)
