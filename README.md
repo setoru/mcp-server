@@ -7,6 +7,12 @@
 
 Huawei MCP Server is a Model Context Protocol server built on Huawei Cloud services, providing secure and controlled cloud access capabilities for large AI models. Through standardized MCP specifications, it enables AI assistants to operate Huawei Cloud resources within conversational workflows, supporting core services including ECS, OBS, GaussDB, and other widely-used cloud products.
 
+## Demo
+
+[Demo](https://github.com/HuaweiCloudDeveloper/mcp-server/blob/main/media/mcp-server-demo.mp4)
+
+The video demonstrates using Cline with Huawei MCP Server to create a new ECS instance and remove it.
+
 ## Prepare
 Install [uv](https://github.com/astral-sh/uv)
 
