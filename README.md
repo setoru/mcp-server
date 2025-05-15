@@ -4,6 +4,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/HuaweiCloudDeveloper/mcp-server/pulls)
 [![Last Commit](https://img.shields.io/github/last-commit/HuaweiCloudDeveloper/mcp-server)](https://github.com/HuaweiCloudDeveloper/mcp-server/commits/main) 
 [![Language](https://img.shields.io/github/languages/top/HuaweiCloudDeveloper/mcp-server)](https://github.com/HuaweiCloudDeveloper/mcp-server)
+
 Huawei MCP Server is a Model Context Protocol server built on Huawei Cloud services, providing secure and controlled cloud access capabilities for large AI models. Through standardized MCP specifications, it enables AI assistants to operate Huawei Cloud resources within conversational workflows, supporting core services including ECS, OBS, GaussDB, and other widely-used cloud products.
 
 ## Prepare
@@ -12,7 +13,7 @@ Install [uv](https://github.com/astral-sh/uv)
 ```sh
 # On macOS and Linux.
  curl -LsSf https://astral.sh/uv/install.sh | sh
- ```
+```
 
 ## Configuration
 Use [VS Code](https://code.visualstudio.com/) + [Cline](https://cline.bot/) to config MCP Server.
@@ -27,7 +28,7 @@ To use huaweicloud-ecs-ops-mcp-server MCP Server with any other MCP Client, you 
       "command": "uv",
       "args": [
             "--directory",
-            "/projects/lhw/hc_mcp_servers/mcp-server/src",
+            "/path/to/yours/mcp-server/src",
             "run",
             "server.py"
       ],
@@ -44,3 +45,19 @@ To use huaweicloud-ecs-ops-mcp-server MCP Server with any other MCP Client, you 
 * [Cline](https://cline.bot/mcp-marketplace)
 
 ## Tools
+
+| **Product** | **Tool** | **Function**                  | **Implematation** | **Status** |
+| --- | --- |-------------------------------|-------------------| --- |
+| ECS | create_post_paid_ecs_instance | Create post paid ecs instance | ECS               | Done |
+| | delete_ecs_instance | Delete ecs instance         | ECS               | Done |
+| | select_ecs_instance | Retrieve ecs instance | ECS               | Done |
+| VPC | get_vpc_id | Get vpc id     | VPC               | Done |
+| | list_all_subnets | list all subnets              | VPC               | Done |
+| | get_subnet_id | Get subnet id              | VPC               | Done |
+| OBS | bucket_exist | Checks if a specified bucket exists | OBS               | Done |
+|  | get_buckets | Get buckets                | OBS               | Done |
+|  | delete_bucket | Delete bucket                 | OBS               | Done |
+|  | create_bucket | Create bucket                 | OBS               | Done |
+|  | get_objects | Get objects in the bucket     | OBS               | Done |
+|  | download_object | Download object               | OBS               | Done |
+|  | delete_object | Delete object                 | OBS               | Done |
