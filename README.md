@@ -67,3 +67,7 @@ To use huaweicloud-ecs-ops-mcp-server MCP Server with any other MCP Client, you 
 |  | get_objects | Get objects in the bucket     | OBS               | Done |
 |  | download_object | Download object               | OBS               | Done |
 |  | delete_object | Delete object                 | OBS               | Done |
+
+## Roadmap
+
+Please refer to the [roadmap](docs/roadmap.md).
