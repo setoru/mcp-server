@@ -66,7 +66,8 @@ def create_system_disk_image(region, name, instance_id):
 
 # 查询镜像列表
 @tools.append
-def query_ims_images_list(region, name=None, 
+def query_ims_images_list(region, 
+                          name=None, 
                           imagetype="private", 
                           os_type="Linux", 
                           platform="Ubuntu", 
@@ -99,8 +100,7 @@ def query_ims_images_list(region, name=None,
     valid_platform = ["Ubuntu", "Windows", "RedHat", "SUSE", "CentOS","Debian", "OpenSUSE","Fedora","Oracle Linux","EulerOS", "Huawei Cloud EulerOS", "CoreOS", "Other"]
     valid_architectures = ["x86", "arm"]
 
-    if name is not None:
-            request.name = name  # 精确匹配，不支持模糊查询
+    
 
     if imagetype not in valid_imagetypes:
         raise ValueError(f"imagetype 必须是 {valid_imagetypes} 中的一个值")
@@ -117,7 +117,8 @@ def query_ims_images_list(region, name=None,
     try:
         client = get_ims_client(region)
         request = ListImagesRequest()
-        request.name = name
+        if name is not None:
+            request.name = name  # 精确匹配，不支持模糊查询
         request.imagetype = imagetype
         request.os_type = os_type
         request.platform = platform
