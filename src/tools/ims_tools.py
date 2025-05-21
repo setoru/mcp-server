@@ -100,8 +100,6 @@ def query_ims_images_list(region,
     valid_platform = ["Ubuntu", "Windows", "RedHat", "SUSE", "CentOS","Debian", "OpenSUSE","Fedora","Oracle Linux","EulerOS", "Huawei Cloud EulerOS", "CoreOS", "Other"]
     valid_architectures = ["x86", "arm"]
 
-    
-
     if imagetype not in valid_imagetypes:
         raise ValueError(f"imagetype 必须是 {valid_imagetypes} 中的一个值")
     
