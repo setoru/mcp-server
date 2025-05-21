@@ -164,7 +164,7 @@ wheels = [
 
 [[package]]
 name = "huaweicloudsdkcore"
-version = "3.1.147"
+version = "3.1.148"
 source = { registry = "https://repo.huaweicloud.com/repository/pypi/simple" }
 dependencies = [
     { name = "pyasn1" },
@@ -176,7 +176,7 @@ dependencies = [
     { name = "typing-extensions" },
 ]
 wheels = [
-    { url = "https://repo.huaweicloud.com/repository/pypi/packages/89/c3/94f5dcfc47beac21004dc8e0acc2ae7c1b684f8e70dc6c51fadd21be1110/huaweicloudsdkcore-3.1.147-py2.py3-none-any.whl", hash = "sha256:8041d1a465350a4baa4065ffe0c7a4b5431b1dbe2d4e67cc8dbcee132abc6da7" },
+    { url = "https://repo.huaweicloud.com/repository/pypi/packages/91/03/e32eca75cd4e62473e0c2c4e8c35d96962e98ba8b78170f809ce7688b188/huaweicloudsdkcore-3.1.148-py2.py3-none-any.whl", hash = "sha256:63d40884221cb1cc4d81958655eab8721a3fc615e22c46c9ca0f923491c128b4" },
 ]
 
 [[package]]
@@ -188,6 +188,28 @@ dependencies = [
 ]
 wheels = [
     { url = "https://repo.huaweicloud.com/repository/pypi/packages/7c/4c/7a16d06eb4342c950982010a30fb2893fc57b2b37f761885833c33031bac/huaweicloudsdkecs-3.1.147-py2.py3-none-any.whl", hash = "sha256:a7493f8f0eed17d1cd2f6e9b53393fc9d47c16d4a3809112dfbe0ec0c38335c3" },
+]
+
+[[package]]
+name = "huaweicloudsdkims"
+version = "3.1.148"
+source = { registry = "https://repo.huaweicloud.com/repository/pypi/simple" }
+dependencies = [
+    { name = "huaweicloudsdkcore" },
+]
+wheels = [
+    { url = "https://repo.huaweicloud.com/repository/pypi/packages/8b/f1/2303adf7b3d7c4b76a039557c4d1f53304ffb3f090439bd992d307872887/huaweicloudsdkims-3.1.148-py2.py3-none-any.whl", hash = "sha256:b0743f50bb8b6dedd91f6b40356027b9a6433ac0609630338198fa88aae57820" },
+]
+
+[[package]]
+name = "huaweicloudsdkvpc"
+version = "3.1.148"
+source = { registry = "https://repo.huaweicloud.com/repository/pypi/simple" }
+dependencies = [
+    { name = "huaweicloudsdkcore" },
+]
+wheels = [
+    { url = "https://repo.huaweicloud.com/repository/pypi/packages/39/e6/3cd2af78abe376ac9b8438d9e8916f043516fce11474de2c12d96f297e61/huaweicloudsdkvpc-3.1.148-py2.py3-none-any.whl", hash = "sha256:cfe8d6c25f4afd5280100dcb2d948be8d8e4f3ed8355669aca12528a2ac483f5" },
 ]
 
 [[package]]
@@ -245,6 +267,8 @@ dependencies = [
     { name = "esdk-obs-python" },
     { name = "httpx" },
     { name = "huaweicloudsdkecs" },
+    { name = "huaweicloudsdkims" },
+    { name = "huaweicloudsdkvpc" },
     { name = "mcp", extra = ["cli"] },
 ]
 
@@ -253,6 +277,8 @@ requires-dist = [
     { name = "esdk-obs-python" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "huaweicloudsdkecs", specifier = ">=3.1.147" },
+    { name = "huaweicloudsdkims", specifier = ">=3.1.148" },
+    { name = "huaweicloudsdkvpc", specifier = ">=3.1.148" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.8.0" },
 ]
 

@@ -1,0 +1,935 @@
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-15 15:03:27 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-15 15:03:27 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff861a5ca0>
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff87234f50>
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-15 15:03:27 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8586eab0>
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-15 15:03:27 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-15 15:03:27 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-15 15:08:10 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-15 15:08:10 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb1e65070>
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb090a060>
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-15 15:08:10 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb1516540>
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-15 15:08:10 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-15 15:08:10 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-15 15:12:08 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-15 15:12:08 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb9908830>
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb959cd70>
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-15 15:12:08 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb9ec6540>
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-15 15:12:08 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-15 15:12:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-15 15:19:14 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-15 15:19:14 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffa920e660>
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffa8b94d70>
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-15 15:19:14 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffa8b66d80>
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-15 15:19:14 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-15 15:19:14 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-15 15:20:06 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-15 15:20:06 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb49d0830>
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb3c2a030>
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-15 15:20:06 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb42f7b30>
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-15 15:20:06 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-15 15:20:06 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:36:02 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb3b7f050>
+2025-05-15 15:36:02 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-15 15:36:02 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-15 15:36:02 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): iam.cn-south-1.myhuaweicloud.com:443
+2025-05-15 15:36:02 - urllib3.connectionpool - DEBUG - https://iam.cn-south-1.myhuaweicloud.com:443 "GET /v3/projects?name=cn-south-1 HTTP/1.1" 200 469
+2025-05-15 15:36:02 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): ecs.cn-south-1.myhuaweicloud.com:443
+2025-05-15 15:36:07 - urllib3.connectionpool - DEBUG - https://ecs.cn-south-1.myhuaweicloud.com:443 "POST /v1/28beb5743a6b42b7a6fb283c6ed8c630/cloudservers HTTP/1.1" 200 None
+2025-05-15 15:36:07 - tools.ecs_tools - INFO - Instance creation request sent successfully
+2025-05-15 15:36:07 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:37:18 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb42ab3b0>
+2025-05-15 15:37:18 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-15 15:37:18 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-15 15:37:18 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): ecs.cn-south-1.myhuaweicloud.com:443
+2025-05-15 15:37:18 - urllib3.connectionpool - DEBUG - https://ecs.cn-south-1.myhuaweicloud.com:443 "POST /v1/28beb5743a6b42b7a6fb283c6ed8c630/cloudservers/delete HTTP/1.1" 200 None
+2025-05-15 15:37:18 - tools.ecs_tools - INFO - Instance delete request sent successfully
+2025-05-15 15:37:18 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:58:04 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb4d75790>
+2025-05-15 15:58:04 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-15 15:58:04 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-15 15:58:04 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): ecs.cn-south-1.myhuaweicloud.com:443
+2025-05-15 15:58:09 - urllib3.connectionpool - DEBUG - https://ecs.cn-south-1.myhuaweicloud.com:443 "POST /v1/28beb5743a6b42b7a6fb283c6ed8c630/cloudservers HTTP/1.1" 200 None
+2025-05-15 15:58:09 - tools.ecs_tools - INFO - Instance creation request sent successfully
+2025-05-15 15:58:09 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 15:59:49 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb4fb9eb0>
+2025-05-15 15:59:49 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-15 15:59:49 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-15 15:59:49 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): ecs.cn-south-1.myhuaweicloud.com:443
+2025-05-15 15:59:50 - urllib3.connectionpool - DEBUG - https://ecs.cn-south-1.myhuaweicloud.com:443 "POST /v1/28beb5743a6b42b7a6fb283c6ed8c630/cloudservers/delete HTTP/1.1" 200 None
+2025-05-15 15:59:50 - tools.ecs_tools - INFO - Instance delete request sent successfully
+2025-05-15 15:59:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-15 16:15:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-15 16:15:50 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-15 16:15:50 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff922234a0>
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff91a19c10>
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-15 16:15:50 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff91a19d00>
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-15 16:15:50 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-15 16:15:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 08:52:49 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 08:52:49 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffafb3deb0>
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffade3a090>
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 08:52:49 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffae724a40>
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 08:52:49 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 08:52:49 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:38:21 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:38:21 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8f452f00>
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8f9aed20>
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:38:21 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8f2ec830>
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:38:21 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:38:21 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:38:29 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:38:29 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffab82b350>
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffabceed20>
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:38:29 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffab1dcec0>
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:38:29 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:38:29 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:38:48 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:38:48 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffafb66c30>
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb073ed20>
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:38:48 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffafe0cec0>
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:38:48 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:38:48 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:38:50 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:38:50 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9ae847d0>
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9b7b0080>
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:38:50 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9aea4ec0>
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:38:50 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:38:50 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:38:55 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:38:55 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8dc9ca10>
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8d9beea0>
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:38:55 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e0acec0>
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:38:55 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:38:55 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:39:08 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:39:08 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb367ca10>
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb339eea0>
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:39:08 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb3a8cec0>
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:39:08 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:39:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:39:24 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:39:24 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9e0d6090>
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9dbd0080>
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:39:24 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9d2dcec0>
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:39:24 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:39:24 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:39:35 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:39:35 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff92869e20>
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff91faca40>
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:39:35 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff91f64830>
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:39:35 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:39:35 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:39:37 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:39:37 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff911b34a0>
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9119a150>
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:39:37 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff918bcec0>
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:39:37 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:39:37 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:40:09 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:40:09 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:40:10 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9247b350>
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9293ed20>
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:40:10 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff91e2cec0>
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:40:10 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:40:10 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:44:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:44:33 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:45:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:48:38 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:48:38 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e5ac650>
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e89df40>
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:48:38 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e60cec0>
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:48:38 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:48:38 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:49:08 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:49:08 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff848648c0>
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff84bfe210>
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:49:08 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff850d4ec0>
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:49:08 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:49:08 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:49:20 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:49:20 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffac42fc80>
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffac097ef0>
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:49:20 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffac540e00>
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:49:20 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:49:20 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:49:22 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:49:22 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffadcac590>
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffae72fef0>
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:49:22 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffadf1dc10>
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:49:22 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:49:22 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 15:49:30 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 15:49:30 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff7bf248c0>
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff7c2be210>
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-20 15:49:30 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff7c794ec0>
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-20 15:49:30 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-20 15:49:30 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-20 16:34:36 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-20 16:34:36 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-20 16:34:36 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 11:22:38 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 11:22:38 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb502daf0>
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb483b170>
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 11:22:38 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb456c830>
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 11:22:38 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 11:22:38 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 14:51:25 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 14:51:25 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8c84da60>
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8c52b170>
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 14:51:25 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8c8fe1e0>
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 14:51:25 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 14:51:25 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 14:51:30 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 14:51:30 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffabcdc590>
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffab6ffc80>
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 14:51:30 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffab2ca4b0>
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 14:51:30 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 14:51:30 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 14:52:03 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 14:52:03 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff970d48c0>
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff974953d0>
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 14:52:03 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9720cec0>
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 14:52:03 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 14:52:03 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:22:40 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:22:40 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffa0da0b00>
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffa07d4f50>
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:22:40 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff9eff62a0>
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:22:40 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:22:40 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:23:08 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:23:17 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:23:26 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:25:48 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:25:48 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff82357da0>
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff83380cb0>
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:25:48 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8301fd70>
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:25:48 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:25:48 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:27:35 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff830e5d00>
+2025-05-21 16:27:35 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-21 16:27:35 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-21 16:27:35 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): iam.cn-north-4.myhuaweicloud.com:443
+2025-05-21 16:27:35 - urllib3.connectionpool - DEBUG - https://iam.cn-north-4.myhuaweicloud.com:443 "GET /v3/projects?name=cn-north-4 HTTP/1.1" 200 469
+2025-05-21 16:27:35 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): ims.cn-north-4.myhuaweicloud.com:443
+2025-05-21 16:27:36 - urllib3.connectionpool - DEBUG - https://ims.cn-north-4.myhuaweicloud.com:443 "GET /v2/cloudimages?__imagetype=private&__os_type=Linux&__platform=Ubuntu&architecture=arm HTTP/1.1" 200 4647
+2025-05-21 16:27:36 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:32:34 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:32:34 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb4b82f60>
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb4508cb0>
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:32:34 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffffb4c12630>
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:32:34 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:32:34 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:37:40 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:37:40 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff98cce840>
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff99584d70>
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:37:40 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff990b17c0>
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:37:40 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:37:40 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:37:44 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:37:44 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e1fa960>
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e84cd70>
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:37:44 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e249f70>
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:37:44 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:37:44 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:39:00 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8f8f48f0>
+2025-05-21 16:39:00 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-21 16:39:00 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-21 16:39:00 - tools.vpc_tools - ERROR - 获取子网ID出错: 'NoneType' object is not callable
+2025-05-21 16:39:00 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:40:37 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8e5743b0>
+2025-05-21 16:40:37 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-05-21 16:40:37 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type CallToolRequest
+2025-05-21 16:40:37 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): iam.cn-east-3.myhuaweicloud.com:443
+2025-05-21 16:40:37 - urllib3.connectionpool - DEBUG - https://iam.cn-east-3.myhuaweicloud.com:443 "GET /v3/projects?name=cn-east-3 HTTP/1.1" 200 465
+2025-05-21 16:40:37 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): vpc.cn-east-3.myhuaweicloud.com:443
+2025-05-21 16:40:37 - urllib3.connectionpool - DEBUG - https://vpc.cn-east-3.myhuaweicloud.com:443 "GET /v1/2e1479a893ed423db961a0f67993ca4f/subnets HTTP/1.1" 200 None
+2025-05-21 16:40:37 - tools.vpc_tools - INFO - 获取到的子网列表: [{'id': '1f7648dd-2d31-45d1-8467-c38cc4907f8e', 'name': 'subnet-default', 'cidr': '192.168.0.0/24', 'vpc_id': '337e7544-9fd7-45c7-be19-40f7a15cbecb', 'status': 'ACTIVE'}]
+2025-05-21 16:40:37 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:51:24 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:51:24 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff93d62450>
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff93d61e80>
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:51:24 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff945c7d70>
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:51:24 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:51:24 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Initializing server 'huawei-cloud-mcp-server'
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListToolsRequest
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for CallToolRequest
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourcesRequest
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for ReadResourceRequest
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for PromptListRequest
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for GetPromptRequest
+2025-05-21 16:52:16 - mcp.server.lowlevel.server - DEBUG - Registering handler for ListResourceTemplatesRequest
+2025-05-21 16:52:16 - __main__ - DEBUG - mcp server is running on stdio mode.
+2025-05-21 16:52:16 - asyncio - DEBUG - Using selector: EpollSelector
+2025-05-21 16:52:17 - mcp.server.lowlevel.server - DEBUG - Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-05-21 16:52:17 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8035aba0>
+2025-05-21 16:52:17 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-05-21 16:52:17 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListToolsRequest
+2025-05-21 16:52:17 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff81fd4f50>
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourcesRequest
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourcesRequest
+2025-05-21 16:52:18 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing resources
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - DEBUG - Response sent
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - DEBUG - Received message: <mcp.shared.session.RequestResponder object at 0xffff8035ae70>
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - INFO - Processing request of type ListResourceTemplatesRequest
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - DEBUG - Dispatching request of type ListResourceTemplatesRequest
+2025-05-21 16:52:18 - mcp.server.fastmcp.resources.resource_manager - DEBUG - Listing templates
+2025-05-21 16:52:18 - mcp.server.lowlevel.server - DEBUG - Response sent

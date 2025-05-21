@@ -3,22 +3,25 @@ import os
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkecs.v2.region.ecs_region import EcsRegion
 from huaweicloudsdkcore.exceptions import exceptions
-from huaweicloudsdkecs.v2 import *
-
-from dotenv import load_dotenv
-from typing import List, Optional, Dict
+from huaweicloudsdkecs.v2 import EcsClient
+from huaweicloudsdkecs.v2 import CreatePostPaidServersRequest,CreatePostPaidServersRequestBody
+from huaweicloudsdkecs.v2 import PostPaidServerRootVolume,PostPaidServerDataVolume
+from huaweicloudsdkecs.v2 import PostPaidServerNic,PostPaidServerPublicip,PostPaidServerEip,PostPaidServerEipBandwidth 
+from huaweicloudsdkecs.v2 import PostPaidServerSecurityGroup,PostPaidServer
+from huaweicloudsdkecs.v2 import ListCloudServersRequest
+from huaweicloudsdkecs.v2 import DeleteServersRequest,DeleteServersRequestBody,ServerId
+from typing import  Optional
 from pydantic import BaseModel, Field
 import logging
-# load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
+
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-
 tools = []
+
 # 配置模型
 class ECSInstanceConfig(BaseModel):
     region: str = Field("cn-south-1", description="购买的ecs所属区地域ID，默认是华南-广州;区域有-代表广州-cn-south-1 、华东-上海一cn-east-3")
@@ -39,23 +42,18 @@ class ECSInstanceConfig(BaseModel):
     instance_name: str = Field("ai_mcp_build", description="ECS实例名称")
     count: int = Field(1, description="创建ECS实例的数量")
     
-
 # 配置华为云认证信息
-
 def get_credentials():
     # 从环境变量获取AK/SK，或者直接写在这里（不推荐）
     ak = os.getenv("HUAWEI_CLOUD_AK")
     sk = os.getenv("HUAWEI_CLOUD_SK")
     if not all([ak, sk]):
         raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK")
-    
     return BasicCredentials(ak, sk)
-
 
 #创建ecs客户端
 def get_ecs_client(region="cn-south-1"):
     credentials = get_credentials()
-
     return EcsClient.new_builder() \
         .with_credentials(credentials) \
         .with_region(EcsRegion.value_of(region)) \
@@ -72,15 +70,12 @@ def create_post_paid_ecs_instance(config:ECSInstanceConfig):
         try:
             # 获取客户端连接
             client=get_ecs_client(region=config.region)
-
             # 创建请求
             request = CreatePostPaidServersRequest()
-
             # 云服务器系统盘相关配置。
             rootVolumeServer = PostPaidServerRootVolume(
             volumetype= config.root_volume_type,
             size=config.root_volume_size)
-
             # 云服务器数据盘
             listDataVolumesServer = [
             PostPaidServerDataVolume(
@@ -113,7 +108,6 @@ def create_post_paid_ecs_instance(config:ECSInstanceConfig):
                 id=config.SecurityGroup_id
             )
         ]
-            
             # 配置服务器参数
             server_body = PostPaidServer(
                 # 1、云服务器系统规格
@@ -194,7 +188,6 @@ def delete_ecs_instance(instance_id,region="cn-south-1"):
             logger.error(f"Unexpected error: {str(e)}")
             raise
 
-
 # 查询云服务器列表
 @tools.append
 def select_ecs_instance(region="cn-south-1", ecs_id=None, ecs_name=None):
@@ -255,4 +248,4 @@ if __name__ == "__main__":
     # create_post_paid_ecs_instance(instance_config)
     
     # select_ecs_instance(region="cn-south-1")
-    delete_ecs_instance(instance_id="0af52f6c-a4de-450a-9dc6-269c3e877a2d",region="cn-south-1")
+    # delete_ecs_instance(instance_id="3be6f85b-4a38-44ee-add7-037da88ca73a",region="cn-north-4")
