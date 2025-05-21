@@ -5,7 +5,8 @@ from huaweicloudsdkecs.v2.region.ecs_region import EcsRegion
 from huaweicloudsdkcore.exceptions import exceptions
 from huaweicloudsdkecs.v2 import EcsClient
 from huaweicloudsdkecs.v2 import CreatePostPaidServersRequest,CreatePostPaidServersRequestBody
-from huaweicloudsdkecs.v2 import PostPaidServerRootVolume,PostPaidServerDataVolume
+from huaweicloudsdkecs.v2 import PostPaidServerRootVolume
+# from huaweicloudsdkecs.v2 import PostPaidServerDataVolume
 from huaweicloudsdkecs.v2 import PostPaidServerNic,PostPaidServerPublicip,PostPaidServerEip,PostPaidServerEipBandwidth 
 from huaweicloudsdkecs.v2 import PostPaidServerSecurityGroup,PostPaidServer
 from huaweicloudsdkecs.v2 import ListCloudServersRequest
@@ -77,12 +78,12 @@ def create_post_paid_ecs_instance(config:ECSInstanceConfig):
             volumetype= config.root_volume_type,
             size=config.root_volume_size)
             # 云服务器数据盘
-            listDataVolumesServer = [
-            PostPaidServerDataVolume(
-                volumetype=config.data_volume_type,
-                size=config.data_volume_size
-            )
-        ]
+        #     listDataVolumesServer = [
+        #     PostPaidServerDataVolume(
+        #         volumetype=config.data_volume_type,
+        #         size=config.data_volume_size
+        #     )
+        # ]
         
             # 待创建云服务器的网卡信息,网卡对应的子网(subnet)必须属于vpcid对应的VPC。当前单个云服务器支持最多挂载12张网卡
             listNicsServer  = [
