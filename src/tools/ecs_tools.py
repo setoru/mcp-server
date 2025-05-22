@@ -28,8 +28,10 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from utils import get_aksk
 import logging
- # 导入本地 的环境变量
+
+# 导入本地 的环境变量
 from dotenv import load_dotenv
+
 load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
 # 配置日志
 logging.basicConfig(
@@ -85,7 +87,7 @@ class ECSInstanceConfig(BaseModel):
 def get_ecs_client(region="cn-south-1"):
     ak, sk = get_aksk()  # 从环境变量中获取AK和SK
     print(f"AK: {ak}, SK: {sk}")
-    credentials = BasicCredentials(ak, sk) # 创建凭证对象
+    credentials = BasicCredentials(ak, sk)  # 创建凭证对象
     return (
         EcsClient.new_builder()
         .with_credentials(credentials)
