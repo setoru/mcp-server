@@ -115,6 +115,7 @@ def query_ims_images_list(region,
     try:
         client = get_ims_client(region)
         request = ListImagesRequest()
+        
         if name is not None:
             request.name = name  # 精确匹配，不支持模糊查询
         request.imagetype = imagetype
