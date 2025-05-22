@@ -2,10 +2,11 @@ import os
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkims.v2.region.ims_region import ImsRegion
 from huaweicloudsdkcore.exceptions import exceptions
-from huaweicloudsdkims.v2 import ImsClient,CreateImageRequest ,ListImagesRequest
+from huaweicloudsdkims.v2 import ImsClient, CreateImageRequest, ListImagesRequest
 from huaweicloudsdkims.v2 import CreateImageRequestBody
 
 tools = []
+
 
 # 配置华为云认证信息
 def get_credentials():
@@ -16,13 +17,17 @@ def get_credentials():
         raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK")
     return BasicCredentials(ak, sk)
 
-#创建ims客户端
+
+# 创建ims客户端
 def get_ims_client(region="cn-south-1"):
     credentials = get_credentials()
-    return ImsClient.new_builder() \
-        .with_credentials(credentials) \
-        .with_region(ImsRegion.value_of(region)) \
+    return (
+        ImsClient.new_builder()
+        .with_credentials(credentials)
+        .with_region(ImsRegion.value_of(region))
         .build()
+    )
+
 
 # 制作系统盘镜像
 @tools.append
@@ -32,7 +37,7 @@ def create_system_disk_image(region, name, instance_id):
     功能说明：
         通过指定区域（region）和云主机实例ID（instance_id），
         调用华为云 IMS 服务创建一个整机镜像。
-    
+
     参数：
         region (str): 区域标识符，如 'cn-north-4'
         name (str): 镜像名称，用于标识该镜像（需唯一）
@@ -46,10 +51,7 @@ def create_system_disk_image(region, name, instance_id):
 
         # 构建请求体
         request = CreateImageRequest()
-        request.body = CreateImageRequestBody(
-            name=name,
-            instance_id=instance_id
-        )
+        request.body = CreateImageRequestBody(name=name, instance_id=instance_id)
 
         # 发起请求并输出结果
         response = client.create_image(request)
@@ -62,16 +64,18 @@ def create_system_disk_image(region, name, instance_id):
         print(f"请求ID: {e.request_id}")
         print(f"错误码: {e.error_code}")
         print(f"错误信息: {e.error_msg}")
-    
+
 
 # 查询镜像列表
 @tools.append
-def query_ims_images_list(region, 
-                          name=None, 
-                          imagetype="private", 
-                          os_type="Linux", 
-                          platform="Ubuntu", 
-                          architecture="arm"):
+def query_ims_images_list(
+    region,
+    name=None,
+    imagetype="private",
+    os_type="Linux",
+    platform="Ubuntu",
+    architecture="arm",
+):
     """
     查询华为云 IMS 镜像列表
 
@@ -93,29 +97,43 @@ def query_ims_images_list(region,
     返回：
        return object | None: 成功返回响应对象，失败返回 None
     """
-    
+
     # 参数合法性检查
     valid_imagetypes = ["gold", "private", "shared", "market"]
     valid_os_types = ["Linux", "Windows", "Other"]
-    valid_platform = ["Ubuntu", "Windows", "RedHat", "SUSE", "CentOS","Debian", "OpenSUSE","Fedora","Oracle Linux","EulerOS", "Huawei Cloud EulerOS", "CoreOS", "Other"]
+    valid_platform = [
+        "Ubuntu",
+        "Windows",
+        "RedHat",
+        "SUSE",
+        "CentOS",
+        "Debian",
+        "OpenSUSE",
+        "Fedora",
+        "Oracle Linux",
+        "EulerOS",
+        "Huawei Cloud EulerOS",
+        "CoreOS",
+        "Other",
+    ]
     valid_architectures = ["x86", "arm"]
 
     if imagetype not in valid_imagetypes:
         raise ValueError(f"imagetype 必须是 {valid_imagetypes} 中的一个值")
-    
+
     if os_type not in valid_os_types:
         raise ValueError(f"os_type 必须是 {valid_os_types} 中的一个值")
-    
+
     if platform not in valid_platform:
         raise ValueError(f"platform 必须是 {valid_platform} 中的一个值")
-    
+
     if architecture not in valid_architectures:
         raise ValueError(f"architecture 必须是 {valid_architectures} 中的一个值")
 
     try:
         client = get_ims_client(region)
         request = ListImagesRequest()
-        
+
         if name is not None:
             request.name = name  # 精确匹配，不支持模糊查询
         request.imagetype = imagetype
@@ -133,7 +151,8 @@ def query_ims_images_list(region,
         print(f"错误码: {e.error_code}")
         print(f"错误信息: {e.error_msg}")
         return None
-    
+
+
 if __name__ == "__main__":
     query_ims_images_list(region="cn-north-4")
 #     create_system_disk_image(
