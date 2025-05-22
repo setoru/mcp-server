@@ -4,7 +4,7 @@ from huaweicloudsdkvpc.v2.region.vpc_region import VpcRegion
 from huaweicloudsdkcore.exceptions import exceptions
 from huaweicloudsdkvpc.v2 import ListVpcsRequest, ListSubnetsRequest, VpcClient
 from typing import Optional
-from utils import get_aksk
+from tools.utils import get_aksk
 import logging
 
 # 配置日志

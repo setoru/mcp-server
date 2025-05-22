@@ -25,7 +25,7 @@ from huaweicloudsdkecs.v2 import (
 )
 from typing import Optional
 from pydantic import BaseModel, Field
-from utils import get_aksk
+from tools.utils import get_aksk
 import logging
 
 # 导入本地 的环境变量
