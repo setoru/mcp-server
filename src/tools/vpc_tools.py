@@ -1,5 +1,4 @@
 # coding: utf-8
-import os
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkvpc.v2.region.vpc_region import VpcRegion
 from huaweicloudsdkcore.exceptions import exceptions
@@ -14,16 +13,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 tools = []
-
-
-# 配置华为云认证信息
-def get_credentials():
-    # 从环境变量获取AK/SK，或者直接写在这里（不推荐）
-    ak = os.getenv("HUAWEI_CLOUD_AK")
-    sk = os.getenv("HUAWEI_CLOUD_SK")
-    if not all([ak, sk]):
-        raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK")
-    return BasicCredentials(ak, sk)
 
 
 # 创建vpc客户端

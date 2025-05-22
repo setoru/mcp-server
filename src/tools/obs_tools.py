@@ -1,11 +1,9 @@
 # coding: utf-8
-
 import traceback
 import logging
 from pydantic import Field
 from tools.utils import get_aksk
 from obs import CreateBucketHeader, HeadPermission, ObsClient
-
 
 logger = logging.getLogger(__name__)
 

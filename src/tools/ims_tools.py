@@ -1,4 +1,4 @@
-import os
+# -*- coding: utf-8 -*-
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkims.v2.region.ims_region import ImsRegion
 from huaweicloudsdkcore.exceptions import exceptions

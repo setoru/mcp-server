@@ -1,5 +1,4 @@
 # coding: utf-8
-import os
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkecs.v2.region.ecs_region import EcsRegion
 from huaweicloudsdkcore.exceptions import exceptions
