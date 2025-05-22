@@ -26,8 +26,11 @@ from huaweicloudsdkecs.v2 import (
 )
 from typing import Optional
 from pydantic import BaseModel, Field
+from utils import get_aksk
 import logging
-
+ # 导入本地 的环境变量
+from dotenv import load_dotenv
+load_dotenv()  # 这将默认从当前目录下的 .env 文件加载变量
 # 配置日志
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -78,19 +81,11 @@ class ECSInstanceConfig(BaseModel):
     count: int = Field(1, description="创建ECS实例的数量")
 
 
-# 配置华为云认证信息
-def get_credentials():
-    # 从环境变量获取AK/SK，或者直接写在这里（不推荐）
-    ak = os.getenv("HUAWEI_CLOUD_AK")
-    sk = os.getenv("HUAWEI_CLOUD_SK")
-    if not all([ak, sk]):
-        raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK")
-    return BasicCredentials(ak, sk)
-
-
 # 创建ecs客户端
 def get_ecs_client(region="cn-south-1"):
-    credentials = get_credentials()
+    ak, sk = get_aksk()  # 从环境变量中获取AK和SK
+    print(f"AK: {ak}, SK: {sk}")
+    credentials = BasicCredentials(ak, sk) # 创建凭证对象
     return (
         EcsClient.new_builder()
         .with_credentials(credentials)

@@ -5,8 +5,16 @@ from tools.utils import get_aksk
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkevs.v2.region.evs_region import EvsRegion
 from huaweicloudsdkcore.exceptions import exceptions
-from huaweicloudsdkevs.v2 import EvsClient, CinderListAvailabilityZonesRequest, CreateVolumeRequest, CreateVolumeOption,\
-    CreateVolumeRequestBody, ListVolumesRequest, DeleteVolumeRequest, ShowVolumeRequest
+from huaweicloudsdkevs.v2 import (
+    EvsClient,
+    CinderListAvailabilityZonesRequest,
+    CreateVolumeRequest,
+    CreateVolumeOption,
+    CreateVolumeRequestBody,
+    ListVolumesRequest,
+    DeleteVolumeRequest,
+    ShowVolumeRequest,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -17,47 +25,50 @@ tools = []
 
 def get_region(region_name: str) -> str:
     region_list = {
-    "中东-阿布扎比-OP5":"ae-ad-1",
-    "非洲-开罗":"af-north-1",
-    "非洲-约翰内斯堡":"af-south-1",
-    "中国-香港":"ap-southeast-1",
-    "亚太-曼谷":"ap-southeast-2",
-    "亚太-新加坡":"ap-southeast-3",
-    "亚太-雅加达":"ap-southeast-4",
-    "华东-上海二":"cn-east-2",
-    "华东-上海一":"cn-east-3",
-    "华东二":"cn-east-4",
-    "华东-青岛":"cn-east-5",
-    "华北-北京一":"cn-north-1",
-    "华北-乌兰察布-汽车一":"cn-north-11",
-    "华北-北京二":"cn-north-2",
-    "华北-北京四":"cn-north-4",
-    "华北-乌兰察布一":"cn-north-9",
-    "华南-广州":"cn-south-1",
-    "华南-深圳":"cn-south-2",
-    "华南-广州-友好用户环境":"cn-south-4",
-    "西南-贵阳一":"cn-southwest-2",
-    "欧洲-巴黎":"eu-west-0",
-    "拉美-墨西哥城二":"la-north-2",
-    "拉美-圣地亚哥":"la-south-2",
-    "中东-利雅得":"me-east-1",
-    "亚太-吉隆坡-OP6":"my-kualalumpur-1",
-    "拉美-墨西哥城一":"na-mexico-1",
-    "俄罗斯-莫斯科-OP4":"ru-moscow-1",
-    "俄罗斯-莫斯科二":"ru-northwest-2",
-    "拉美-圣保罗一":"sa-brazil-1",
-    "土耳其-伊斯坦布尔":"tr-west-1"}
+        "中东-阿布扎比-OP5": "ae-ad-1",
+        "非洲-开罗": "af-north-1",
+        "非洲-约翰内斯堡": "af-south-1",
+        "中国-香港": "ap-southeast-1",
+        "亚太-曼谷": "ap-southeast-2",
+        "亚太-新加坡": "ap-southeast-3",
+        "亚太-雅加达": "ap-southeast-4",
+        "华东-上海二": "cn-east-2",
+        "华东-上海一": "cn-east-3",
+        "华东二": "cn-east-4",
+        "华东-青岛": "cn-east-5",
+        "华北-北京一": "cn-north-1",
+        "华北-乌兰察布-汽车一": "cn-north-11",
+        "华北-北京二": "cn-north-2",
+        "华北-北京四": "cn-north-4",
+        "华北-乌兰察布一": "cn-north-9",
+        "华南-广州": "cn-south-1",
+        "华南-深圳": "cn-south-2",
+        "华南-广州-友好用户环境": "cn-south-4",
+        "西南-贵阳一": "cn-southwest-2",
+        "欧洲-巴黎": "eu-west-0",
+        "拉美-墨西哥城二": "la-north-2",
+        "拉美-圣地亚哥": "la-south-2",
+        "中东-利雅得": "me-east-1",
+        "亚太-吉隆坡-OP6": "my-kualalumpur-1",
+        "拉美-墨西哥城一": "na-mexico-1",
+        "俄罗斯-莫斯科-OP4": "ru-moscow-1",
+        "俄罗斯-莫斯科二": "ru-northwest-2",
+        "拉美-圣保罗一": "sa-brazil-1",
+        "土耳其-伊斯坦布尔": "tr-west-1",
+    }
 
     # if region_name in region_list:
     #     return region_list[region_name]
 
     # return None
-    return next((value for key, value in region_list.items() if region_name in key), None)
+    return next(
+        (value for key, value in region_list.items() if region_name in key), None
+    )
 
 
 @tools.append
 def evs_list_availability_zones(region_name: str) -> str:
-    """查询云硬盘(EVS)所有的可用分区信息。     
+    """查询云硬盘(EVS)所有的可用分区信息。
 
     Args:
         region_name: 地域，例如：北京四, 上海二, 香港
@@ -70,20 +81,22 @@ def evs_list_availability_zones(region_name: str) -> str:
     region = get_region(region_name)
     if region is None:
         return "无效地域，请确认地域。"
-    
+
     ak, sk = get_aksk()
     credentials = BasicCredentials(ak, sk)
 
-    client = EvsClient.new_builder() \
-        .with_credentials(credentials) \
-        .with_region(EvsRegion.value_of(region)) \
+    client = (
+        EvsClient.new_builder()
+        .with_credentials(credentials)
+        .with_region(EvsRegion.value_of(region))
         .build()
+    )
 
     try:
         request = CinderListAvailabilityZonesRequest()
         response = client.cinder_list_availability_zones(request)
-        return response 
-    except exceptions.ClientRequestException as e:    
+        return response
+    except exceptions.ClientRequestException as e:
         msg = f"操作失败，{f'状态码：{e.status_code}', f'请求信息：{e.request_id}'}, \
             {f'错误码：{e.error_code}', f'错误信息：{e.error_msg}'}"
         logger.error(msg)
@@ -91,9 +104,15 @@ def evs_list_availability_zones(region_name: str) -> str:
 
 
 @tools.append
-def create_volume(region_name: str, az: str, evs_name: str, evs_size: int, evs_type: str = "SSD",
-                  shared: bool = False) -> str:
-    """查询云硬盘(EVS)所有的可用分区信息。     
+def create_volume(
+    region_name: str,
+    az: str,
+    evs_name: str,
+    evs_size: int,
+    evs_type: str = "SSD",
+    shared: bool = False,
+) -> str:
+    """查询云硬盘(EVS)所有的可用分区信息。
 
     Args:
         region_name: 地域，例如：北京四, 上海二, 香港
@@ -108,20 +127,22 @@ def create_volume(region_name: str, az: str, evs_name: str, evs_size: int, evs_t
                                                             }
         异常返回错误信息。
     """
-    
+
     region = get_region(region_name)
     if region is None:
         return "无效地域，请确认地域。"
-    
+
     # Todo 待实现对所有输入参数进行有效性校验
 
-    ak, sk = get_aksk()    
+    ak, sk = get_aksk()
     credentials = BasicCredentials(ak, sk)
 
-    client = EvsClient.new_builder() \
-        .with_credentials(credentials) \
-        .with_region(EvsRegion.value_of(region)) \
+    client = (
+        EvsClient.new_builder()
+        .with_credentials(credentials)
+        .with_region(EvsRegion.value_of(region))
         .build()
+    )
 
     try:
         request = CreateVolumeRequest()
@@ -130,13 +151,11 @@ def create_volume(region_name: str, az: str, evs_name: str, evs_size: int, evs_t
             multiattach=shared,
             name=evs_name,
             size=evs_size,
-            volume_type=evs_type
+            volume_type=evs_type,
         )
-        request.body = CreateVolumeRequestBody(
-            volume=volumebody
-        )
+        request.body = CreateVolumeRequestBody(volume=volumebody)
         response = client.create_volume(request)
-        return (response)
+        return response
     except exceptions.ClientRequestException as e:
         msg = f"操作失败，{f'状态码：{e.status_code}', f'请求信息：{e.request_id}'}, \
             {f'错误码：{e.error_code}', f'错误信息：{e.error_msg}'}"
@@ -146,7 +165,7 @@ def create_volume(region_name: str, az: str, evs_name: str, evs_size: int, evs_t
 
 @tools.append
 def list_all_volumes(region_name: str) -> str:
-    """查询所有云硬盘详情。     
+    """查询所有云硬盘详情。
 
     Args:
         region_name: 地域，例如：北京四, 上海二, 香港
@@ -161,20 +180,22 @@ def list_all_volumes(region_name: str) -> str:
     region = get_region(region_name)
     if region is None:
         return "无效地域，请确认地域。"
-    
+
     ak, sk = get_aksk()
     credentials = BasicCredentials(ak, sk)
 
-    client = EvsClient.new_builder() \
-        .with_credentials(credentials) \
-        .with_region(EvsRegion.value_of(region)) \
+    client = (
+        EvsClient.new_builder()
+        .with_credentials(credentials)
+        .with_region(EvsRegion.value_of(region))
         .build()
+    )
 
     try:
         request = ListVolumesRequest()
         response = client.list_volumes(request)
         return response
-    except exceptions.ClientRequestException as e:    
+    except exceptions.ClientRequestException as e:
         msg = f"操作失败，{f'状态码：{e.status_code}', f'请求信息：{e.request_id}'}, \
             {f'错误码：{e.error_code}', f'错误信息：{e.error_msg}'}"
         logger.error(msg)
@@ -182,8 +203,8 @@ def list_all_volumes(region_name: str) -> str:
 
 
 @tools.append
-def delete_volume(region_name: str, vol_id:str) -> str:
-    """删除云硬盘。     
+def delete_volume(region_name: str, vol_id: str) -> str:
+    """删除云硬盘。
 
     Args:
         region_name: 地域，例如：北京四, 上海二, 香港
@@ -197,21 +218,23 @@ def delete_volume(region_name: str, vol_id:str) -> str:
     region = get_region(region_name)
     if region is None:
         return "无效地域，请确认地域。"
-    
+
     ak, sk = get_aksk()
     credentials = BasicCredentials(ak, sk)
 
-    client = EvsClient.new_builder() \
-        .with_credentials(credentials) \
-        .with_region(EvsRegion.value_of(region)) \
+    client = (
+        EvsClient.new_builder()
+        .with_credentials(credentials)
+        .with_region(EvsRegion.value_of(region))
         .build()
+    )
 
     try:
         request = DeleteVolumeRequest()
         request.volume_id = vol_id
         response = client.delete_volume(request)
         return response
-    except exceptions.ClientRequestException as e:    
+    except exceptions.ClientRequestException as e:
         msg = f"操作失败，{f'状态码：{e.status_code}', f'请求信息：{e.request_id}'}, \
             {f'错误码：{e.error_code}', f'错误信息：{e.error_msg}'}"
         logger.error(msg)
@@ -219,8 +242,8 @@ def delete_volume(region_name: str, vol_id:str) -> str:
 
 
 @tools.append
-def list_volume_info(region_name: str, vol_id:str) -> str:
-    """查询单个云硬盘的详情。     
+def list_volume_info(region_name: str, vol_id: str) -> str:
+    """查询单个云硬盘的详情。
 
     Args:
         region_name: 地域，例如：北京四, 上海二, 香港
@@ -235,23 +258,24 @@ def list_volume_info(region_name: str, vol_id:str) -> str:
     region = get_region(region_name)
     if region is None:
         return "无效地域，请确认地域。"
-    
+
     ak, sk = get_aksk()
     credentials = BasicCredentials(ak, sk)
 
-    client = EvsClient.new_builder() \
-        .with_credentials(credentials) \
-        .with_region(EvsRegion.value_of(region)) \
+    client = (
+        EvsClient.new_builder()
+        .with_credentials(credentials)
+        .with_region(EvsRegion.value_of(region))
         .build()
+    )
 
     try:
         request = ShowVolumeRequest()
         request.volume_id = vol_id
         response = client.show_volume(request)
         return response
-    except exceptions.ClientRequestException as e:    
+    except exceptions.ClientRequestException as e:
         msg = f"操作失败，{f'状态码：{e.status_code}', f'请求信息：{e.request_id}'}, \
             {f'错误码：{e.error_code}', f'错误信息：{e.error_msg}'}"
         logger.error(msg)
         return msg
-

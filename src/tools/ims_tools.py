@@ -4,23 +4,14 @@ from huaweicloudsdkims.v2.region.ims_region import ImsRegion
 from huaweicloudsdkcore.exceptions import exceptions
 from huaweicloudsdkims.v2 import ImsClient, CreateImageRequest, ListImagesRequest
 from huaweicloudsdkims.v2 import CreateImageRequestBody
-
+from utils import get_aksk
 tools = []
-
-
-# 配置华为云认证信息
-def get_credentials():
-    # 从环境变量获取AK/SK，或者直接写在这里（不推荐）
-    ak = os.getenv("HUAWEI_CLOUD_AK")
-    sk = os.getenv("HUAWEI_CLOUD_SK")
-    if not all([ak, sk]):
-        raise ValueError("请设置环境变量: HUAWEI_CLOUD_AK, HUAWEI_CLOUD_SK")
-    return BasicCredentials(ak, sk)
 
 
 # 创建ims客户端
 def get_ims_client(region="cn-south-1"):
-    credentials = get_credentials()
+    ak, sk = get_aksk()  # 从环境变量中获取AK和SK
+    credentials = BasicCredentials(ak, sk)  # 创建凭证对象
     return (
         ImsClient.new_builder()
         .with_credentials(credentials)

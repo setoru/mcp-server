@@ -1,10 +1,14 @@
+# coding: utf-8
 from mcp.server.fastmcp import FastMCP
 import logging
+from tools import utils
 from tools import ecs_tools
+from tools import obs_tools
+from tools import ocr_tools
+from tools import evs_tools
 from tools import ims_tools
 from tools import vpc_tools
-from tools import obs_tools
-from tools import utils
+
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +24,15 @@ def main(transport: str):
     for tool in ims_tools.tools:
         mcp.add_tool(tool)
 
+    for tool in obs_tools.tools:
+        mcp.add_tool(tool)
+
+    for tool in ocr_tools.tools:
+        mcp.add_tool(tool)
+
+    for tool in evs_tools.tools:
+        mcp.add_tool(tool)
+
     for tool in vpc_tools.tools:
         mcp.add_tool(tool)
 
@@ -32,4 +45,4 @@ def main(transport: str):
 
 
 if __name__ == "__main__":
-    main("stdio")
+    main(utils.get_transport())

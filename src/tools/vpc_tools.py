@@ -5,6 +5,7 @@ from huaweicloudsdkvpc.v2.region.vpc_region import VpcRegion
 from huaweicloudsdkcore.exceptions import exceptions
 from huaweicloudsdkvpc.v2 import ListVpcsRequest, ListSubnetsRequest, VpcClient
 from typing import Optional
+from utils import get_aksk
 import logging
 
 # 配置日志
@@ -27,7 +28,8 @@ def get_credentials():
 
 # 创建vpc客户端
 def get_vpc_client(region):
-    credentials = get_credentials()
+    ak, sk = get_aksk()  # 从环境变量中获取AK和SK
+    credentials = BasicCredentials(ak, sk)  # 创建凭证对象
     return (
         VpcClient.new_builder()
         .with_credentials(credentials)
