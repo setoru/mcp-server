@@ -29,15 +29,15 @@ def setup_logging():
     # 全局日志格式
     formatter = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
 
     # 配置 RotatingFileHandler（按大小轮转日志）
     file_handler = RotatingFileHandler(
-        filename = log_file,
-        maxBytes = 5 * 1024 * 1024,  # 5MB
-        backupCount = 3,             # 保留3个备份
-        encoding = "utf-8"
+        filename=log_file,
+        maxBytes=5 * 1024 * 1024,  # 5MB
+        backupCount=3,  # 保留3个备份
+        encoding="utf-8",
     )
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
