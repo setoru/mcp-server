@@ -79,3 +79,8 @@
 ## Roadmap
 
 详细路线图请参见[roadmap](docs/roadmap.md)。
+
+## 贡献指南
+
+我们热忱欢迎开源社区的贡献！  
+如果您想参与本项目开发，请查阅[开发文档](./docs/develope-mcp.md)。

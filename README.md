@@ -79,3 +79,8 @@ To use huaweicloud-mcp-server MCP Server with any other MCP Client, you can manu
 ## Roadmap
 
 Please refer to the [roadmap](docs/roadmap.md).
+
+## Contribution
+
+We welcome contributions from the open-source community! 
+If you'd like to contribute to this project, please refer to the [DEVELOPEMENT](./docs/develope-mcp-EN.md) file.
