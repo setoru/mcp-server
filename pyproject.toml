@@ -15,4 +15,6 @@ dependencies = [
     "huaweicloudsdkcore>=3.1.148",
     "huaweicloudsdkocr>=3.1.148",
     "huaweicloudsdkevs>=3.1.148",
+    "huaweicloudsdkeip>=3.1.148",
+    "huaweicloudsdkdas>=3.1.148",
 ]
