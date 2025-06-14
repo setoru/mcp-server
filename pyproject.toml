@@ -19,3 +19,6 @@ dependencies = [
     "huaweicloudsdkdas>=3.1.148",
     "huaweicloudsdkelb>=3.1.148",
 ]
+
+[tool.setuptools]
+packages = ["huaweicloud_services_server", "assets"]
