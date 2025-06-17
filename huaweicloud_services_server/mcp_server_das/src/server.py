@@ -4,12 +4,13 @@ import logging
 import sys
 from pathlib import Path
 
+from assets.utils import sdk_utils
+from mcp_server_das import das_tools
+
 # 获取assets目录
 target_dir = Path(__file__).resolve().parent.parent.parent.parent
 # 添加到系统路径
 sys.path.append(str(target_dir))
-from assets.utils import sdk_utils
-from mcp_server_das import das_tools
 
 logger = logging.getLogger(__name__)
 
