@@ -31,12 +31,15 @@ def get_zoneinfo(timezone_name: str) -> ZoneInfo:
 
 @mcp.tool(description="Get current time in specified timezone")
 def get_current_time(
-        timezone_name: Annotated[str, Field(
-            description=f"IANA timezone name (e.g., 'Asia/Shanghai', 'America/New_York', 'Europe/London'). "
-                        "Use '{local_tz}' as local timezone if no timezone provided by the user.",
+    timezone_name: Annotated[
+        str,
+        Field(
+            description="IANA timezone name (e.g., 'Asia/Shanghai', 'America/New_York', 'Europe/London'). "
+            "Use '{local_tz}' as local timezone if no timezone provided by the user.",
             json_schema_extra={"example": "Asia/Shanghai"},
-            default=get_localzone_name()
-        )]
+            default=get_localzone_name(),
+        ),
+    ],
 ) -> TimeResult:
     timezone = get_zoneinfo(timezone_name)
     current_time = datetime.now(timezone)
@@ -50,19 +53,27 @@ def get_current_time(
 
 @mcp.tool(description="Convert time between timezones")
 def convert_time(
-        time_str: Annotated[str, Field(description="Time to convert in 24-hour format (HH:MM)")],
-        source_tz: Annotated[str, Field(
-            description=f"IANA timezone name (e.g., 'Asia/Shanghai', 'America/New_York', 'Europe/London'). "
-                        "Use '{local_tz}' as local timezone if no timezone provided by the user.",
+    time_str: Annotated[
+        str, Field(description="Time to convert in 24-hour format (HH:MM)")
+    ],
+    source_tz: Annotated[
+        str,
+        Field(
+            description="IANA timezone name (e.g., 'Asia/Shanghai', 'America/New_York', 'Europe/London'). "
+            "Use '{local_tz}' as local timezone if no timezone provided by the user.",
             json_schema_extra={"example": "Asia/Shanghai"},
-            default=get_localzone_name()
-        )],
-        target_tz: Annotated[str, Field(
-            description=f"IANA timezone name (e.g., 'Asia/Shanghai', 'America/New_York', 'Europe/London'). "
-                        "Use '{local_tz}' as local timezone if no timezone provided by the user.",
+            default=get_localzone_name(),
+        ),
+    ],
+    target_tz: Annotated[
+        str,
+        Field(
+            description="IANA timezone name (e.g., 'Asia/Shanghai', 'America/New_York', 'Europe/London'). "
+            "Use '{local_tz}' as local timezone if no timezone provided by the user.",
             json_schema_extra={"example": "Europe/London"},
-            default=get_localzone_name()
-        )]
+            default=get_localzone_name(),
+        ),
+    ],
 ) -> TimeConversionResult:
     source_timezone = get_zoneinfo(source_tz)
     target_timezone = get_zoneinfo(target_tz)
