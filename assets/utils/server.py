@@ -1,9 +1,10 @@
 import asyncio
+import contextlib
 import json
 import time
 import uuid
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, AsyncIterator
 
 import uvicorn
 from huaweicloudsdkcore.exceptions.exceptions import ClientRequestException
@@ -11,11 +12,13 @@ from mcp.server import Server
 from mcp.server.fastmcp.utilities.logging import configure_logging, get_logger
 from mcp.server.sse import SseServerTransport
 from mcp.server.stdio import stdio_server
+from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 from mcp.types import Tool, TextContent, ImageContent, EmbeddedResource
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from starlette.routing import Mount, Route
+from starlette.types import Receive, Scope, Send
 
 from .hwc_tools import (
     create_api_client,
@@ -26,7 +29,7 @@ from .hwc_tools import (
 )
 from .model import TopResponseModel, MCPConfig
 from .openapi import OpenAPIToToolsConverter
-from .variable import TRANSPORT_SSE
+from .variable import TRANSPORT_SSE, TRANSPORT_HTTP
 
 logger = get_logger(__name__)
 configure_logging("INFO")
@@ -159,6 +162,8 @@ class MCPServer:
         self._ensure_initialized()
         if self.config.transport == TRANSPORT_SSE:
             await self.run_sse_server()
+        elif self.config.transport == TRANSPORT_HTTP:
+            await self.run_http_server()
         else:
             await self.run_stdio_server()
 
@@ -260,3 +265,41 @@ class MCPServer:
             await self.server.run(
                 streams[0], streams[1], self.server.create_initialization_options()
             )
+
+    async def run_http_server(self):
+        # Create the session manager with true stateless mode
+        session_manager = StreamableHTTPSessionManager(
+            app=self.server,
+            event_store=None,
+            stateless=True,
+        )
+
+        async def handle_streamable_http(
+            scope: Scope, receive: Receive, send: Send
+        ) -> None:
+            await session_manager.handle_request(scope, receive, send)
+
+        @contextlib.asynccontextmanager
+        async def lifespan(app: Starlette) -> AsyncIterator[None]:
+            """Context manager for session manager."""
+            async with session_manager.run():
+                logger.info("Application started with StreamableHTTP session manager!")
+                try:
+                    yield
+                finally:
+                    logger.info("Application shutting down...")
+
+        # Create an ASGI application using the transport
+        starlette_app = Starlette(
+            debug=True,
+            routes=[
+                Mount("/mcp", app=handle_streamable_http),
+            ],
+            lifespan=lifespan,
+        )
+
+        http_config = uvicorn.Config(
+            starlette_app, host="0.0.0.0", port=self.config.sse_port
+        )
+        http_server = uvicorn.Server(http_config)
+        await http_server.serve()
