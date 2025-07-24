@@ -58,10 +58,12 @@ class MCPServer:
         logger.info("开始初始化MCP服务器...")
 
         try:
-            # 加载配置
             self.config = load_config(self.config_path)
             if not self.config:
                 raise ValueError("无法加载服务器配置")
+
+            self.server = Server(f"hwc-mcp-server-{self.config.service_code.lower()}")
+            logger.info(f"初始化MCP服务器实例： hwc-mcp-server-{self.config.service_code.lower()}")
 
             # 加载OpenAPI规范
             openapi_path = (
@@ -76,9 +78,6 @@ class MCPServer:
             # 转换为MCP工具
             self.tools = OpenAPIToToolsConverter(self.openapi_dict).convert()
             logger.info(f"成功加载 {len(self.tools)} 个工具")
-
-            # 初始化MCP服务器实例
-            self.server = Server(f"hwc-mcp-server-{self.config.service_code.lower()}")
 
             # 注册工具处理函数
             self._register_tool_handlers()
@@ -168,6 +167,7 @@ class MCPServer:
             await self.run_stdio_server()
 
     async def run_sse_server(self):
+        logger.info("启动SSE服务器")
         # 配置SSE服务器
         sse = SseServerTransport("/messages/")
 
@@ -267,6 +267,7 @@ class MCPServer:
             )
 
     async def run_http_server(self):
+        logger.info("启动StreamableHTTP服务器")
         # Create the session manager with true stateless mode
         session_manager = StreamableHTTPSessionManager(
             app=self.server,
