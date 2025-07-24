@@ -255,7 +255,7 @@ class MCPServer:
             allow_credentials=True,
             allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         )
-        sse_config = uvicorn.Config(app, host="0.0.0.0", port=self.config.sse_port)
+        sse_config = uvicorn.Config(app, host="0.0.0.0", port=self.config.port)
         sse_server = uvicorn.Server(sse_config)
         await sse_server.serve()
 
@@ -299,7 +299,7 @@ class MCPServer:
         )
 
         http_config = uvicorn.Config(
-            starlette_app, host="0.0.0.0", port=self.config.sse_port
+            starlette_app, host="0.0.0.0", port=self.config.port
         )
         http_server = uvicorn.Server(http_config)
         await http_server.serve()
