@@ -63,7 +63,9 @@ class MCPServer:
                 raise ValueError("无法加载服务器配置")
 
             self.server = Server(f"hwc-mcp-server-{self.config.service_code.lower()}")
-            logger.info(f"初始化MCP服务器实例： hwc-mcp-server-{self.config.service_code.lower()}")
+            logger.info(
+                f"初始化MCP服务器实例： hwc-mcp-server-{self.config.service_code.lower()}"
+            )
 
             # 加载OpenAPI规范
             openapi_path = (
