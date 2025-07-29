@@ -1,4 +1,4 @@
-service_code: iec
+service_code: ief
 transport: http  # 支持 stdio, http 和  sse
 port: 8873 # http 和 sse 模式需要设定端口
 
