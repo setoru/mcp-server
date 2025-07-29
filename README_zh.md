@@ -9,6 +9,12 @@
 [English](./README.md)
 
 华为MCP Server是基于华为云服务构建的模型上下文协议服务器，为大型AI模型提供安全可控的云服务访问能力。通过标准化的MCP协议规范，使AI助手能在对话流中操作华为云资源，支持ECS、OBS、GaussDB等核心服务及广泛使用的云产品。
+## mcp-server 目录
+
+- [Demo](#Demo)
+- [运行指南](#运行指南)
+- [功能点(Tools)](#功能点Tools)
+- [贡献指南](#贡献指南)
 
 ## Demo
 
