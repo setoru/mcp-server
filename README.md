@@ -637,8 +637,9 @@ python run.py
 </body>
 </html>
 
+
 ## practical documents
-https://support.huaweicloud.com/bestpractice-das/das_best_practice_01_0017.html
+- [Using DAS MCP to implement database conversational operation and maintenance](https://support.huaweicloud.com/bestpractice-das/das_best_practice_01_0017.html) 
 
 ## Contribution
 
