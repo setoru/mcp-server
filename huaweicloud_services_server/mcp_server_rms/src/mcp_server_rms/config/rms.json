@@ -3,14 +3,570 @@
   "info" : {
     "description" : "RMS-聚合器",
     "title" : "RMS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "rms"
+    "version" : "2025-08-06",
+    "x-host_prefix" : "rms"
   },
   "servers" : [ {
     "url" : "/"
   } ],
   "components" : {
-    "parameters" : { },
+    "parameters" : {
+      "DomainId" : {
+        "name" : "domain_id",
+        "in" : "path",
+        "description" : "帐号ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "AuthToken" : {
+        "name" : "X-Auth-Token",
+        "in" : "header",
+        "description" : "用户Token。",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "Marker" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "分页参数,通过上一个请求中返回的marker信息作为输入,获取当前页",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[A-Za-z0-9+/=%\\-_]+",
+          "minLength" : 4,
+          "maxLength" : 400
+        },
+        "type" : "object"
+      },
+      "ResourceLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量。",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 200,
+          "minimum" : 1,
+          "default" : 100
+        },
+        "type" : "object"
+      },
+      "Key" : {
+        "name" : "key",
+        "in" : "query",
+        "description" : "标签键名",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\p{L}\\p{Z}\\p{N}_.:+\\-@]+",
+          "maxLength" : 128
+        },
+        "type" : "object"
+      },
+      "ResourceId" : {
+        "name" : "resource_id",
+        "in" : "path",
+        "description" : "资源ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[_.:\\w-]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "RelationLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 1000,
+          "minimum" : 1,
+          "default" : 20
+        },
+        "type" : "object"
+      },
+      "QueryId" : {
+        "name" : "query_id",
+        "in" : "path",
+        "description" : "查询ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "AggregatorIdPath" : {
+        "name" : "aggregator_id",
+        "in" : "path",
+        "description" : "资源聚合器ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 32
+        },
+        "type" : "object"
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "最大的返回数量",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 200,
+          "minimum" : 1,
+          "default" : 200
+        },
+        "type" : "object"
+      },
+      "Offset" : {
+        "name" : "offset",
+        "in" : "query",
+        "description" : "分页偏移",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maximum" : 1000,
+          "minimum" : 1
+        },
+        "type" : "object"
+      },
+      "XLanguage" : {
+        "name" : "X-Language",
+        "in" : "header",
+        "description" : "选择接口返回的信息的语言,默认为\"zh-cn\"中文",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "zh-cn", "en-us" ],
+          "default" : "zh-cn"
+        },
+        "type" : "object"
+      },
+      "PolicyAssignmentId" : {
+        "name" : "policy_assignment_id",
+        "in" : "path",
+        "description" : "规则ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "RegionArray" : {
+        "name" : "region_id",
+        "in" : "query",
+        "description" : "区域ID列表",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w-]+",
+            "maxLength" : 36
+          },
+          "minItems" : 1,
+          "maxItems" : 10,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "TagArray" : {
+        "name" : "tags",
+        "in" : "query",
+        "description" : "标签列表",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "minItems" : 1,
+          "maxItems" : 5,
+          "items" : {
+            "description" : "标签值, 格式为key或key=value",
+            "type" : "string",
+            "pattern" : "^[\\p{L}\\p{Z}\\p{N}_.:+\\-@]{1,128}(=[\\p{L}\\p{Z}\\p{N}_.:\\/+\\-@]{0,255})?$"
+          }
+        },
+        "type" : "object"
+      },
+      "Name" : {
+        "name" : "name",
+        "in" : "query",
+        "description" : "资源名称",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[^']+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "ProjectIdArray" : {
+        "name" : "project_id",
+        "in" : "query",
+        "description" : "项目ID",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w-]+",
+            "maxLength" : 36
+          },
+          "minItems" : 1,
+          "maxItems" : 10,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "Id" : {
+        "name" : "id",
+        "in" : "query",
+        "description" : "资源ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[_.:\\w-]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "TypeArray" : {
+        "name" : "type",
+        "in" : "query",
+        "description" : "资源类型(provider.type)",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w.-]+",
+            "maxLength" : 40
+          },
+          "minItems" : 1,
+          "maxItems" : 100,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "EpIdArray" : {
+        "name" : "ep_id",
+        "in" : "query",
+        "description" : "企业项目ID列表",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "[\\w-]+",
+            "maxLength" : 36
+          },
+          "minItems" : 1,
+          "maxItems" : 10,
+          "uniqueItems" : true
+        },
+        "type" : "object"
+      },
+      "ResourceNameQuery" : {
+        "name" : "resource_name",
+        "in" : "query",
+        "description" : "资源名称",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[^']+",
+          "maxLength" : 256
+        },
+        "type" : "object"
+      },
+      "ResourceIdQuery" : {
+        "name" : "resource_id",
+        "in" : "query",
+        "description" : "资源ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[_.:\\w-]+",
+          "maxLength" : 512
+        },
+        "type" : "object"
+      },
+      "ComplianceState" : {
+        "name" : "compliance_state",
+        "in" : "query",
+        "description" : "合规状态",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[^']+",
+          "maxLength" : 16
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentIdPath" : {
+        "name" : "organization_policy_assignment_id",
+        "in" : "path",
+        "description" : "组织合规规则ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[a-zA-Z\\d]+",
+          "maxLength" : 32
+        },
+        "type" : "object"
+      },
+      "OrganizationIdPath" : {
+        "name" : "organization_id",
+        "in" : "path",
+        "description" : "组织ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^o-[0-9a-z]{10,32}$",
+          "maxLength" : 34
+        },
+        "type" : "object"
+      },
+      "PolicyDefinitionId" : {
+        "name" : "policy_definition_id",
+        "in" : "path",
+        "description" : "策略ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "AggregatorNameQuery" : {
+        "name" : "aggregator_name",
+        "in" : "query",
+        "description" : "资源聚合器名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "Type" : {
+        "name" : "type",
+        "in" : "path",
+        "description" : "资源类型名称",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 32
+        },
+        "type" : "object"
+      },
+      "Provider" : {
+        "name" : "provider",
+        "in" : "path",
+        "description" : "云服务名称",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w]+",
+          "maxLength" : 20
+        },
+        "type" : "object"
+      },
+      "AuthorizedAccountIdPath" : {
+        "name" : "authorized_account_id",
+        "in" : "path",
+        "description" : "授权的资源聚合器的帐号ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "AccountId" : {
+        "name" : "account_id",
+        "in" : "query",
+        "description" : "授权的帐号ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentNameQueryRequired" : {
+        "name" : "organization_policy_assignment_name",
+        "in" : "query",
+        "description" : "组织合规规则名称。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[a-zA-Z0-9_\\-]+",
+          "maxLength" : 60
+        },
+        "type" : "object"
+      },
+      "MemberAccountPolicyAssignmentStatusQuery" : {
+        "name" : "status",
+        "in" : "query",
+        "description" : "成员帐号规则部署状态,区分大小写。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "CREATE_SUCCESSFUL", "CREATE_IN_PROGRESS", "CREATE_FAILED", "DELETE_SUCCESSFUL", "DELETE_IN_PROGRESS", "DELETE_FAILED", "UPDATE_SUCCESSFUL", "UPDATE_IN_PROGRESS", "UPDATE_FAILED" ],
+          "pattern" : "^[A-Z_]+",
+          "maxLength" : 20
+        },
+        "type" : "object"
+      },
+      "DomainIdQuery" : {
+        "name" : "domain_id",
+        "in" : "query",
+        "description" : "帐号ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "RegionId" : {
+        "name" : "region_id",
+        "in" : "query",
+        "description" : "区域ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "TagMap" : {
+        "name" : "tag",
+        "in" : "query",
+        "description" : "标签",
+        "required" : false,
+        "schema" : {
+          "type" : "object",
+          "minProperties" : 1,
+          "maxProperties" : 5,
+          "additionalProperties" : {
+            "pattern" : "[\\p{L}\\p{Z}\\p{N}_.:=+\\-@]+",
+            "maxLength" : 128,
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "pattern" : "[\\p{L}\\p{Z}\\p{N}_.:\\/=+\\-@]*",
+              "maxLength" : 255
+            },
+            "minItems" : 0,
+            "maxItems" : 5,
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
+      "EpId" : {
+        "name" : "ep_id",
+        "in" : "query",
+        "description" : "企业项目ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "QueryName" : {
+        "name" : "name",
+        "in" : "query",
+        "description" : "ResourceQL 名字",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "ResourceTypeQuery" : {
+        "name" : "type",
+        "in" : "query",
+        "description" : "资源类型(provider.type)",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w.-]+",
+          "maxLength" : 40
+        },
+        "type" : "object"
+      },
+      "UpdateStatusQuery" : {
+        "name" : "update_status",
+        "in" : "query",
+        "description" : "聚合帐号的状态。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "SUCCEEDED", "FAILED", "OUTDATED" ],
+          "pattern" : "^[A-Z]+",
+          "maxLength" : 16
+        },
+        "type" : "object"
+      },
+      "OrganizationPolicyAssignmentNameQuery" : {
+        "name" : "organization_policy_assignment_name",
+        "in" : "query",
+        "description" : "组织合规规则名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[a-zA-Z0-9_\\-]+",
+          "maxLength" : 60
+        },
+        "type" : "object"
+      },
+      "RequesterAccountIdPath" : {
+        "name" : "requester_account_id",
+        "in" : "path",
+        "description" : "请求聚合数据的帐号ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[\\w-]+",
+          "maxLength" : 36
+        },
+        "type" : "object"
+      }
+    },
     "schemas" : { },
     "securitySchemes" : { }
   },
@@ -36,9 +592,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -70,15 +626,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Key"
+          "$ref" : "#/components/parameters/Key"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceLimit"
+          "$ref" : "#/components/parameters/ResourceLimit"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -113,11 +669,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceId"
+          "$ref" : "#/components/parameters/ResourceId"
         }, {
           "name" : "direction",
           "in" : "query",
@@ -128,9 +684,9 @@
             "enum" : [ "in", "out" ]
           }
         }, {
-          "$ref" : "#/components/components/parameters/RelationLimit"
+          "$ref" : "#/components/parameters/RelationLimit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -165,11 +721,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/QueryId"
+          "$ref" : "#/components/parameters/QueryId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -192,11 +748,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AggregatorIdPath"
+          "$ref" : "#/components/parameters/AggregatorIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -228,11 +784,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AggregatorIdPath"
+          "$ref" : "#/components/parameters/AggregatorIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -258,13 +814,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Offset"
+          "$ref" : "#/components/parameters/Offset"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
           "name" : "track",
           "in" : "query",
@@ -275,7 +831,7 @@
             "enum" : [ "tracked", "untracked" ]
           }
         }, {
-          "$ref" : "#/components/components/parameters/XLanguage"
+          "$ref" : "#/components/parameters/XLanguage"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -307,9 +863,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -344,11 +900,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -383,11 +939,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceId"
+          "$ref" : "#/components/parameters/ResourceId"
         }, {
           "name" : "direction",
           "in" : "query",
@@ -398,9 +954,9 @@
             "enum" : [ "in", "out" ]
           }
         }, {
-          "$ref" : "#/components/components/parameters/RelationLimit"
+          "$ref" : "#/components/parameters/RelationLimit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -435,9 +991,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -469,9 +1025,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -503,23 +1059,23 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         }, {
-          "$ref" : "#/components/components/parameters/Name"
+          "$ref" : "#/components/parameters/Name"
         }, {
-          "$ref" : "#/components/components/parameters/TypeArray"
+          "$ref" : "#/components/parameters/TypeArray"
         }, {
-          "$ref" : "#/components/components/parameters/RegionArray"
+          "$ref" : "#/components/parameters/RegionArray"
         }, {
-          "$ref" : "#/components/components/parameters/EpIdArray"
+          "$ref" : "#/components/parameters/EpIdArray"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectIdArray"
+          "$ref" : "#/components/parameters/ProjectIdArray"
         }, {
-          "$ref" : "#/components/components/parameters/TagArray"
+          "$ref" : "#/components/parameters/TagArray"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -551,11 +1107,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceId"
+          "$ref" : "#/components/parameters/ResourceId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -589,9 +1145,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -623,9 +1179,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -660,19 +1216,19 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/ComplianceState"
+          "$ref" : "#/components/parameters/ComplianceState"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceIdQuery"
+          "$ref" : "#/components/parameters/ResourceIdQuery"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceNameQuery"
+          "$ref" : "#/components/parameters/ResourceNameQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -704,21 +1260,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Name"
+          "$ref" : "#/components/parameters/Name"
         }, {
-          "$ref" : "#/components/components/parameters/TypeArray"
+          "$ref" : "#/components/parameters/TypeArray"
         }, {
-          "$ref" : "#/components/components/parameters/RegionArray"
+          "$ref" : "#/components/parameters/RegionArray"
         }, {
-          "$ref" : "#/components/components/parameters/EpIdArray"
+          "$ref" : "#/components/parameters/EpIdArray"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectIdArray"
+          "$ref" : "#/components/parameters/ProjectIdArray"
         }, {
-          "$ref" : "#/components/components/parameters/TagArray"
+          "$ref" : "#/components/parameters/TagArray"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -753,9 +1309,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -787,11 +1343,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationIdPath"
+          "$ref" : "#/components/parameters/OrganizationIdPath"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationPolicyAssignmentIdPath"
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -823,9 +1379,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -860,9 +1416,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyDefinitionId"
+          "$ref" : "#/components/parameters/PolicyDefinitionId"
         }, {
           "name" : "X-Language",
           "in" : "header",
@@ -903,9 +1459,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -937,15 +1493,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AggregatorNameQuery"
+          "$ref" : "#/components/parameters/AggregatorNameQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -977,13 +1533,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1018,9 +1574,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1055,9 +1611,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1092,15 +1648,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Provider"
+          "$ref" : "#/components/parameters/Provider"
         }, {
-          "$ref" : "#/components/components/parameters/Type"
+          "$ref" : "#/components/parameters/Type"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceId"
+          "$ref" : "#/components/parameters/ResourceId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1132,9 +1688,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1157,11 +1713,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AuthorizedAccountIdPath"
+          "$ref" : "#/components/parameters/AuthorizedAccountIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1196,11 +1752,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/QueryId"
+          "$ref" : "#/components/parameters/QueryId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1235,11 +1791,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/QueryId"
+          "$ref" : "#/components/parameters/QueryId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1271,15 +1827,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AccountId"
+          "$ref" : "#/components/parameters/AccountId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1311,13 +1867,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1349,19 +1905,19 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationIdPath"
+          "$ref" : "#/components/parameters/OrganizationIdPath"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationPolicyAssignmentNameQueryRequired"
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentNameQueryRequired"
         }, {
-          "$ref" : "#/components/components/parameters/DomainIdQuery"
+          "$ref" : "#/components/parameters/DomainIdQuery"
         }, {
-          "$ref" : "#/components/components/parameters/MemberAccountPolicyAssignmentStatusQuery"
+          "$ref" : "#/components/parameters/MemberAccountPolicyAssignmentStatusQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1393,15 +1949,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AccountId"
+          "$ref" : "#/components/parameters/AccountId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1433,23 +1989,23 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Provider"
+          "$ref" : "#/components/parameters/Provider"
         }, {
-          "$ref" : "#/components/components/parameters/Type"
+          "$ref" : "#/components/parameters/Type"
         }, {
-          "$ref" : "#/components/components/parameters/RegionId"
+          "$ref" : "#/components/parameters/RegionId"
         }, {
-          "$ref" : "#/components/components/parameters/EpId"
+          "$ref" : "#/components/parameters/EpId"
         }, {
-          "$ref" : "#/components/components/parameters/TagMap"
+          "$ref" : "#/components/parameters/TagMap"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1481,13 +2037,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1519,9 +2075,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationIdPath"
+          "$ref" : "#/components/parameters/OrganizationIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1556,11 +2112,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1592,15 +2148,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/QueryName"
+          "$ref" : "#/components/parameters/QueryName"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1635,11 +2191,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/XLanguage"
+          "$ref" : "#/components/parameters/XLanguage"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1671,15 +2227,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceId"
+          "$ref" : "#/components/parameters/ResourceId"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
           "name" : "earlier_time",
           "in" : "query",
@@ -1738,17 +2294,17 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceId"
+          "$ref" : "#/components/parameters/ResourceId"
         }, {
-          "$ref" : "#/components/components/parameters/ComplianceState"
+          "$ref" : "#/components/parameters/ComplianceState"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1783,11 +2339,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1819,25 +2375,25 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/RegionId"
+          "$ref" : "#/components/parameters/RegionId"
         }, {
-          "$ref" : "#/components/components/parameters/EpId"
+          "$ref" : "#/components/parameters/EpId"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceTypeQuery"
+          "$ref" : "#/components/parameters/ResourceTypeQuery"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceLimit"
+          "$ref" : "#/components/parameters/ResourceLimit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         }, {
-          "$ref" : "#/components/components/parameters/Name"
+          "$ref" : "#/components/parameters/Name"
         }, {
-          "$ref" : "#/components/components/parameters/TagArray"
+          "$ref" : "#/components/parameters/TagArray"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1869,17 +2425,17 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AggregatorIdPath"
+          "$ref" : "#/components/parameters/AggregatorIdPath"
         }, {
-          "$ref" : "#/components/components/parameters/UpdateStatusQuery"
+          "$ref" : "#/components/parameters/UpdateStatusQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1911,13 +2467,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -1949,9 +2505,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -1983,15 +2539,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationIdPath"
+          "$ref" : "#/components/parameters/OrganizationIdPath"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationPolicyAssignmentNameQuery"
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentNameQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -2026,11 +2582,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -2065,11 +2621,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -2104,11 +2660,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -2131,11 +2687,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/RequesterAccountIdPath"
+          "$ref" : "#/components/parameters/RequesterAccountIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -2170,7 +2726,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
           "name" : "X-Language",
           "in" : "header",
@@ -2214,21 +2770,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         }, {
-          "$ref" : "#/components/components/parameters/ComplianceState"
+          "$ref" : "#/components/parameters/ComplianceState"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceIdQuery"
+          "$ref" : "#/components/parameters/ResourceIdQuery"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceNameQuery"
+          "$ref" : "#/components/parameters/ResourceNameQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -2260,11 +2816,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AggregatorIdPath"
+          "$ref" : "#/components/parameters/AggregatorIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -2296,11 +2852,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AggregatorIdPath"
+          "$ref" : "#/components/parameters/AggregatorIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -2332,15 +2888,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationIdPath"
+          "$ref" : "#/components/parameters/OrganizationIdPath"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationPolicyAssignmentNameQuery"
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentNameQuery"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -2375,11 +2931,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyAssignmentId"
+          "$ref" : "#/components/parameters/PolicyAssignmentId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
@@ -2411,11 +2967,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationIdPath"
+          "$ref" : "#/components/parameters/OrganizationIdPath"
         }, {
-          "$ref" : "#/components/components/parameters/OrganizationPolicyAssignmentIdPath"
+          "$ref" : "#/components/parameters/OrganizationPolicyAssignmentIdPath"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -2450,9 +3006,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ],
         "security" : [ {
           "PkiTokenAuth" : [ ]
