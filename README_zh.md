@@ -90,13 +90,14 @@ python run.py
 ## MCP市场集成
 
 * [Cline](https://cline.bot/mcp-marketplace)
-* 在cline 中配置 mcp 服务使用sse的方式，json格式如下
+* 在cline 中配置 mcp 服务使用http的方式，json格式如下
 ```json
 {
   "mcpServers": {
     "mcp_server_ecs": {
-      "url": "http://localhost:8888/sse",
+      "url": "http://localhost:8888/mcp",
       "disabled": false,
+      "type": "streamableHttp",
       "autoApprove": []
     }
   }
