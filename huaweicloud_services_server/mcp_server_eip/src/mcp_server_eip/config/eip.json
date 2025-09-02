@@ -3,8 +3,9 @@
   "info" : {
     "description" : "EIP-弹性公网IP",
     "title" : "EIP",
-    "version" : "2025-06-13",
-    "x-host_prefix": "vpc"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "vpc",
+    "x-host" : "vpc.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
