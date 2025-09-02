@@ -3,8 +3,9 @@
   "info" : {
     "description" : "VPC-OpenStack - 网络ACL",
     "title" : "VPC",
-    "version" : "2025-06-13",
-    "x-host_prefix": "vpc"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "vpc",
+    "x-host" : "vpc.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -13833,7 +13834,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13940,7 +13941,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -14958,7 +14959,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -18338,7 +18339,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -24053,7 +24054,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -26843,7 +26844,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -27268,7 +27269,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -29416,7 +29417,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
