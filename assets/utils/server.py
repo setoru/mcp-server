@@ -145,7 +145,12 @@ class MCPServer:
 
                 response = client.do_http_request(**http_info)
                 response_data = response.json() if response and response.content else {}
-                return [TextContent(type="text", text=json.dumps(response_data, indent=2, ensure_ascii=False))]
+                return [
+                    TextContent(
+                        type="text",
+                        text=json.dumps(response_data, indent=2, ensure_ascii=False),
+                    )
+                ]
             except ClientRequestException as ex:
                 logger.error(f"API 请求失败: {ex.error_msg}")
                 raise ValueError(ex.error_msg)

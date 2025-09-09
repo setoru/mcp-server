@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, Literal
 
-from pydantic import BaseModel, ConfigDict
-
 TransportType = Literal["sse", "stdio", "http"]
 
 
