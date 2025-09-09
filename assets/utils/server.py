@@ -9,6 +9,7 @@ from typing import Any, Optional, AsyncIterator
 import uvicorn
 from huaweicloudsdkcore.exceptions.exceptions import ClientRequestException
 from mcp.server import Server
+from mcp.server.fastmcp.exceptions import ToolError
 from mcp.server.fastmcp.utilities.logging import configure_logging, get_logger
 from mcp.server.sse import SseServerTransport
 from mcp.server.stdio import stdio_server
@@ -132,7 +133,7 @@ class MCPServer:
                     "code": "MISSING_CREDENTIALS",
                     "message": "HUAWEI_ACCESS_KEY or HUAWEI_SECRET_KEY not configured",
                 }
-                return [TextContent(type="text", text=json.dumps(error_msg, indent=2))]
+                raise ToolError(error_msg)
 
             client = create_api_client(ak, sk, product_short, region)
             try:
