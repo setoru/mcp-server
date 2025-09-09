@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, Literal
 
-from pydantic import BaseModel, ConfigDict
-
 TransportType = Literal["sse", "stdio", "http"]
 
 
@@ -20,17 +18,3 @@ class MCPConfig:
 
         if self.transport in ("sse", "http") and self.port == 0:
             raise ValueError("sse和http服务端口不能设为0")
-
-
-class TopResponseModel(BaseModel):
-    model_config = ConfigDict(
-        extra="allow", from_attributes=True, arbitrary_types_allowed=True
-    )
-
-    def __init__(self, **data):
-        for key, value in data.items():
-            if isinstance(value, dict):
-                data[key] = TopResponseModel(**value)
-            elif isinstance(value, list) and value and isinstance(value[0], dict):
-                data[key] = [TopResponseModel(**item) for item in value]
-        super().__init__(**data)
