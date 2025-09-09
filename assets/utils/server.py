@@ -27,7 +27,7 @@ from .hwc_tools import (
     filter_parameters,
     load_config,
 )
-from .model import TopResponseModel, MCPConfig
+from .model import MCPConfig
 from .openapi import OpenAPIToToolsConverter
 from .variable import TRANSPORT_SSE, TRANSPORT_HTTP
 
@@ -121,7 +121,6 @@ class MCPServer:
         async def call_tool(
             name: str, arguments: dict
         ) -> list[TextContent | ImageContent | EmbeddedResource]:
-            result: TopResponseModel
             region = arguments.get("region") or "cn-north-4"
             product_short = self.openapi_dict["info"]["x-host_prefix"].lower()
 
@@ -145,8 +144,7 @@ class MCPServer:
 
                 response = client.do_http_request(**http_info)
                 response_data = response.json() if response and response.content else {}
-                result = TopResponseModel(**response_data)
-                return [TextContent(type="text", text=json.dumps(result.model_dump()))]
+                return [TextContent(type="text", text=json.dumps(response_data, indent=2, ensure_ascii=False))]
             except ClientRequestException as ex:
                 logger.error(f"API 请求失败: {ex.error_msg}")
                 raise ValueError(ex.error_msg)
