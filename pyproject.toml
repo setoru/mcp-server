@@ -38,7 +38,6 @@ packages = [
     "common_servers",
     "huaweicloud_marketplace_server",
     "huaweicloud_services_server",
-    "huaweicloud_services_dws_mcp_inner"
 ]
 
 [project.scripts]
