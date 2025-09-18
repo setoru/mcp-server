@@ -35,6 +35,7 @@ dependencies = [
 [tool.setuptools]
 packages = [
     "assets",
+    "assets.utils",
     "common_servers",
     "huaweicloud_marketplace_server",
     "huaweicloud_services_server",
