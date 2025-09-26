@@ -3,8 +3,9 @@
   "info" : {
     "description" : "MSSI-连接",
     "title" : "MSSI",
-    "version" : "2025-06-13",
-    "x-host_prefix": "mssi"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "mssi",
+    "x-host" : "mssi.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -1215,7 +1216,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "X-Auth-Token" : [ ]
@@ -1931,7 +1932,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "X-Auth-Token" : [ ]
@@ -2007,7 +2008,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "X-Auth-Token" : [ ]
@@ -2173,7 +2174,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "X-Auth-Token" : [ ]
@@ -2251,7 +2252,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "X-Auth-Token" : [ ]
@@ -2470,7 +2471,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "X-Auth-Token" : [ ]

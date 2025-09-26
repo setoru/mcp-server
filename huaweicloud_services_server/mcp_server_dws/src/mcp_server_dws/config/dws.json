@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DWS-集群管理",
     "title" : "DWS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "dws"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dws",
+    "x-host" : "dws.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -11980,7 +11981,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -12245,7 +12246,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -12875,7 +12876,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13231,7 +13232,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -17084,7 +17085,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -18659,7 +18660,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -19090,7 +19091,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -23080,7 +23081,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -23210,7 +23211,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

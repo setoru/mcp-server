@@ -3,8 +3,9 @@
   "info" : {
     "description" : "ELB-安全策略",
     "title" : "ELB",
-    "version" : "2025-06-13",
-    "x-host_prefix": "elb"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "elb",
+    "x-host" : "elb.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -12569,7 +12570,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13293,7 +13294,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13443,7 +13444,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -17316,7 +17317,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -19897,7 +19898,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

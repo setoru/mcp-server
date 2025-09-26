@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DRS-实例操作",
     "title" : "DRS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "drs"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "drs",
+    "x-host" : "drs.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -12767,16 +12768,25 @@
             "default" : "en-us",
             "enum" : [ "en-us", "zh-cn" ]
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "待上传的模板文件。",
-          "required" : true,
-          "schema" : {
-            "description" : "待上传的模板文件。",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "待上传的模板文件。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -17479,7 +17489,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -17860,7 +17870,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "get",
@@ -19032,15 +19042,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "驱动文件,驱动文件名称长度5-64,以jar结尾,文件名相同会替换远程驱动文件",
-          "required" : true,
-          "schema" : {
-            "description" : "驱动文件,驱动文件名称长度5-64,以jar结尾,文件名相同会替换远程驱动文件",
-            "type" : "file"
-          }
-        }, {
           "name" : "Content-Type",
           "in" : "header",
           "description" : "发送的实体的MIME类型。推荐用户默认使用application/json,如果API是对象、镜像上传等接口,媒体类型可按照流类型的不同进行确定。",
@@ -19070,7 +19071,25 @@
             "default" : "en-us",
             "enum" : [ "en-us", "zh-cn" ]
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "驱动文件,驱动文件名称长度5-64,以jar结尾,文件名相同会替换远程驱动文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -21875,15 +21894,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "驱动文件,驱动文件名称长度5-64,以jar结尾,文件名相同会替换远程驱动文件。",
-          "required" : true,
-          "schema" : {
-            "description" : "驱动文件,驱动文件名称长度5-64,以jar结尾,文件名相同会替换远程驱动文件。",
-            "type" : "file"
-          }
-        }, {
           "name" : "Content-Type",
           "in" : "header",
           "description" : "发送的实体的MIME类型。推荐用户默认使用application/json,如果API是对象、镜像上传等接口,媒体类型可按照流类型的不同进行确定。",
@@ -21923,7 +21933,25 @@
             "type" : "string",
             "enum" : [ "db2", "informix" ]
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "驱动文件,驱动文件名称长度5-64,以jar结尾,文件名相同会替换远程驱动文件。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -23463,15 +23491,6 @@
             "enum" : [ "en-us", "zh-cn" ]
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "待上传的模板文件。",
-          "required" : true,
-          "schema" : {
-            "description" : "待上传的模板文件。",
-            "type" : "file"
-          }
-        }, {
           "name" : "file_import_db_level",
           "in" : "query",
           "description" : "文件模板支持数据同步级别,不填默认为table表级。",
@@ -23482,7 +23501,25 @@
             "default" : "table",
             "enum" : [ "database", "table", "column" ]
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "待上传的模板文件。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

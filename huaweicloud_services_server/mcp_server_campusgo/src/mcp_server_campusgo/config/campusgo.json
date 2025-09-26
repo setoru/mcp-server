@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CampusGo-服务作业管理",
     "title" : "CampusGo",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "iva"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "iva",
+    "x-host" : "iva.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

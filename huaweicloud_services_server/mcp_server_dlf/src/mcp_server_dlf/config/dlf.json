@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DLF-作业相关的API",
     "title" : "DLF",
-    "version" : "2025-06-13",
-    "x-host_prefix": "dayu-dlf"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dayu-dlf",
+    "x-host" : "dayu-dlf.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -1389,7 +1390,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -1450,7 +1451,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -2624,7 +2625,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

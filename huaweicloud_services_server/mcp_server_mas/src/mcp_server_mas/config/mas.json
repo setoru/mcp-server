@@ -3,8 +3,9 @@
   "info" : {
     "description" : "MAS-数据同步任务管理",
     "title" : "MAS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "mas"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "mas",
+    "x-host" : "mas.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -2330,14 +2331,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "dataSyncDto" : {
-                    "description" : "dataSyncDto",
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/DataSyncDto"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/DataSyncDto"
                 }
               }
             }
@@ -2605,14 +2601,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "ids" : {
-                    "description" : "ids",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -4260,14 +4251,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "req" : {
-                    "description" : "req",
-                    "type" : "object",
-                    "additionalProperties" : {
-                      "$ref" : "#/components/schemas/MonitorDbConnectionPool"
-                    }
-                  }
+                "type" : "object",
+                "additionalProperties" : {
+                  "$ref" : "#/components/schemas/MonitorDbConnectionPool"
                 }
               }
             }
@@ -4329,14 +4315,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "ids" : {
-                    "description" : "ids",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -5240,14 +5221,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "req" : {
-                    "description" : "req",
-                    "type" : "object",
-                    "additionalProperties" : {
-                      "$ref" : "#/components/schemas/MonitorDbConnectionPool"
-                    }
-                  }
+                "type" : "object",
+                "additionalProperties" : {
+                  "$ref" : "#/components/schemas/MonitorDbConnectionPool"
                 }
               }
             }

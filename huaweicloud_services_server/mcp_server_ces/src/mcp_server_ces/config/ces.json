@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CES-告警规则管理",
     "title" : "CES",
-    "version" : "2025-06-13",
-    "x-host_prefix": "ces"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "ces",
+    "x-host" : "ces.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -149,7 +150,21 @@
         },
         "type" : "object"
       },
-      "UpdateNotificationMaskNotificationMaskID" : {
+      "param_1756780397374_NotificationMaskID" : {
+        "name" : "notification_mask_id",
+        "in" : "path",
+        "description" : "屏蔽规则ID",
+        "required" : true,
+        "schema" : {
+          "description" : "屏蔽规则ID",
+          "type" : "string",
+          "maxLength" : 64,
+          "minLength" : 1,
+          "pattern" : "^([a-z]|[A-Z]|[0-9]){1,64}$"
+        },
+        "type" : "object"
+      },
+      "param_1756780397375_NotificationMaskID" : {
         "name" : "notification_mask_id",
         "in" : "path",
         "description" : "屏蔽规则ID",
@@ -176,7 +191,7 @@
         },
         "type" : "object"
       },
-      "ListAgentInvocationsOffset" : {
+      "param_1756780397376_Offset" : {
         "name" : "offset",
         "in" : "query",
         "description" : "分页偏移量",
@@ -203,7 +218,7 @@
         },
         "type" : "object"
       },
-      "UpdateResourceGroupAssociationAlarmTemplateGroupID" : {
+      "GroupID" : {
         "name" : "group_id",
         "in" : "path",
         "description" : "资源分组ID,以rg开头,后跟22位由字母或数字组成的字符串",
@@ -5884,7 +5899,7 @@
         },
         "type" : "object"
       },
-      "GroupID" : {
+      "UpdateResourceGroupAssociationAlarmTemplateGroupID" : {
         "type" : "object",
         "description" : "资源分组ID,以rg开头,后跟22位由字母或数字组成的字符串",
         "pattern" : "^rg([a-z]|[A-Z]|[0-9]){22}$",
@@ -7454,14 +7469,10 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "EventItems" : {
-                    "description" : "上报自定义事件。请求参数。",
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/EventItem"
-                    }
-                  }
+                "type" : "array",
+                "description" : "上报自定义事件。请求参数。",
+                "items" : {
+                  "$ref" : "#/components/schemas/EventItem"
                 }
               }
             }
@@ -7878,14 +7889,10 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "MetricDataItem" : {
-                    "description" : "添加一条或多条自定义指标监控数据,请求参数。",
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/MetricDataItem"
-                    }
-                  }
+                "type" : "array",
+                "description" : "添加一条或多条自定义指标监控数据,请求参数。",
+                "items" : {
+                  "$ref" : "#/components/schemas/MetricDataItem"
                 }
               }
             }
@@ -9085,7 +9092,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -12236,7 +12243,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -14189,7 +14196,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

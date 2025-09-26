@@ -3,8 +3,9 @@
   "info" : {
     "description" : "ROMA-域名管理",
     "title" : "ROMA",
-    "version" : "2025-06-13",
-    "x-host_prefix": "roma"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "roma",
+    "x-host" : "roma.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -19865,7 +19866,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -20431,7 +20432,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -24432,16 +24433,25 @@
             "description" : "App应用的前缀。",
             "type" : "string"
           }
-        }, {
-          "name" : "upload_file_name",
-          "in" : "formData",
-          "description" : "待导入的topic列表文件。",
-          "required" : true,
-          "schema" : {
-            "description" : "待导入的topic列表文件。",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "upload_file_name" : {
+                    "description" : "待导入的topic列表文件。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "upload_file_name" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -24935,7 +24945,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -25583,38 +25593,33 @@
           "$ref" : "#/components/parameters/apic_project_id"
         }, {
           "$ref" : "#/components/parameters/apic_instance_id"
-        }, {
-          "name" : "extend_mode",
-          "in" : "formData",
-          "description" : "扩展信息导入模式",
-          "required" : false,
-          "schema" : {
-            "description" : "扩展信息导入模式",
-            "type" : "string",
-            "default" : "merge",
-            "enum" : [ "merge", "override" ]
-          }
-        }, {
-          "name" : "api_mode",
-          "in" : "formData",
-          "description" : "导入模式",
-          "required" : false,
-          "schema" : {
-            "description" : "导入模式",
-            "type" : "string",
-            "default" : "merge",
-            "enum" : [ "merge", "override" ]
-          }
-        }, {
-          "name" : "file_name",
-          "in" : "formData",
-          "description" : "导入自定义后端API的请求体,json或yaml格式的文件",
-          "required" : true,
-          "schema" : {
-            "description" : "导入自定义后端API的请求体,json或yaml格式的文件",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "extend_mode" : {
+                    "description" : "扩展信息导入模式",
+                    "type" : "string"
+                  },
+                  "api_mode" : {
+                    "description" : "导入模式",
+                    "type" : "string"
+                  },
+                  "file_name" : {
+                    "description" : "导入自定义后端API的请求体,json或yaml格式的文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file_name" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -26071,88 +26076,53 @@
           "$ref" : "#/components/parameters/apic_project_id"
         }, {
           "$ref" : "#/components/parameters/apic_instance_id"
-        }, {
-          "name" : "is_create_group",
-          "in" : "formData",
-          "description" : "是否创建新分组",
-          "required" : false,
-          "schema" : {
-            "description" : "是否创建新分组",
-            "type" : "boolean",
-            "default" : true
-          }
-        }, {
-          "name" : "group_id",
-          "in" : "formData",
-          "description" : "API分组编号。",
-          "required" : false,
-          "schema" : {
-            "example" : "57e7248244ee457cb0ddb64b012f4cbe",
-            "description" : "API分组编号。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "app_id",
-          "in" : "formData",
-          "description" : "应用编号。",
-          "required" : false,
-          "schema" : {
-            "example" : "98df09fb-d459-4cbf-83a7-2b55ca6f3d5d",
-            "description" : "应用编号。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "extend_mode",
-          "in" : "formData",
-          "description" : "扩展信息导入模式",
-          "required" : false,
-          "schema" : {
-            "description" : "扩展信息导入模式",
-            "type" : "string",
-            "default" : "merge",
-            "enum" : [ "merge", "override" ]
-          }
-        }, {
-          "name" : "simple_mode",
-          "in" : "formData",
-          "description" : "是否开启简易导入模式",
-          "required" : false,
-          "schema" : {
-            "description" : "是否开启简易导入模式",
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "mock_mode",
-          "in" : "formData",
-          "description" : "是否开启Mock后端",
-          "required" : false,
-          "schema" : {
-            "description" : "是否开启Mock后端",
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "api_mode",
-          "in" : "formData",
-          "description" : "导入模式",
-          "required" : false,
-          "schema" : {
-            "description" : "导入模式",
-            "type" : "string",
-            "default" : "merge",
-            "enum" : [ "merge", "override" ]
-          }
-        }, {
-          "name" : "file_name",
-          "in" : "formData",
-          "description" : "导入Api的请求体,json或yaml格式的文件",
-          "required" : true,
-          "schema" : {
-            "description" : "导入Api的请求体,json或yaml格式的文件",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "is_create_group" : {
+                    "description" : "是否创建新分组",
+                    "type" : "boolean"
+                  },
+                  "group_id" : {
+                    "description" : "API分组编号。",
+                    "type" : "string"
+                  },
+                  "app_id" : {
+                    "description" : "应用编号。",
+                    "type" : "string"
+                  },
+                  "extend_mode" : {
+                    "description" : "扩展信息导入模式",
+                    "type" : "string"
+                  },
+                  "simple_mode" : {
+                    "description" : "是否开启简易导入模式",
+                    "type" : "boolean"
+                  },
+                  "mock_mode" : {
+                    "description" : "是否开启Mock后端",
+                    "type" : "boolean"
+                  },
+                  "api_mode" : {
+                    "description" : "导入模式",
+                    "type" : "string"
+                  },
+                  "file_name" : {
+                    "description" : "导入Api的请求体,json或yaml格式的文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file_name" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -30167,16 +30137,25 @@
             "maxLength" : 64,
             "minLength" : 0
           }
-        }, {
-          "name" : "ImportAssetRequestBody",
-          "in" : "formData",
-          "description" : "资产压缩文件",
-          "required" : true,
-          "schema" : {
-            "description" : "资产压缩文件",
-            "type" : "file"
-          }
         } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "ImportAssetRequestBody" : {
+                    "description" : "资产压缩文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "ImportAssetRequestBody" ]
+              }
+            }
+          },
+          "required" : true
+        },
         "security" : [ {
           "apig-auth-iam" : [ ]
         } ]
@@ -32135,7 +32114,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -33373,7 +33352,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -34751,7 +34730,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -38639,7 +38618,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -39965,7 +39944,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -41676,16 +41655,24 @@
           "$ref" : "#/components/parameters/project_id"
         }, {
           "$ref" : "#/components/parameters/instance_id"
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "上传产品文件(.csv格式)",
-          "required" : false,
-          "schema" : {
-            "description" : "上传产品文件(.csv格式)",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "上传产品文件(.csv格式)",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

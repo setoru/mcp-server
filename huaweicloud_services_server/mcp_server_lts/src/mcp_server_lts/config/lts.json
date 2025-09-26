@@ -3,8 +3,9 @@
   "info" : {
     "description" : "LTS-SDK流式消费开放API",
     "title" : "LTS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "lts"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "lts",
+    "x-host" : "lts.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -7966,7 +7967,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8212,7 +8213,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -10187,14 +10188,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "ConsumerShardCheckpointInfo" : {
-                    "description" : "消费位点更新列表,可以为空数组",
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/ConsumerShardCheckpointInfo"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/ConsumerShardCheckpointInfo"
                 }
               }
             }
@@ -11702,7 +11698,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13298,7 +13294,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13947,14 +13943,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "shardIds" : {
-                    "description" : "Shard列表,可以为空数组",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -14671,7 +14662,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -16360,7 +16351,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

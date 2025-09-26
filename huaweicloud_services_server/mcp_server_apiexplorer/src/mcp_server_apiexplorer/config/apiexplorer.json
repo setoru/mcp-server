@@ -3,8 +3,9 @@
   "info" : {
     "description" : "APIExplorer-API",
     "title" : "APIExplorer",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "apiexplorer"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "apiexplorer",
+    "x-host" : "apiexplorer.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

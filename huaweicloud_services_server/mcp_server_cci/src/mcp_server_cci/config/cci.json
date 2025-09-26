@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CCI-Event",
     "title" : "CCI",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cci"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cci",
+    "x-host" : "cci.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -6925,7 +6926,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -7267,7 +7268,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -7791,7 +7792,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -8547,7 +8548,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -8965,7 +8966,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -9690,7 +9691,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -10198,7 +10199,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -10679,7 +10680,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -11623,7 +11624,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -13129,7 +13130,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -13421,7 +13422,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -15201,7 +15202,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -16070,7 +16071,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -16194,7 +16195,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -17050,7 +17051,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -18490,7 +18491,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -18614,7 +18615,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -19013,7 +19014,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -19537,7 +19538,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -20477,7 +20478,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -20672,7 +20673,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -21028,7 +21029,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -21374,7 +21375,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -21990,7 +21991,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",

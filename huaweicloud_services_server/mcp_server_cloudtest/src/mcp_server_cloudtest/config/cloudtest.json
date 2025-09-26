@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CloudTest-测试计划管理",
     "title" : "CloudTest",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cloudtest-ext"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cloudtest-ext",
+    "x-host" : "cloudtest-ext.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -21036,7 +21037,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -22701,14 +22702,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "deleteTestReportBatchUris" : {
-                    "description" : "质量报告看板统计请求体",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -23695,7 +23691,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -24158,7 +24154,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -25024,12 +25020,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "param" : {
-                    "description" : "域名映射信息",
-                    "type" : "string"
-                  }
-                }
+                "type" : "string"
               }
             }
           },
@@ -26016,7 +26007,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -26205,7 +26196,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -29066,7 +29057,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -29124,12 +29115,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "param" : {
-                    "description" : "创建任务请求参数",
-                    "type" : "string"
-                  }
-                }
+                "type" : "string"
               }
             }
           },
@@ -31126,16 +31112,25 @@
             "description" : "项目id",
             "type" : "string"
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "上传的对象的内容。",
-          "required" : true,
-          "schema" : {
-            "description" : "上传的对象的内容。",
-            "type" : "file"
-          }
         } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "上传的对象的内容。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        },
         "security" : [ {
           "apig-auth-iam" : [ ]
         } ]
@@ -31386,7 +31381,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]

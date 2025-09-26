@@ -3,8 +3,9 @@
   "info" : {
     "description" : "RabbitMQ-Binding管理",
     "title" : "RabbitMQ",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "dms"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dms",
+    "x-host" : "dms.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

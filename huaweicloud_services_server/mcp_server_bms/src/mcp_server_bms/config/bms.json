@@ -3,8 +3,9 @@
   "info" : {
     "description" : "BMS-裸金属服务器云硬盘管理",
     "title" : "BMS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "bms"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "bms",
+    "x-host" : "bms.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -4713,7 +4714,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

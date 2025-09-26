@@ -3,14 +3,557 @@
   "info" : {
     "description" : "CC-云连接实例",
     "title" : "CC",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "cc"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cc",
+    "x-host" : "cc.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
   } ],
   "components" : {
-    "parameters" : { },
+    "parameters" : {
+      "DomainId" : {
+        "name" : "domain_id",
+        "in" : "path",
+        "description" : "账号ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[a-zA-Z0-9]{10,32}",
+          "maxLength" : 32,
+          "minLength" : 10
+        },
+        "type" : "object"
+      },
+      "Id" : {
+        "name" : "id",
+        "in" : "path",
+        "description" : "实例ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}|[a-fA-F0-9]{32}",
+          "maxLength" : 36,
+          "minLength" : 32
+        },
+        "type" : "object"
+      },
+      "AuthToken" : {
+        "name" : "X-Auth-Token",
+        "in" : "header",
+        "description" : "用户Token。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 2000000,
+          "minLength" : 0
+        },
+        "type" : "object"
+      },
+      "PolicyId" : {
+        "name" : "policy_id",
+        "in" : "path",
+        "description" : "网络策略ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "CentralNetworkId" : {
+        "name" : "central_network_id",
+        "in" : "path",
+        "description" : "中心网络的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "SiteNetworkId" : {
+        "name" : "site_network_id",
+        "in" : "path",
+        "description" : "分支网络的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "每页返回的个数。",
+        "schema" : {
+          "maximum" : 1000,
+          "minimum" : 1,
+          "type" : "integer",
+          "format" : "int32",
+          "default" : 1000
+        },
+        "type" : "object"
+      },
+      "EnterpriseProjectIds" : {
+        "name" : "enterprise_project_id",
+        "in" : "query",
+        "description" : "根据企业项目ID过滤列表。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "pattern" : "all_granted_eps|0|[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "maxLength" : 36,
+            "minLength" : 0
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "Marker" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "翻页信息,从上次API调用返回的翻页数据中获取,可填写前一页marker或者后一页marker,填入前一页previous_marker就向前翻页,后一页next_marker就向后翻页。 翻页过程中,查询条件不能修改,包括过滤条件、排序条件、limit。",
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 4096,
+          "minLength" : 1
+        },
+        "type" : "object"
+      },
+      "Id32s" : {
+        "name" : "id",
+        "in" : "query",
+        "description" : "根据ID查询,可查询多个ID。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID32Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CloudConnectionIds" : {
+        "name" : "cloud_connection_id",
+        "in" : "query",
+        "description" : "根据云连接的ID过滤列表。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID32Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkGdgwAttachmentId" : {
+        "name" : "gdgw_attachment_id",
+        "in" : "path",
+        "description" : "中心网络DGW附件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "Names" : {
+        "name" : "name",
+        "in" : "query",
+        "description" : "根据名字查询,可查询多个名字。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[\\u4e00-\\u9fa50-9a-zA-Z_.\\-]+$"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "Descriptions" : {
+        "name" : "description",
+        "in" : "query",
+        "description" : "根据描述查询,可查询多个描述。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "maxLength" : 64,
+            "minLength" : 1
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteConnectionId" : {
+        "name" : "site_connection_id",
+        "in" : "path",
+        "description" : "分支连接的ID",
+        "required" : true,
+        "schema" : {
+          "$ref" : "#/components/schemas/UUID64Def"
+        },
+        "type" : "object"
+      },
+      "Capabilities" : {
+        "name" : "capability",
+        "in" : "query",
+        "description" : "根据租户能力名查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkCapabilityEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkAttachmentId" : {
+        "name" : "attachment_id",
+        "in" : "path",
+        "description" : "中心网络附件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "BandwidthTypeInQuery" : {
+        "name" : "bandwidth_type",
+        "in" : "query",
+        "description" : "根据带宽类型查询。带宽类型包括:",
+        "schema" : {
+          "$ref" : "#/components/schemas/BandwidthTypeEnum"
+        },
+        "type" : "object"
+      },
+      "SortKey" : {
+        "name" : "sort_key",
+        "in" : "query",
+        "description" : "排序字段。",
+        "schema" : {
+          "type" : "string",
+          "default" : "updated_at",
+          "maxLength" : 36,
+          "minLength" : 1
+        },
+        "type" : "object"
+      },
+      "ConnectionTypeInQuery" : {
+        "name" : "connection_type",
+        "in" : "query",
+        "description" : "连接类型,支持。",
+        "schema" : {
+          "$ref" : "#/components/schemas/ConnectionTypeEnum"
+        },
+        "type" : "object"
+      },
+      "IsCrossRegion" : {
+        "name" : "is_cross_region",
+        "in" : "query",
+        "description" : "是否跨地域。",
+        "schema" : {
+          "type" : "boolean"
+        },
+        "type" : "object"
+      },
+      "Id64s" : {
+        "name" : "id",
+        "in" : "query",
+        "description" : "根据ID查询,可查询多个ID。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkConnectionStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkConnectionStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "GlobalConnectionBandwidthIds" : {
+        "name" : "global_connection_bandwidth_id",
+        "in" : "query",
+        "description" : "根据带宽包ID过滤。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SortDir" : {
+        "name" : "sort_dir",
+        "in" : "query",
+        "description" : "指定排序是升序还是降序(asc为升序,desc为降序)。",
+        "schema" : {
+          "$ref" : "#/components/schemas/SortDir"
+        },
+        "type" : "object"
+      },
+      "CentralNetworkErRouteTableAttachmentId" : {
+        "name" : "er_route_table_attachment_id",
+        "in" : "path",
+        "description" : "中心网络ER路由表附件ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "AttachmentInstanceTypes" : {
+        "name" : "attachment_instance_type",
+        "in" : "query",
+        "description" : "根据附件类型查询,可查询多个附件类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/AttachmentInstanceTypeEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "AttachmentInstanceIds" : {
+        "name" : "attachment_instance_id",
+        "in" : "query",
+        "description" : "Attachment实例的ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkQuotas" : {
+        "name" : "quota_type",
+        "in" : "query",
+        "description" : "根据配额类型查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkQuotaKeyEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "Versions" : {
+        "name" : "version",
+        "in" : "query",
+        "description" : "根据版本查询,可查询多个名字。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/Version"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "IsApplied" : {
+        "name" : "is_applied",
+        "in" : "query",
+        "description" : "是否被应用。",
+        "schema" : {
+          "type" : "boolean"
+        },
+        "type" : "object"
+      },
+      "CentralNetworkPolicyStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkPolicyStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkConnectionId" : {
+        "name" : "connection_id",
+        "in" : "path",
+        "description" : "中心网络连接ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+        },
+        "type" : "object"
+      },
+      "SiteNetworkQuotas" : {
+        "name" : "quota_type",
+        "in" : "query",
+        "description" : "根据配额类型查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/SiteNetworkQuotaKeyEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/CentralNetworkStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "CentralNetworkConnectionIds" : {
+        "name" : "connection_id",
+        "in" : "query",
+        "description" : "连接的ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "EnterpriseRouterIds" : {
+        "name" : "enterprise_router_id",
+        "in" : "query",
+        "description" : "根据ER实例ID过滤列表。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteNetworkSpecifications" : {
+        "name" : "specification",
+        "in" : "query",
+        "description" : "根据分支网络租户能力名查询,可查询多个类型。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/SiteNetworkSpecificationEnum"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "GlobalDcGatewayIds" : {
+        "name" : "global_dc_gateway_id",
+        "in" : "query",
+        "description" : "根据GDW实例ID过滤列表。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteNetworkStates" : {
+        "name" : "state",
+        "in" : "query",
+        "description" : "根据状态查询,可查询多个状态。",
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/SiteNetworkStateEnum"
+          },
+          "maxItems" : 20,
+          "minItems" : 1
+        },
+        "type" : "object"
+      },
+      "SiteConnectionIds" : {
+        "name" : "connection_id",
+        "in" : "query",
+        "description" : "分支连接的ID。",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/UUID64Def"
+          },
+          "maxItems" : 10,
+          "minItems" : 1
+        },
+        "type" : "object"
+      }
+    },
     "schemas" : { },
     "securitySchemes" : { }
   },
@@ -28,11 +571,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -52,13 +595,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyId"
+          "$ref" : "#/components/parameters/PolicyId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "post",
@@ -78,11 +621,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         } ]
       },
       "x-method" : "delete",
@@ -102,19 +645,19 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id32s"
+          "$ref" : "#/components/parameters/Id32s"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
-          "$ref" : "#/components/components/parameters/CloudConnectionIds"
+          "$ref" : "#/components/parameters/CloudConnectionIds"
         }, {
           "name" : "bandwidth_package_id",
           "in" : "query",
@@ -147,11 +690,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "put",
@@ -171,13 +714,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkGdgwAttachmentId"
+          "$ref" : "#/components/parameters/CentralNetworkGdgwAttachmentId"
         } ]
       },
       "x-method" : "get",
@@ -197,21 +740,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id32s"
+          "$ref" : "#/components/parameters/Id32s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/Descriptions"
+          "$ref" : "#/components/parameters/Descriptions"
         }, {
-          "$ref" : "#/components/components/parameters/CloudConnectionIds"
+          "$ref" : "#/components/parameters/CloudConnectionIds"
         }, {
           "name" : "instance_id",
           "in" : "query",
@@ -245,11 +788,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "post",
@@ -269,13 +812,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
           "name" : "site_code",
           "in" : "query",
@@ -325,13 +868,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteConnectionId"
+          "$ref" : "#/components/parameters/SiteConnectionId"
         } ]
       },
       "x-method" : "post",
@@ -389,13 +932,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
           "name" : "level",
           "in" : "query",
@@ -435,15 +978,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Capabilities"
+          "$ref" : "#/components/parameters/Capabilities"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -520,11 +1063,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "put",
@@ -544,13 +1087,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteConnectionId"
+          "$ref" : "#/components/parameters/SiteConnectionId"
         } ]
       },
       "x-method" : "post",
@@ -570,11 +1113,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "post",
@@ -594,11 +1137,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "delete",
@@ -618,13 +1161,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkAttachmentId"
+          "$ref" : "#/components/parameters/CentralNetworkAttachmentId"
         } ]
       },
       "x-method" : "delete",
@@ -644,33 +1187,33 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkConnectionStates"
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/GlobalConnectionBandwidthIds"
+          "$ref" : "#/components/parameters/GlobalConnectionBandwidthIds"
         }, {
-          "$ref" : "#/components/components/parameters/BandwidthTypeInQuery"
+          "$ref" : "#/components/parameters/BandwidthTypeInQuery"
         }, {
-          "$ref" : "#/components/components/parameters/ConnectionTypeInQuery"
+          "$ref" : "#/components/parameters/ConnectionTypeInQuery"
         }, {
-          "$ref" : "#/components/components/parameters/IsCrossRegion"
+          "$ref" : "#/components/parameters/IsCrossRegion"
         } ]
       },
       "x-method" : "get",
@@ -690,9 +1233,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "get",
@@ -712,9 +1255,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -772,9 +1315,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "get",
@@ -794,11 +1337,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "get",
@@ -818,13 +1361,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkErRouteTableAttachmentId"
+          "$ref" : "#/components/parameters/CentralNetworkErRouteTableAttachmentId"
         } ]
       },
       "x-method" : "put",
@@ -844,15 +1387,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
           "name" : "local_area",
           "in" : "query",
@@ -901,9 +1444,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -970,29 +1513,29 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/AttachmentInstanceTypes"
+          "$ref" : "#/components/parameters/AttachmentInstanceTypes"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkConnectionStates"
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/AttachmentInstanceIds"
+          "$ref" : "#/components/parameters/AttachmentInstanceIds"
         } ]
       },
       "x-method" : "get",
@@ -1012,11 +1555,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "delete",
@@ -1036,11 +1579,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "put",
@@ -1060,15 +1603,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
           "name" : "local_area",
           "in" : "query",
@@ -1122,11 +1665,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "get",
@@ -1146,11 +1689,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "post",
@@ -1170,11 +1713,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "get",
@@ -1195,13 +1738,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyId"
+          "$ref" : "#/components/parameters/PolicyId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "delete",
@@ -1221,13 +1764,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkGdgwAttachmentId"
+          "$ref" : "#/components/parameters/CentralNetworkGdgwAttachmentId"
         } ]
       },
       "x-method" : "put",
@@ -1247,11 +1790,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "post",
@@ -1271,15 +1814,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkQuotas"
+          "$ref" : "#/components/parameters/CentralNetworkQuotas"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -1299,9 +1842,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -1321,11 +1864,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         } ]
       },
       "x-method" : "get",
@@ -1345,9 +1888,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
           "name" : "local_region_id",
           "in" : "query",
@@ -1387,9 +1930,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -1457,11 +2000,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "post",
@@ -1481,13 +2024,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/PolicyId"
+          "$ref" : "#/components/parameters/PolicyId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "get",
@@ -1507,11 +2050,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "get",
@@ -1588,27 +2131,27 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkPolicyStates"
+          "$ref" : "#/components/parameters/CentralNetworkPolicyStates"
         }, {
-          "$ref" : "#/components/components/parameters/Versions"
+          "$ref" : "#/components/parameters/Versions"
         }, {
-          "$ref" : "#/components/components/parameters/IsApplied"
+          "$ref" : "#/components/parameters/IsApplied"
         } ]
       },
       "x-method" : "get",
@@ -1628,21 +2171,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id32s"
+          "$ref" : "#/components/parameters/Id32s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/Descriptions"
+          "$ref" : "#/components/parameters/Descriptions"
         }, {
-          "$ref" : "#/components/components/parameters/CloudConnectionIds"
+          "$ref" : "#/components/parameters/CloudConnectionIds"
         }, {
           "name" : "instance_id",
           "in" : "query",
@@ -1760,11 +2303,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "post",
@@ -1784,13 +2327,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
           "name" : "level",
           "in" : "query",
@@ -1830,13 +2373,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteConnectionId"
+          "$ref" : "#/components/parameters/SiteConnectionId"
         } ]
       },
       "x-method" : "post",
@@ -1912,19 +2455,19 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
           "name" : "instance_id",
           "in" : "query",
@@ -2094,15 +2637,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
           "name" : "local_area",
           "in" : "query",
@@ -2156,11 +2699,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "put",
@@ -2180,11 +2723,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "get",
@@ -2204,13 +2747,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkConnectionId"
+          "$ref" : "#/components/parameters/CentralNetworkConnectionId"
         } ]
       },
       "x-method" : "put",
@@ -2230,11 +2773,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "post",
@@ -2254,27 +2797,27 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkConnectionStates"
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/AttachmentInstanceIds"
+          "$ref" : "#/components/parameters/AttachmentInstanceIds"
         } ]
       },
       "x-method" : "get",
@@ -2294,15 +2837,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkQuotas"
+          "$ref" : "#/components/parameters/SiteNetworkQuotas"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -2322,33 +2865,33 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkStates"
+          "$ref" : "#/components/parameters/CentralNetworkStates"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseRouterIds"
+          "$ref" : "#/components/parameters/EnterpriseRouterIds"
         }, {
-          "$ref" : "#/components/components/parameters/AttachmentInstanceIds"
+          "$ref" : "#/components/parameters/AttachmentInstanceIds"
         }, {
-          "$ref" : "#/components/components/parameters/GlobalConnectionBandwidthIds"
+          "$ref" : "#/components/parameters/GlobalConnectionBandwidthIds"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkConnectionIds"
+          "$ref" : "#/components/parameters/CentralNetworkConnectionIds"
         } ]
       },
       "x-method" : "get",
@@ -2368,9 +2911,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
           "name" : "local_area_id",
           "in" : "query",
@@ -2416,9 +2959,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -2438,9 +2981,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "get",
@@ -2460,21 +3003,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id32s"
+          "$ref" : "#/components/parameters/Id32s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/Descriptions"
+          "$ref" : "#/components/parameters/Descriptions"
         }, {
-          "$ref" : "#/components/components/parameters/CloudConnectionIds"
+          "$ref" : "#/components/parameters/CloudConnectionIds"
         }, {
           "name" : "status",
           "in" : "query",
@@ -2548,11 +3091,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "delete",
@@ -2572,11 +3115,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "delete",
@@ -2596,9 +3139,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -2618,21 +3161,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id32s"
+          "$ref" : "#/components/parameters/Id32s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
-          "$ref" : "#/components/components/parameters/CloudConnectionIds"
+          "$ref" : "#/components/parameters/CloudConnectionIds"
         }, {
           "name" : "status",
           "in" : "query",
@@ -2693,15 +3236,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkSpecifications"
+          "$ref" : "#/components/parameters/SiteNetworkSpecifications"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -2771,11 +3314,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "post",
@@ -2795,9 +3338,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "get",
@@ -2817,9 +3360,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -2840,11 +3383,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -2864,9 +3407,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -2886,11 +3429,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         } ]
       },
       "x-method" : "put",
@@ -2910,11 +3453,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "put",
@@ -2935,11 +3478,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "post",
@@ -2959,11 +3502,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "delete",
@@ -2983,9 +3526,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -3005,21 +3548,21 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id32s"
+          "$ref" : "#/components/parameters/Id32s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/Descriptions"
+          "$ref" : "#/components/parameters/Descriptions"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
           "name" : "status",
           "in" : "query",
@@ -3080,11 +3623,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         } ]
       },
       "x-method" : "get",
@@ -3104,15 +3647,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/CloudConnectionIds"
+          "$ref" : "#/components/parameters/CloudConnectionIds"
         }, {
           "name" : "instance_id",
           "in" : "query",
@@ -3165,15 +3708,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
           "name" : "name_en",
           "in" : "query",
@@ -3232,11 +3775,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "put",
@@ -3294,11 +3837,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "get",
@@ -3318,27 +3861,27 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkConnectionStates"
+          "$ref" : "#/components/parameters/CentralNetworkConnectionStates"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/GlobalDcGatewayIds"
+          "$ref" : "#/components/parameters/GlobalDcGatewayIds"
         } ]
       },
       "x-method" : "get",
@@ -3358,11 +3901,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "put",
@@ -3383,11 +3926,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",
@@ -3407,9 +3950,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "get",
@@ -3486,11 +4029,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "delete",
@@ -3510,13 +4053,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkId"
+          "$ref" : "#/components/parameters/SiteNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/SiteConnectionId"
+          "$ref" : "#/components/parameters/SiteConnectionId"
         } ]
       },
       "x-method" : "post",
@@ -3536,13 +4079,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
           "name" : "quota_type",
           "in" : "query",
@@ -3593,9 +4136,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
           "name" : "resource_type",
           "in" : "query",
@@ -3625,31 +4168,31 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/SortKey"
+          "$ref" : "#/components/parameters/SortKey"
         }, {
-          "$ref" : "#/components/components/parameters/SortDir"
+          "$ref" : "#/components/parameters/SortDir"
         }, {
-          "$ref" : "#/components/components/parameters/Id64s"
+          "$ref" : "#/components/parameters/Id64s"
         }, {
-          "$ref" : "#/components/components/parameters/Names"
+          "$ref" : "#/components/parameters/Names"
         }, {
-          "$ref" : "#/components/components/parameters/SiteNetworkStates"
+          "$ref" : "#/components/parameters/SiteNetworkStates"
         }, {
-          "$ref" : "#/components/components/parameters/EnterpriseProjectIds"
+          "$ref" : "#/components/parameters/EnterpriseProjectIds"
         }, {
-          "$ref" : "#/components/components/parameters/GlobalDcGatewayIds"
+          "$ref" : "#/components/parameters/GlobalDcGatewayIds"
         }, {
-          "$ref" : "#/components/components/parameters/GlobalConnectionBandwidthIds"
+          "$ref" : "#/components/parameters/GlobalConnectionBandwidthIds"
         }, {
-          "$ref" : "#/components/components/parameters/SiteConnectionIds"
+          "$ref" : "#/components/parameters/SiteConnectionIds"
         } ]
       },
       "x-method" : "get",
@@ -3669,9 +4212,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "get",
@@ -3691,13 +4234,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "post",
@@ -3718,11 +4261,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "post",
@@ -3742,11 +4285,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/Id"
+          "$ref" : "#/components/parameters/Id"
         } ]
       },
       "x-method" : "delete",
@@ -3766,13 +4309,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkId"
+          "$ref" : "#/components/parameters/CentralNetworkId"
         }, {
-          "$ref" : "#/components/components/parameters/CentralNetworkErRouteTableAttachmentId"
+          "$ref" : "#/components/parameters/CentralNetworkErRouteTableAttachmentId"
         } ]
       },
       "x-method" : "get",
@@ -3792,9 +4335,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/AuthToken"
+          "$ref" : "#/components/parameters/AuthToken"
         }, {
-          "$ref" : "#/components/components/parameters/DomainId"
+          "$ref" : "#/components/parameters/DomainId"
         } ]
       },
       "x-method" : "post",

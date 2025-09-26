@@ -3,14 +3,174 @@
   "info" : {
     "description" : "VPN-VpnConnection",
     "title" : "VPN",
-    "version" : "2025-06-13",
-    "x-host_prefix": "vpn"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "vpn",
+    "x-host" : "vpn.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
   } ],
   "components" : {
-    "parameters" : { },
+    "parameters" : {
+      "ProjectId" : {
+        "name" : "project_id",
+        "in" : "path",
+        "description" : "项目id",
+        "required" : true,
+        "schema" : {
+          "pattern" : "[a-fA-F0-9]{32}",
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "XAuthTokenInHeader" : {
+        "name" : "X-Auth-Token",
+        "in" : "header",
+        "description" : "header中的用户Token",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "VpnGatewayId" : {
+        "name" : "vgw_id",
+        "in" : "path",
+        "description" : "VPN网关实例ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "ContentType" : {
+        "name" : "Content-Type",
+        "in" : "header",
+        "description" : "内容类型",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "default" : "application/json"
+        },
+        "type" : "object"
+      },
+      "VpnServerId" : {
+        "name" : "vpn_server_id",
+        "in" : "path",
+        "description" : "VPN服务端 ID",
+        "required" : true,
+        "schema" : {
+          "pattern" : "[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}",
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "P2cVgwId" : {
+        "name" : "p2c_vgw_id",
+        "in" : "path",
+        "description" : "P2C VPN网关实例ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "ConnectionId" : {
+        "name" : "connection_id",
+        "in" : "path",
+        "description" : "连接ID",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+          "minLength" : 36,
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "Marker" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "上一页最后一条资源记录的创建时间,为空时为查询第一页。使用说明:必须与limit一起使用。",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "分页查询时每页返回的记录数量",
+        "required" : false,
+        "schema" : {
+          "maximum" : 200,
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : "object"
+      },
+      "Offset" : {
+        "name" : "offset",
+        "in" : "query",
+        "description" : "分页查询的偏移量",
+        "required" : false,
+        "schema" : {
+          "maximum" : 3000,
+          "minimum" : 0,
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : "object"
+      },
+      "IsIncludeNexthopResource" : {
+        "name" : "is_include_nexthop_resource",
+        "in" : "query",
+        "description" : "是否包含下一跳资源信息",
+        "required" : false,
+        "schema" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "type" : "object"
+      },
+      "XClientTokenInHeader" : {
+        "name" : "X-Client-Token",
+        "in" : "header",
+        "description" : "幂等性标识",
+        "required" : false,
+        "schema" : {
+          "maxLength" : 36,
+          "minLength" : 36,
+          "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+          "type" : "string"
+        },
+        "type" : "object"
+      },
+      "FilterEpsId" : {
+        "name" : "enterprise_project_id",
+        "in" : "query",
+        "description" : "企业项目id",
+        "required" : false,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "FilterVgwId" : {
+        "name" : "vgw_id",
+        "in" : "query",
+        "description" : "vgw ID",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "type" : "object"
+      }
+    },
     "schemas" : { },
     "securitySchemes" : { }
   },
@@ -51,7 +211,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_connection_id",
           "in" : "path",
@@ -61,7 +221,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -96,11 +256,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -135,11 +295,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ContentType"
+          "$ref" : "#/components/parameters/ContentType"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "resource_type",
           "in" : "path",
@@ -200,9 +360,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "policy_id",
           "in" : "path",
@@ -213,7 +373,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -255,13 +415,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/ConnectionId"
+          "$ref" : "#/components/parameters/ConnectionId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -308,7 +468,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_connection_id",
           "in" : "path",
@@ -318,7 +478,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -362,11 +522,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -401,9 +561,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "policy_id",
           "in" : "path",
@@ -414,7 +574,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -449,7 +609,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "customer_gateway_id",
           "in" : "path",
@@ -459,7 +619,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -503,7 +663,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_connection_id",
           "in" : "path",
@@ -513,7 +673,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -548,15 +708,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -591,11 +751,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ContentType"
+          "$ref" : "#/components/parameters/ContentType"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "resource_type",
           "in" : "path",
@@ -647,9 +807,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -684,15 +844,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -727,11 +887,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ContentType"
+          "$ref" : "#/components/parameters/ContentType"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "resource_type",
           "in" : "path",
@@ -800,9 +960,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "user_id",
           "in" : "path",
@@ -815,7 +975,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -849,17 +1009,17 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/Offset"
+          "$ref" : "#/components/parameters/Offset"
         }, {
-          "$ref" : "#/components/components/parameters/IsIncludeNexthopResource"
+          "$ref" : "#/components/parameters/IsIncludeNexthopResource"
         } ]
       },
       "x-method" : "get",
@@ -894,7 +1054,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "flavor",
           "in" : "query",
@@ -905,7 +1065,7 @@
             "enum" : [ "Professional1" ]
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -940,7 +1100,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "customer_gateway_id",
           "in" : "path",
@@ -950,7 +1110,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -994,9 +1154,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "group_id",
           "in" : "path",
@@ -1009,7 +1169,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1044,11 +1204,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         } ]
       },
       "x-method" : "get",
@@ -1090,11 +1250,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1138,13 +1298,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XClientTokenInHeader"
+          "$ref" : "#/components/parameters/XClientTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1188,13 +1348,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XClientTokenInHeader"
+          "$ref" : "#/components/parameters/XClientTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1229,15 +1389,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -1281,13 +1441,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XClientTokenInHeader"
+          "$ref" : "#/components/parameters/XClientTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1322,9 +1482,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1359,9 +1519,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -1405,9 +1565,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "client_ca_certificate_id",
           "in" : "path",
@@ -1418,7 +1578,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -1462,11 +1622,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -1501,7 +1661,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_connection_id",
           "in" : "query",
@@ -1511,9 +1671,9 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/FilterEpsId"
+          "$ref" : "#/components/parameters/FilterEpsId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -1557,11 +1717,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1596,15 +1756,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Offset"
+          "$ref" : "#/components/parameters/Offset"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -1639,9 +1799,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "group_id",
           "in" : "path",
@@ -1654,7 +1814,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -1698,9 +1858,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "group_id",
           "in" : "path",
@@ -1713,7 +1873,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -1748,7 +1908,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "connection_monitor_id",
           "in" : "path",
@@ -1758,7 +1918,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -1802,9 +1962,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -1848,11 +2008,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -1887,7 +2047,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "connection_monitor_id",
           "in" : "path",
@@ -1897,7 +2057,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -1941,9 +2101,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "group_id",
           "in" : "path",
@@ -1956,11 +2116,11 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2004,13 +2164,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XClientTokenInHeader"
+          "$ref" : "#/components/parameters/XClientTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2054,9 +2214,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "group_id",
           "in" : "path",
@@ -2069,7 +2229,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2111,11 +2271,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2159,9 +2319,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "policy_id",
           "in" : "path",
@@ -2172,7 +2332,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2216,9 +2376,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2262,9 +2422,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2308,9 +2468,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "group_id",
           "in" : "path",
@@ -2323,7 +2483,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2365,13 +2525,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XClientTokenInHeader"
+          "$ref" : "#/components/parameters/XClientTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2415,13 +2575,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XClientTokenInHeader"
+          "$ref" : "#/components/parameters/XClientTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2456,9 +2616,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "client_ca_certificate_id",
           "in" : "path",
@@ -2469,7 +2629,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -2504,13 +2664,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -2539,11 +2699,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         }, {
           "name" : "certificate_id",
           "in" : "path",
@@ -2595,9 +2755,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "user_id",
           "in" : "path",
@@ -2610,7 +2770,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -2645,13 +2805,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/FilterVgwId"
+          "$ref" : "#/components/parameters/FilterVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/FilterEpsId"
+          "$ref" : "#/components/parameters/FilterEpsId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2686,11 +2846,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2725,11 +2885,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -2773,9 +2933,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -2817,7 +2977,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_connection_id",
           "in" : "path",
@@ -2827,7 +2987,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -2862,7 +3022,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "customer_gateway_id",
           "in" : "path",
@@ -2872,7 +3032,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -2916,11 +3076,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -2949,11 +3109,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         } ]
       },
       "x-method" : "post",
@@ -2997,7 +3157,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_id",
           "in" : "query",
@@ -3023,15 +3183,15 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/FilterVgwId"
+          "$ref" : "#/components/parameters/FilterVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/FilterEpsId"
+          "$ref" : "#/components/parameters/FilterEpsId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -3066,9 +3226,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -3110,11 +3270,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/P2cVgwId"
+          "$ref" : "#/components/parameters/P2cVgwId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "put",
@@ -3158,9 +3318,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "user_id",
           "in" : "path",
@@ -3173,7 +3333,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -3217,9 +3377,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "client_ca_certificate_id",
           "in" : "path",
@@ -3230,7 +3390,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "get",
@@ -3265,11 +3425,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ContentType"
+          "$ref" : "#/components/parameters/ContentType"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "resource_type",
           "in" : "path",
@@ -3313,11 +3473,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnGatewayId"
+          "$ref" : "#/components/parameters/VpnGatewayId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -3352,11 +3512,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ContentType"
+          "$ref" : "#/components/parameters/ContentType"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "resource_type",
           "in" : "path",
@@ -3408,7 +3568,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "cgw_id",
           "in" : "query",
@@ -3418,11 +3578,11 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -3466,13 +3626,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ]
       },
       "x-method" : "get",
@@ -3507,9 +3667,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "user_id",
           "in" : "path",
@@ -3522,7 +3682,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -3557,7 +3717,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "vpn_connection_id",
           "in" : "path",
@@ -3567,7 +3727,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "delete",
@@ -3611,9 +3771,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
           "name" : "user_id",
           "in" : "path",
@@ -3626,7 +3786,7 @@
             "type" : "string"
           }
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",
@@ -3661,11 +3821,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ContentType"
+          "$ref" : "#/components/parameters/ContentType"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
           "name" : "resource_type",
           "in" : "path",
@@ -3716,11 +3876,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ProjectId"
+          "$ref" : "#/components/parameters/ProjectId"
         }, {
-          "$ref" : "#/components/components/parameters/VpnServerId"
+          "$ref" : "#/components/parameters/VpnServerId"
         }, {
-          "$ref" : "#/components/components/parameters/XAuthTokenInHeader"
+          "$ref" : "#/components/parameters/XAuthTokenInHeader"
         } ]
       },
       "x-method" : "post",

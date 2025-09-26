@@ -3,8 +3,9 @@
   "info" : {
     "description" : "SA-AlertRules",
     "title" : "SA",
-    "version" : "2025-06-13",
-    "x-host_prefix": "sa"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "sa",
+    "x-host" : "sa.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -10536,14 +10537,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "EnableAlertRuleRequestBody" : {
-                    "description" : "rule name list",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -10967,7 +10963,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -11103,7 +11099,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11676,7 +11672,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -11758,16 +11754,11 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "DeleteAlertRuleRequestBody" : {
-                    "description" : "DeleteAlertRuleRequestBody",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string",
-                      "minLength" : 0,
-                      "maxLength" : 64
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string",
+                  "minLength" : 0,
+                  "maxLength" : 64
                 }
               }
             }
@@ -11854,14 +11845,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "DisableAlertRuleRequestBody" : {
-                    "description" : null,
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -12083,7 +12069,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -12324,7 +12310,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -12552,7 +12538,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -12655,7 +12641,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -12769,7 +12755,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13111,7 +13097,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -14294,7 +14280,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -15527,7 +15513,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -15969,7 +15955,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -16609,7 +16595,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -16941,7 +16927,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -17056,7 +17042,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -17370,7 +17356,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -17484,7 +17470,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

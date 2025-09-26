@@ -3,8 +3,9 @@
   "info" : {
     "description" : "MSGSMS-短信签名API",
     "title" : "MSGSMS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "msgsms"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "msgsms",
+    "x-host" : "msgsms.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -2265,15 +2266,6 @@
         }, {
           "$ref" : "#/components/parameters/project_id"
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "营业执照文件",
-          "required" : true,
-          "schema" : {
-            "description" : "营业执照文件",
-            "type" : "file"
-          }
-        }, {
           "name" : "file_desc",
           "in" : "query",
           "description" : "描述",
@@ -2284,7 +2276,25 @@
             "maxLength" : 64,
             "minLength" : 1
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "营业执照文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

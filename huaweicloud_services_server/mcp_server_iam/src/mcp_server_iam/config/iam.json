@@ -3,8 +3,9 @@
   "info" : {
     "description" : "IAM-联邦身份认证管理",
     "title" : "IAM",
-    "version" : "2025-06-13",
-    "x-host_prefix": "iam"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "iam",
+    "x-host" : "iam.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -17106,17 +17107,24 @@
             "description" : "身份提供商ID。",
             "type" : "string"
           }
-        }, {
-          "name" : "SAMLResponse",
-          "in" : "formData",
-          "description" : "在IdP认证成功后返回的响应体。详情请参见:[获取联邦认证unscoped token(IdP initiated)](https://support.huaweicloud.com/api-iam/iam_02_0003.html)。",
-          "required" : true,
-          "schema" : {
-            "example" : "SAMLResponse=PD94bWwgdmVyc2lvbj0iMS4wIiBl4WXZ1OGNmYmRzWk1ZeWlLKy96anpEbm1rT2FrVVBrUmlSWEpLYUt5NzJtUmtoRFBCNjgwVQpzalU3R2hKNHE4ZG48L3hlbmM6Q2lwaGVyVmFsdWU%2BPC94ZW5jOkNpcGhlckRhdGE%2BPC94ZW5jOkVuY3J5cHRlZERhdGE%2BPC9zYW1sMjpFbmNyeXB0ZWRBc3NlcnRpb24%2BPC9zYW1sMnA6UmVzcG9uc2U%2B",
-            "description" : "在IdP认证成功后返回的响应体。详情请参见:[获取联邦认证unscoped token(IdP initiated)](https://support.huaweicloud.com/api-iam/iam_02_0003.html)。",
-            "type" : "string"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "SAMLResponse" : {
+                    "description" : "在IdP认证成功后返回的响应体。详情请参见:[获取联邦认证unscoped token(IdP initiated)](https://support.huaweicloud.com/api-iam/iam_02_0003.html)。",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "SAMLResponse" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -17827,7 +17835,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",

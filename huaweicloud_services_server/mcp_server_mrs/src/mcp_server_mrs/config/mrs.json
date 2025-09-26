@@ -3,8 +3,9 @@
   "info" : {
     "description" : "MRS-弹性伸缩接口",
     "title" : "MRS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "mrs"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "mrs",
+    "x-host" : "mrs.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -4756,7 +4757,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -5007,7 +5008,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -5601,7 +5602,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -5758,7 +5759,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -6616,7 +6617,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -7416,7 +7417,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

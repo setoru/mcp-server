@@ -3,8 +3,9 @@
   "info" : {
     "description" : "SDRS-容灾演练",
     "title" : "SDRS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "sdrs"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "sdrs",
+    "x-host" : "sdrs.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

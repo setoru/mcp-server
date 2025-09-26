@@ -3,8 +3,9 @@
   "info" : {
     "description" : "SFSTurbo-文件系统管理",
     "title" : "SFSTurbo",
-    "version" : "2025-06-13",
-    "x-host_prefix": "sfs-turbo"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "sfs-turbo",
+    "x-host" : "sfs-turbo.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -2342,7 +2343,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

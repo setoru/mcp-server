@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CBH-操作管理",
     "title" : "CBH",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cbh"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cbh",
+    "x-host" : "cbh.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

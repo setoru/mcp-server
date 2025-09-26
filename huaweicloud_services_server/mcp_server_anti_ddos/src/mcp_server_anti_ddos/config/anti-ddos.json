@@ -3,8 +3,9 @@
   "info" : {
     "description" : "Anti-DDoS-DDoS防护管理",
     "title" : "Anti-DDoS",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "antiddos"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "antiddos",
+    "x-host" : "antiddos.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

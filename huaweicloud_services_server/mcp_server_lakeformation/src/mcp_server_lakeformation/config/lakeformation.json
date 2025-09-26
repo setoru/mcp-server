@@ -3,8 +3,9 @@
   "info" : {
     "description" : "LakeFormation-数据库管理",
     "title" : "LakeFormation",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "lakeformation"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "lakeformation",
+    "x-host" : "lakeformation.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -4433,16 +4434,11 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "properties" : {
-                  "UpdatePrincipalsRequestBody" : {
-                    "description" : "主体列表。最小元素数为1,最大元素数为100。",
-                    "items" : {
-                      "$ref" : "#/components/schemas/Principal"
-                    },
-                    "type" : "array",
-                    "maxItems" : 100
-                  }
-                }
+                "items" : {
+                  "$ref" : "#/components/schemas/Principal"
+                },
+                "type" : "array",
+                "maxItems" : 100
               }
             }
           },
@@ -6217,16 +6213,11 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "properties" : {
-                  "UpdateRolesRequestBody" : {
-                    "description" : "角色列表",
-                    "items" : {
-                      "$ref" : "#/components/schemas/RoleInfoInput"
-                    },
-                    "type" : "array",
-                    "maxItems" : 100
-                  }
-                }
+                "items" : {
+                  "$ref" : "#/components/schemas/RoleInfoInput"
+                },
+                "type" : "array",
+                "maxItems" : 100
               }
             }
           },
@@ -6342,17 +6333,12 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "properties" : {
-                  "AssociateRolesRequestBody" : {
-                    "description" : "角色列表",
-                    "items" : {
-                      "$ref" : "#/components/schemas/RoleInfoInput"
-                    },
-                    "type" : "array",
-                    "maxItems" : 100,
-                    "minItems" : 1
-                  }
-                }
+                "items" : {
+                  "$ref" : "#/components/schemas/RoleInfoInput"
+                },
+                "type" : "array",
+                "maxItems" : 100,
+                "minItems" : 1
               }
             }
           },
@@ -8445,17 +8431,12 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "properties" : {
-                  "AssociatePrincipalsRequestBody" : {
-                    "description" : "主体列表。最小元素数为1,最大元素数为100。",
-                    "items" : {
-                      "$ref" : "#/components/schemas/Principal"
-                    },
-                    "type" : "array",
-                    "maxItems" : 100,
-                    "minItems" : 1
-                  }
-                }
+                "items" : {
+                  "$ref" : "#/components/schemas/Principal"
+                },
+                "type" : "array",
+                "maxItems" : 100,
+                "minItems" : 1
               }
             }
           },
@@ -11244,7 +11225,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -11596,17 +11577,12 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "properties" : {
-                  "RevokeRolesRequestBody" : {
-                    "description" : "角色列表",
-                    "items" : {
-                      "$ref" : "#/components/schemas/RoleInfoInput"
-                    },
-                    "type" : "array",
-                    "maxItems" : 100,
-                    "minItems" : 1
-                  }
-                }
+                "items" : {
+                  "$ref" : "#/components/schemas/RoleInfoInput"
+                },
+                "type" : "array",
+                "maxItems" : 100,
+                "minItems" : 1
               }
             }
           },
@@ -14745,17 +14721,12 @@
           "content" : {
             "application/json;charset=UTF-8" : {
               "schema" : {
-                "properties" : {
-                  "RevokePrincipalsRequestBody" : {
-                    "description" : "主体列表。最小元素数为1,最大元素数为100。",
-                    "items" : {
-                      "$ref" : "#/components/schemas/Principal"
-                    },
-                    "type" : "array",
-                    "maxItems" : 100,
-                    "minItems" : 1
-                  }
-                }
+                "items" : {
+                  "$ref" : "#/components/schemas/Principal"
+                },
+                "type" : "array",
+                "maxItems" : 100,
+                "minItems" : 1
               }
             }
           },

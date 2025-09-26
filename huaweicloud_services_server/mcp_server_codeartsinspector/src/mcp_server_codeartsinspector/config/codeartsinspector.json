@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CodeArtsInspector-主机组管理",
     "title" : "CodeArtsInspector",
-    "version" : "2025-06-13",
-    "x-host_prefix": "vss"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "vss",
+    "x-host" : "vss.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

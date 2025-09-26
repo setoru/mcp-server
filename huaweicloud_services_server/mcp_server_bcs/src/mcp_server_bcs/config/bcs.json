@@ -3,8 +3,9 @@
   "info" : {
     "description" : "BCS-BCS管理",
     "title" : "BCS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "bcs"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "bcs",
+    "x-host" : "bcs.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -2806,7 +2807,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -3144,16 +3145,24 @@
             "description" : "orgName",
             "type" : "string"
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "生成证书的zip文件(每次只允许上传一个证书文件,文件大小不大于30K,后缀名为.zip文件)",
-          "required" : false,
-          "schema" : {
-            "description" : "生成证书的zip文件(每次只允许上传一个证书文件,文件大小不大于30K,后缀名为.zip文件)",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "生成证书的zip文件(每次只允许上传一个证书文件,文件大小不大于30K,后缀名为.zip文件)",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -4989,16 +4998,24 @@
             "description" : "orgName",
             "type" : "string"
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "生成证书的zip文件(每次只允许上传一个证书文件,文件大小不大于30K,后缀名为.zip文件)",
-          "required" : false,
-          "schema" : {
-            "description" : "生成证书的zip文件(每次只允许上传一个证书文件,文件大小不大于30K,后缀名为.zip文件)",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "生成证书的zip文件(每次只允许上传一个证书文件,文件大小不大于30K,后缀名为.zip文件)",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CAE-组件",
     "title" : "CAE",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cae"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cae",
+    "x-host" : "cae.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
