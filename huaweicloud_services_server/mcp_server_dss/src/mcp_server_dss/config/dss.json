@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DSS-DSS管理",
     "title" : "DSS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "dss"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dss",
+    "x-host" : "dss.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

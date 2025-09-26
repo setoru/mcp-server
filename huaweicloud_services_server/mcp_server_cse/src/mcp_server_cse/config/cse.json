@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CSE-gateway",
     "title" : "CSE",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cse"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cse",
+    "x-host" : "cse.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -1999,16 +2000,25 @@
             "description" : "指定label导入,格式为:{标签key}:{标签value},如果不填则按body的label导入",
             "type" : "string"
           }
-        }, {
-          "name" : "upload_file",
-          "in" : "formData",
-          "description" : "导入文件内容的格式必须为键值对映射,例如:{\"data\":[{\"key1\":\"value1\",\"key2\":\"value2\"}]}}",
-          "required" : true,
-          "schema" : {
-            "description" : "导入文件内容的格式必须为键值对映射,例如:{\"data\":[{\"key1\":\"value1\",\"key2\":\"value2\"}]}}",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "upload_file" : {
+                    "description" : "导入文件内容的格式必须为键值对映射,例如:{\"data\":[{\"key1\":\"value1\",\"key2\":\"value2\"}]}}",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "upload_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -3996,7 +4006,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",

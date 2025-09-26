@@ -3,8 +3,9 @@
   "info" : {
     "description" : "FRS-静默活体检测",
     "title" : "FRS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "face"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "face",
+    "x-host" : "face.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -981,16 +982,25 @@
             "description" : "企业项目ID。FRS支持通过企业项目管理(EPS)对不同用户组和用户的资源使用,进行分账。当前仅支持按需计费模式。",
             "type" : "string"
           }
-        }, {
-          "name" : "image_file",
-          "in" : "formData",
-          "description" : "本地图片文件。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地图片文件。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "image_file" : {
+                    "description" : "本地图片文件。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "image_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -1061,42 +1071,38 @@
             "description" : "企业项目ID。FRS支持通过企业项目管理(EPS)对不同用户组和用户的资源使用,进行分账。当前仅支持按需计费模式。",
             "type" : "string"
           }
-        }, {
-          "name" : "video_file",
-          "in" : "formData",
-          "description" : "本地视频文件。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地视频文件。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "actions",
-          "in" : "formData",
-          "description" : "动作代码顺序列表,英文逗号(,)分隔。建议单动作,目前支持的动作有:",
-          "required" : true,
-          "schema" : {
-            "description" : "动作代码顺序列表,英文逗号(,)分隔。建议单动作,目前支持的动作有:",
-            "type" : "string"
-          }
-        }, {
-          "name" : "action_time",
-          "in" : "formData",
-          "description" : "该参数为动作时间数组拼接的字符串,数组的长度和actions的数量一致,每一项代表了对应次序动作的起始时间和结束时间,单位为距视频开始的毫秒数。",
-          "schema" : {
-            "description" : "该参数为动作时间数组拼接的字符串,数组的长度和actions的数量一致,每一项代表了对应次序动作的起始时间和结束时间,单位为距视频开始的毫秒数。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "nod_threshold",
-          "in" : "formData",
-          "description" : "该参数为点头动作幅度的判断门限,取值范围:[1,90],默认为10,单位为度。该值设置越大,则越难判断为点头。",
-          "schema" : {
-            "description" : "该参数为点头动作幅度的判断门限,取值范围:[1,90],默认为10,单位为度。该值设置越大,则越难判断为点头。",
-            "type" : "number",
-            "format" : "double"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "video_file" : {
+                    "description" : "本地视频文件。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "actions" : {
+                    "description" : "动作代码顺序列表,英文逗号(,)分隔。建议单动作,目前支持的动作有:",
+                    "type" : "string"
+                  },
+                  "action_time" : {
+                    "description" : "该参数为动作时间数组拼接的字符串,数组的长度和actions的数量一致,每一项代表了对应次序动作的起始时间和结束时间,单位为距视频开始的毫秒数。",
+                    "type" : "string"
+                  },
+                  "nod_threshold" : {
+                    "description" : "该参数为点头动作幅度的判断门限,取值范围:[1,90],默认为10,单位为度。该值设置越大,则越难判断为点头。",
+                    "type" : "number",
+                    "format" : "double"
+                  }
+                },
+                "required" : [ "video_file", "actions" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -1348,25 +1354,30 @@
             "description" : "企业项目ID。FRS支持通过企业项目管理(EPS)对不同用户组和用户的资源使用,进行分账。当前仅支持按需计费模式。",
             "type" : "string"
           }
-        }, {
-          "name" : "image1_file",
-          "in" : "formData",
-          "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "image2_file",
-          "in" : "formData",
-          "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "image1_file" : {
+                    "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "image2_file" : {
+                    "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "image1_file", "image2_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -1437,24 +1448,29 @@
             "description" : "企业项目ID。FRS支持通过企业项目管理(EPS)对不同用户组和用户的资源使用,进行分账。当前仅支持按需计费模式。",
             "type" : "string"
           }
-        }, {
-          "name" : "image_file",
-          "in" : "formData",
-          "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "attributes",
-          "in" : "formData",
-          "description" : "是否返回人脸属性,希望获取的属性列表,多个属性间使用逗号(,)隔开。目前支持的属性有:",
-          "schema" : {
-            "description" : "是否返回人脸属性,希望获取的属性列表,多个属性间使用逗号(,)隔开。目前支持的属性有:",
-            "type" : "string"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "image_file" : {
+                    "description" : "本地图片文件,图片不能超过8MB。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "attributes" : {
+                    "description" : "是否返回人脸属性,希望获取的属性列表,多个属性间使用逗号(,)隔开。目前支持的属性有:",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "image_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -2018,40 +2034,37 @@
             "description" : "人脸库名称。",
             "type" : "string"
           }
-        }, {
-          "name" : "image_file",
-          "in" : "formData",
-          "description" : "本地图片文件,图片不能超过8MB,建议小于1MB。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地图片文件,图片不能超过8MB,建议小于1MB。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "external_image_id",
-          "in" : "formData",
-          "description" : "用户指定的图片外部ID,与当前图像绑定。用户没提供,系统会生成一个。",
-          "schema" : {
-            "description" : "用户指定的图片外部ID,与当前图像绑定。用户没提供,系统会生成一个。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "external_fields",
-          "in" : "formData",
-          "description" : "根据用户自定义数据类型,填入相应的数值。创建faceset时定义该字段,Json字符串不校验重复性,参考[自定义字段](https://support.huaweicloud.com/api-face/face_02_0012.html)。",
-          "schema" : {
-            "description" : "根据用户自定义数据类型,填入相应的数值。创建faceset时定义该字段,Json字符串不校验重复性,参考[自定义字段](https://support.huaweicloud.com/api-face/face_02_0012.html)。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "single",
-          "in" : "formData",
-          "description" : "是否将图片中的最大人脸添加至人脸库。可选值包括:",
-          "schema" : {
-            "description" : "是否将图片中的最大人脸添加至人脸库。可选值包括:",
-            "type" : "boolean"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "image_file" : {
+                    "description" : "本地图片文件,图片不能超过8MB,建议小于1MB。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "external_image_id" : {
+                    "description" : "用户指定的图片外部ID,与当前图像绑定。用户没提供,系统会生成一个。",
+                    "type" : "string"
+                  },
+                  "external_fields" : {
+                    "description" : "根据用户自定义数据类型,填入相应的数值。创建faceset时定义该字段,Json字符串不校验重复性,参考[自定义字段](https://support.huaweicloud.com/api-face/face_02_0012.html)。",
+                    "type" : "string"
+                  },
+                  "single" : {
+                    "description" : "是否将图片中的最大人脸添加至人脸库。可选值包括:",
+                    "type" : "boolean"
+                  }
+                },
+                "required" : [ "image_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -3429,60 +3442,47 @@
             "description" : "企业项目ID。FRS支持通过企业项目管理(EPS)对不同用户组和用户的资源使用,进行分账。当前仅支持按需计费模式。",
             "type" : "string"
           }
-        }, {
-          "name" : "image_file",
-          "in" : "formData",
-          "description" : "本地图片文件,图片不能超过8MB,建议小于1MB。上传文件时,请求格式为multipart。",
-          "required" : true,
-          "schema" : {
-            "description" : "本地图片文件,图片不能超过8MB,建议小于1MB。上传文件时,请求格式为multipart。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "top_n",
-          "in" : "formData",
-          "description" : "返回查询到的最相似的N张人脸,N默认为10。",
-          "schema" : {
-            "description" : "返回查询到的最相似的N张人脸,N默认为10。",
-            "type" : "integer",
-            "format" : "int32",
-            "default" : 10
-          }
-        }, {
-          "name" : "threshold",
-          "in" : "formData",
-          "description" : "人脸相似度阈值,低于这个阈值则不返回,取值范围0~1,一般情况下建议取值0.93,默认为0。",
-          "schema" : {
-            "description" : "人脸相似度阈值,低于这个阈值则不返回,取值范围0~1,一般情况下建议取值0.93,默认为0。",
-            "type" : "number",
-            "format" : "double",
-            "default" : 0
-          }
-        }, {
-          "name" : "sort",
-          "in" : "formData",
-          "description" : "支持字段排序,参考[sort语法](https://support.huaweicloud.com/api-face/face_02_0013.html)。",
-          "schema" : {
-            "description" : "支持字段排序,参考[sort语法](https://support.huaweicloud.com/api-face/face_02_0013.html)。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "filter",
-          "in" : "formData",
-          "description" : "过滤条件,参考[filter语法](https://support.huaweicloud.com/api-face/face_02_0014.html)。",
-          "schema" : {
-            "description" : "过滤条件,参考[filter语法](https://support.huaweicloud.com/api-face/face_02_0014.html)。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "return_fields",
-          "in" : "formData",
-          "description" : "指定返回的自定义字段。",
-          "schema" : {
-            "description" : "指定返回的自定义字段。",
-            "type" : "string"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "image_file" : {
+                    "description" : "本地图片文件,图片不能超过8MB,建议小于1MB。上传文件时,请求格式为multipart。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "top_n" : {
+                    "description" : "返回查询到的最相似的N张人脸,N默认为10。",
+                    "type" : "integer",
+                    "format" : "int32"
+                  },
+                  "threshold" : {
+                    "description" : "人脸相似度阈值,低于这个阈值则不返回,取值范围0~1,一般情况下建议取值0.93,默认为0。",
+                    "type" : "number",
+                    "format" : "double"
+                  },
+                  "sort" : {
+                    "description" : "支持字段排序,参考[sort语法](https://support.huaweicloud.com/api-face/face_02_0013.html)。",
+                    "type" : "string"
+                  },
+                  "filter" : {
+                    "description" : "过滤条件,参考[filter语法](https://support.huaweicloud.com/api-face/face_02_0014.html)。",
+                    "type" : "string"
+                  },
+                  "return_fields" : {
+                    "description" : "指定返回的自定义字段。",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "image_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

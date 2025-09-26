@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CloudTable-CloudTable集群管理接口",
     "title" : "CloudTable",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "cloudtable"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cloudtable",
+    "x-host" : "cloudtable.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

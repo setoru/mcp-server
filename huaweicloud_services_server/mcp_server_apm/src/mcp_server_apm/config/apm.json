@@ -3,8 +3,9 @@
   "info" : {
     "description" : "APM-REGION",
     "title" : "APM",
-    "version" : "2025-06-13",
-    "x-host_prefix": "apm2"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "apm2",
+    "x-host" : "apm2.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -4019,7 +4020,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -4619,7 +4620,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -4787,7 +4788,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -6443,7 +6444,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -6769,7 +6770,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

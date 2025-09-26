@@ -3,14 +3,183 @@
   "info" : {
     "description" : "RAM-绑定的资源使用者和共享资源",
     "title" : "RAM",
-    "version" : "2025-06-13",
-    "x-host_prefix": "ram"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "ram",
+    "x-host" : "ram.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
   } ],
   "components" : {
-    "parameters" : { },
+    "parameters" : {
+      "ResourceShareId" : {
+        "name" : "resource_share_id",
+        "in" : "path",
+        "description" : "资源共享实例的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\w-]+$",
+          "minLength" : 0,
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "SecurityTokenHeader" : {
+        "name" : "X-Security-Token",
+        "in" : "header",
+        "description" : "如果正在使用临时安全凭据,则此header是必需的,该值是临时安全凭据的安全令牌(会话令牌)。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "readOnly" : true
+        },
+        "type" : "object"
+      },
+      "ResourceShareInvitationId" : {
+        "name" : "resource_share_invitation_id",
+        "in" : "path",
+        "description" : "资源共享邀请的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\w-]+$",
+          "minLength" : 0,
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "分页页面的最大值。",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 1,
+          "maximum" : 2000,
+          "default" : 50
+        },
+        "type" : "object"
+      },
+      "MarkerByKey" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "页面标记。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^((?!\\s)(?!_sys_)[\\p{L}\\p{Z}\\p{N}_.:=+\\-@]*)(?<!\\s)$",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "Marker" : {
+        "name" : "marker",
+        "in" : "query",
+        "description" : "页面标记。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^\\d{1,}$",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "PermissionId" : {
+        "name" : "permission_id",
+        "in" : "path",
+        "description" : "共享资源权限的ID。",
+        "required" : true,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "^[\\w-]+$",
+          "minLength" : 0,
+          "maxLength" : 36
+        },
+        "type" : "object"
+      },
+      "ResourceType" : {
+        "name" : "resource_type",
+        "in" : "query",
+        "description" : "资源类型的名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "PermissionType" : {
+        "name" : "permission_type",
+        "in" : "query",
+        "description" : "权限类型。RAM_MANAGED表示RAM托管的权限,CUSTOMER_MANAGED表示租户创建的自定义的权限,ALL表示所有的权限。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "default" : "ALL",
+          "enum" : [ "RAM_MANAGED", "CUSTOMER_MANAGED", "ALL" ],
+          "minLength" : 0,
+          "maxLength" : 64
+        },
+        "type" : "object"
+      },
+      "PermissionName" : {
+        "name" : "permission_name",
+        "in" : "query",
+        "description" : "共享资源权限的名称。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "minLength" : 1,
+          "maxLength" : 64,
+          "description" : "Specifies the name of the resource share."
+        },
+        "type" : "object"
+      },
+      "TagLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "分页页面的最大值。",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 1,
+          "maximum" : 1000,
+          "default" : 1000
+        },
+        "type" : "object"
+      },
+      "Offset" : {
+        "name" : "offset",
+        "in" : "query",
+        "description" : "分页标记。",
+        "required" : false,
+        "schema" : {
+          "type" : "string",
+          "pattern" : "[0-9]+"
+        },
+        "type" : "object"
+      },
+      "PermissionVersion" : {
+        "name" : "permission_version",
+        "in" : "query",
+        "description" : "资源权限版本。",
+        "required" : false,
+        "schema" : {
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0,
+          "maximum" : 1000000
+        },
+        "type" : "object"
+      }
+    },
     "schemas" : { },
     "securitySchemes" : { }
   },
@@ -27,9 +196,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -52,9 +221,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         }, {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -77,9 +246,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -102,9 +271,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareInvitationId"
+          "$ref" : "#/components/parameters/ResourceShareInvitationId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -127,7 +296,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -150,9 +319,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -175,7 +344,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -198,7 +367,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -221,9 +390,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         }, {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -246,7 +415,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -269,7 +438,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -292,11 +461,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/MarkerByKey"
+          "$ref" : "#/components/parameters/MarkerByKey"
         }, {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -319,13 +488,13 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/PermissionId"
+          "$ref" : "#/components/parameters/PermissionId"
         } ]
       },
       "x-method" : "get",
@@ -345,7 +514,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -368,7 +537,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -391,7 +560,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -414,9 +583,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -439,11 +608,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -466,7 +635,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -489,15 +658,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceType"
+          "$ref" : "#/components/parameters/ResourceType"
         }, {
-          "$ref" : "#/components/components/parameters/PermissionType"
+          "$ref" : "#/components/parameters/PermissionType"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -520,15 +689,15 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         }, {
-          "$ref" : "#/components/components/parameters/PermissionName"
+          "$ref" : "#/components/parameters/PermissionName"
         }, {
-          "$ref" : "#/components/components/parameters/Limit"
+          "$ref" : "#/components/parameters/Limit"
         }, {
-          "$ref" : "#/components/components/parameters/Marker"
+          "$ref" : "#/components/parameters/Marker"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -551,11 +720,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/TagLimit"
+          "$ref" : "#/components/parameters/TagLimit"
         }, {
-          "$ref" : "#/components/components/parameters/Offset"
+          "$ref" : "#/components/parameters/Offset"
         }, {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -578,9 +747,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -603,7 +772,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -626,11 +795,11 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/PermissionId"
+          "$ref" : "#/components/parameters/PermissionId"
         }, {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/PermissionVersion"
+          "$ref" : "#/components/parameters/PermissionVersion"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -653,9 +822,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareInvitationId"
+          "$ref" : "#/components/parameters/ResourceShareInvitationId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -678,9 +847,9 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         }, {
-          "$ref" : "#/components/components/parameters/ResourceShareId"
+          "$ref" : "#/components/parameters/ResourceShareId"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]
@@ -703,7 +872,7 @@
           }
         },
         "parameters" : [ {
-          "$ref" : "#/components/components/parameters/SecurityTokenHeader"
+          "$ref" : "#/components/parameters/SecurityTokenHeader"
         } ],
         "security" : [ {
           "AccessKeyAuth" : [ ]

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "GaussDB-实例管理",
     "title" : "GaussDB",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "gaussdb"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "gaussdb",
+    "x-host" : "gaussdb.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -12362,7 +12363,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -14050,7 +14051,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -14340,7 +14341,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -14593,7 +14594,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -19648,7 +19649,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -28751,7 +28752,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -30319,7 +30320,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",

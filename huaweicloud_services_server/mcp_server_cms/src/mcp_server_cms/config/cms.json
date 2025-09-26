@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CMS-规格推荐管理",
     "title" : "CMS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cms"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cms",
+    "x-host" : "cms.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -842,7 +843,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -1104,7 +1105,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -1279,7 +1280,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",

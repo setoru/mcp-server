@@ -159,8 +159,15 @@ class CustomClient(Client):
         return response
 
 
-def create_api_client(ak, sk, product_short, region="cn-north-4"):
-    endpoint = f"https://{product_short}.{region}.myhuaweicloud.com"
+def create_api_client(ak, sk, x_host, region="cn-north-4"):
+    endpoint = x_host
+
+    if x_host.find("com") != -1:
+        endpoint = f"https://{x_host}"
+
+    if endpoint.find("{region}") != -1:
+        endpoint = endpoint.replace("{region}", region)
+
     credentials = BasicCredentials(ak, sk)
 
     return (

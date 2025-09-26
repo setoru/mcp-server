@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DataArtsInsight-用户标签",
     "title" : "DataArtsInsight",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "dataartsinsight"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dataartsinsight",
+    "x-host" : "dataartsinsight.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -4615,38 +4616,33 @@
             "maxLength" : 128,
             "minLength" : 0
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "资源包文件",
-          "required" : true,
-          "schema" : {
-            "description" : "资源包文件",
-            "type" : "file"
-          }
-        }, {
-          "name" : "access_code",
-          "in" : "formData",
-          "description" : "提取码",
-          "required" : true,
-          "schema" : {
-            "description" : "提取码",
-            "type" : "string",
-            "maxLength" : 128,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "import_strategy",
-          "in" : "formData",
-          "description" : "导入策略replace|addNew",
-          "required" : true,
-          "schema" : {
-            "description" : "导入策略replace|addNew",
-            "type" : "string",
-            "maxLength" : 128,
-            "minLength" : 0
-          }
         } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "资源包文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "access_code" : {
+                    "description" : "提取码",
+                    "type" : "string"
+                  },
+                  "import_strategy" : {
+                    "description" : "导入策略replace|addNew",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "file", "access_code", "import_strategy" ]
+              }
+            }
+          },
+          "required" : true
+        },
         "security" : [ {
           "apig-auth-iam" : [ ]
         } ]
@@ -4928,7 +4924,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -6046,14 +6042,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "BatchSaveAuthRequestBody" : {
-                    "description" : "authorizedList",
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/CooperateAuthorizationRuleDto"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/CooperateAuthorizationRuleDto"
                 }
               }
             }
@@ -6192,7 +6183,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -6951,7 +6942,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]

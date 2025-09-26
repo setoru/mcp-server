@@ -3,8 +3,9 @@
   "info" : {
     "description" : "IDT-生命周期操作类型",
     "title" : "IDT",
-    "version" : "2025-06-13",
-    "x-host_prefix": "dme"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dme",
+    "x-host" : "dme.{region}.huaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -37480,15 +37481,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "文件",
-          "required" : false,
-          "schema" : {
-            "description" : "文件",
-            "type" : "file"
-          }
-        }, {
           "name" : "fileId",
           "in" : "query",
           "description" : "文件ID",
@@ -37542,7 +37534,24 @@
             "description" : "用户名",
             "type" : "string"
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -49633,15 +49642,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "文件",
-          "required" : false,
-          "schema" : {
-            "description" : "文件",
-            "type" : "file"
-          }
-        }, {
           "name" : "files",
           "in" : "query",
           "description" : "文件列表",
@@ -49677,7 +49677,24 @@
             "description" : "用户名",
             "type" : "string"
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -54075,12 +54092,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "body" : {
-                    "description" : "method的请求体。",
-                    "type" : "string"
-                  }
-                }
+                "type" : "string"
               }
             }
           },
@@ -61913,12 +61925,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "body" : {
-                    "description" : "method的请求体。 用户在请求体中使用JSON语言设置method的具体配置信息。如不了解method的具体配置信息,可先使用空的JSON对象`{}`,获取请求体模板。",
-                    "type" : "string"
-                  }
-                }
+                "type" : "string"
               }
             }
           },
@@ -80774,14 +80781,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "apiArgs" : {
-                    "description" : "apiArgs",
-                    "type" : "object",
-                    "additionalProperties" : {
-                      "type" : "object"
-                    }
-                  }
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "object"
                 }
               }
             }
@@ -83449,14 +83451,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "apiNameList" : {
-                    "description" : "apiNameList",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -95694,14 +95691,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "deleteVos" : {
-                    "description" : "deleteVos",
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/DeleteVo"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/DeleteVo"
                 }
               }
             }
@@ -108066,12 +108058,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "body" : {
-                    "description" : "method的请求体。 用户在请求体中使用JSON语言设置method的具体配置信息。如不了解method的具体配置信息,可先使用空的JSON对象`{}`,获取请求体模板。",
-                    "type" : "string"
-                  }
-                }
+                "type" : "string"
               }
             }
           },

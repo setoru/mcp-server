@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DAS-获取API版本",
     "title" : "DAS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "das"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "das",
+    "x-host" : "das.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -8462,7 +8463,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

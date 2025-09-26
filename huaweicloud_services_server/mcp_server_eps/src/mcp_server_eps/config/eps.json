@@ -3,8 +3,9 @@
   "info" : {
     "description" : "EPS-企业项目管理操作",
     "title" : "EPS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "eps"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "eps",
+    "x-host" : "eps.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

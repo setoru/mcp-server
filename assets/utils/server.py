@@ -123,7 +123,7 @@ class MCPServer:
             name: str, arguments: dict
         ) -> list[TextContent | ImageContent | EmbeddedResource]:
             region = arguments.get("region") or "cn-north-4"
-            product_short = self.openapi_dict["info"]["x-host_prefix"].lower()
+            x_host = self.openapi_dict["info"]["x-host"]
 
             ak = self.config.ak
             sk = self.config.sk
@@ -135,7 +135,7 @@ class MCPServer:
                 }
                 raise ToolError(error_msg)
 
-            client = create_api_client(ak, sk, product_short, region)
+            client = create_api_client(ak, sk, x_host, region)
             try:
                 arguments = filter_parameters(arguments)
 

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CDM-作业管理",
     "title" : "CDM",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cdm"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cdm",
+    "x-host" : "cdm.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -522,7 +523,7 @@
                   "$ref" : "#/components/schemas/configs"
                 }
               },
-              "extended-configs" : {
+                "extended-configs" : {
                 "description" : "扩展配置,请参见extended-configs参数说明。",
                 "type" : "object",
                 "properties" : {
@@ -3835,7 +3836,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",

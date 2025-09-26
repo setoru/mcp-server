@@ -3,8 +3,9 @@
   "info" : {
     "description" : "GaussDBforNoSQL-参数模板管理",
     "title" : "GaussDBforNoSQL",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "gaussdb-nosql"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "gaussdb-nosql",
+    "x-host" : "gaussdb-nosql.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -5938,7 +5939,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -6840,7 +6841,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -10104,7 +10105,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -10828,7 +10829,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "delete",
@@ -14972,7 +14973,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -15645,7 +15646,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -15848,7 +15849,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -16222,7 +16223,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "ASM-网格接口",
     "title" : "ASM",
-    "version" : "2025-06-13",
-    "x-host_prefix": "asm"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "asm",
+    "x-host" : "asm.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

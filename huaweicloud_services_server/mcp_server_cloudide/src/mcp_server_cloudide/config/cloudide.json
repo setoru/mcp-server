@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CloudIDE-插件市场",
     "title" : "CloudIDE",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "cloudide"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cloudide",
+    "x-host" : "cloudide.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -3647,7 +3648,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -4040,16 +4041,6 @@
             "minLength" : 1
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "文件",
-          "required" : true,
-          "schema" : {
-            "example" : "file",
-            "description" : "文件",
-            "type" : "file"
-          }
-        }, {
           "name" : "official",
           "in" : "query",
           "description" : "插件类型。目前只支持CodeArtsIDEOnline",
@@ -4061,7 +4052,25 @@
             "maxLength" : 255,
             "minLength" : 0
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -4378,125 +4387,68 @@
             "maxLength" : 100000,
             "minLength" : 1
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "文件",
-          "required" : true,
-          "schema" : {
-            "description" : "文件",
-            "type" : "file"
-          }
-        }, {
-          "name" : "publisher_id",
-          "in" : "formData",
-          "description" : "传用户token时,此字段为必传项",
-          "required" : false,
-          "schema" : {
-            "description" : "传用户token时,此字段为必传项",
-            "type" : "string",
-            "maxLength" : 10000,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "chunk_index",
-          "in" : "formData",
-          "description" : "分片索引,第几个分片 取值范围:1-100",
-          "required" : true,
-          "schema" : {
-            "description" : "分片索引,第几个分片 取值范围:1-100",
-            "type" : "integer",
-            "format" : "int64",
-            "maximum" : 100,
-            "minimum" : 1
-          }
-        }, {
-          "name" : "merge",
-          "in" : "formData",
-          "description" : "是否合并已上传的分片(包含本次分片内容),true",
-          "required" : true,
-          "schema" : {
-            "description" : "是否合并已上传的分片(包含本次分片内容),true",
-            "type" : "boolean"
-          }
-        }, {
-          "name" : "total_chunk_num",
-          "in" : "formData",
-          "description" : "总分片数 0-100",
-          "required" : true,
-          "schema" : {
-            "description" : "总分片数 0-100",
-            "type" : "integer",
-            "format" : "int64",
-            "maximum" : 100,
-            "minimum" : 1
-          }
-        }, {
-          "name" : "parent_file_size",
-          "in" : "formData",
-          "description" : "父文件大小",
-          "required" : true,
-          "schema" : {
-            "description" : "父文件大小",
-            "type" : "integer",
-            "format" : "int64",
-            "maximum" : 9223372036854775807,
-            "minimum" : 0
-          }
-        }, {
-          "name" : "parent_file_name",
-          "in" : "formData",
-          "description" : "父文件名称",
-          "required" : true,
-          "schema" : {
-            "description" : "父文件名称",
-            "type" : "string",
-            "maxLength" : 10000,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "override",
-          "in" : "formData",
-          "description" : "是否覆盖原有文件",
-          "required" : true,
-          "schema" : {
-            "description" : "是否覆盖原有文件",
-            "type" : "boolean"
-          }
-        }, {
-          "name" : "chunk_md5",
-          "in" : "formData",
-          "description" : "文件分片的md5,用于校验文件分片是否完整",
-          "required" : true,
-          "schema" : {
-            "description" : "文件分片的md5,用于校验文件分片是否完整",
-            "type" : "string",
-            "maxLength" : 10000,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "parent_file_sha256",
-          "in" : "formData",
-          "description" : "父文件hash,用于校验合并后的文件",
-          "required" : false,
-          "schema" : {
-            "description" : "父文件hash,用于校验合并后的文件",
-            "type" : "string",
-            "maxLength" : 10000,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "task_id",
-          "in" : "formData",
-          "description" : "上传任务的唯一标识,第一次上传分片时可不传",
-          "required" : false,
-          "schema" : {
-            "description" : "上传任务的唯一标识,第一次上传分片时可不传",
-            "type" : "string",
-            "maxLength" : 10000,
-            "minLength" : 0
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "publisher_id" : {
+                    "description" : "传用户token时,此字段为必传项",
+                    "type" : "string"
+                  },
+                  "chunk_index" : {
+                    "description" : "分片索引,第几个分片 取值范围:1-100",
+                    "type" : "integer",
+                    "format" : "int64"
+                  },
+                  "merge" : {
+                    "description" : "是否合并已上传的分片(包含本次分片内容),true",
+                    "type" : "boolean"
+                  },
+                  "total_chunk_num" : {
+                    "description" : "总分片数 0-100",
+                    "type" : "integer",
+                    "format" : "int64"
+                  },
+                  "parent_file_size" : {
+                    "description" : "父文件大小",
+                    "type" : "integer",
+                    "format" : "int64"
+                  },
+                  "parent_file_name" : {
+                    "description" : "父文件名称",
+                    "type" : "string"
+                  },
+                  "override" : {
+                    "description" : "是否覆盖原有文件",
+                    "type" : "boolean"
+                  },
+                  "chunk_md5" : {
+                    "description" : "文件分片的md5,用于校验文件分片是否完整",
+                    "type" : "string"
+                  },
+                  "parent_file_sha256" : {
+                    "description" : "父文件hash,用于校验合并后的文件",
+                    "type" : "string"
+                  },
+                  "task_id" : {
+                    "description" : "上传任务的唯一标识,第一次上传分片时可不传",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "file", "chunk_index", "merge", "total_chunk_num", "parent_file_size", "parent_file_name", "override", "chunk_md5" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

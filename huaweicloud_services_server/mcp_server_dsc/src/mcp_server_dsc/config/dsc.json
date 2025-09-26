@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DSC-敏感数据发现",
     "title" : "DSC",
-    "version" : "2025-06-13",
-    "x-host_prefix": "sdg"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "sdg",
+    "x-host" : "sdg.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -2178,36 +2179,34 @@
             "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
             "type" : "string"
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "要添加水印的图片文件,添加的图片短边尺寸需要超过512像素。",
-          "required" : true,
-          "schema" : {
-            "description" : "要添加水印的图片文件,添加的图片短边尺寸需要超过512像素。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "blind_watermark",
-          "in" : "formData",
-          "description" : "待嵌入的文字暗水印内容,长度不超过32个字符。当前仅支持数字及英文大小写。与图片暗水印image_watermark二选一填充。",
-          "required" : false,
-          "schema" : {
-            "description" : "待嵌入的文字暗水印内容,长度不超过32个字符。当前仅支持数字及英文大小写。与图片暗水印image_watermark二选一填充。",
-            "type" : "string",
-            "maxLength" : 32,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "image_watermark",
-          "in" : "formData",
-          "description" : "待嵌入的图片暗水印文件,与文字暗水印 blind_watermark 二选一填充。",
-          "required" : false,
-          "schema" : {
-            "description" : "待嵌入的图片暗水印文件,与文字暗水印 blind_watermark 二选一填充。",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "要添加水印的图片文件,添加的图片短边尺寸需要超过512像素。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "blind_watermark" : {
+                    "description" : "待嵌入的文字暗水印内容,长度不超过32个字符。当前仅支持数字及英文大小写。与图片暗水印image_watermark二选一填充。",
+                    "type" : "string"
+                  },
+                  "image_watermark" : {
+                    "description" : "待嵌入的图片暗水印文件,与文字暗水印 blind_watermark 二选一填充。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -2255,15 +2254,6 @@
             "minLength" : 32
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "待提取暗水印的图片文件。",
-          "required" : true,
-          "schema" : {
-            "description" : "待提取暗水印的图片文件。",
-            "type" : "file"
-          }
-        }, {
           "name" : "X-Auth-Token",
           "in" : "header",
           "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
@@ -2272,7 +2262,25 @@
             "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
             "type" : "string"
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "待提取暗水印的图片文件。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -2457,107 +2465,6 @@
           }
         },
         "parameters" : [ {
-          "name" : "doc_type",
-          "in" : "formData",
-          "description" : "要嵌入水印的文档类型",
-          "required" : true,
-          "schema" : {
-            "example" : "EXCEL",
-            "description" : "要嵌入水印的文档类型",
-            "type" : "string",
-            "enum" : [ "WORD", "EXCEL", "PDF", "PPT" ]
-          }
-        }, {
-          "name" : "file_password",
-          "in" : "formData",
-          "description" : "输入文件有密码时,读取文件的密码, 最大支持长度256。如果Office文档有读密码或域控的权限密码,请输入读密码,或者有读权限的域控密码。",
-          "required" : false,
-          "schema" : {
-            "example" : "password",
-            "description" : "输入文件有密码时,读取文件的密码, 最大支持长度256。如果Office文档有读密码或域控的权限密码,请输入读密码,或者有读权限的域控密码。",
-            "type" : "string",
-            "maxLength" : 256,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "marked_file_password",
-          "in" : "formData",
-          "description" : "添加水印后给文件设置密码, 最大支持长度256。默认不加文档密码。",
-          "required" : false,
-          "schema" : {
-            "description" : "添加水印后给文件设置密码, 最大支持长度256。默认不加文档密码。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "readonly_password",
-          "in" : "formData",
-          "description" : "添加水印后给文件设置只读密码, 最大支持长度256。默认不加只读密码。",
-          "required" : false,
-          "schema" : {
-            "description" : "添加水印后给文件设置只读密码, 最大支持长度256。默认不加只读密码。",
-            "type" : "string"
-          }
-        }, {
-          "name" : "visible_watermark",
-          "in" : "formData",
-          "description" : "明水印内容,与“blind_watermark”字段至少有一个不为空",
-          "required" : false,
-          "schema" : {
-            "example" : "watermark",
-            "description" : "明水印内容,与“blind_watermark”字段至少有一个不为空",
-            "type" : "string",
-            "maxLength" : 256,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "font_size",
-          "in" : "formData",
-          "description" : "明水印字体大小,取值为[1,100],默认值50",
-          "required" : false,
-          "schema" : {
-            "example" : "50",
-            "description" : "明水印字体大小,取值为[1,100],默认值50",
-            "type" : "string",
-            "maxLength" : 100,
-            "minLength" : 1
-          }
-        }, {
-          "name" : "rotation",
-          "in" : "formData",
-          "description" : "明水印旋转角度,逆时针方向,取值为[0,90],默认值45",
-          "required" : false,
-          "schema" : {
-            "example" : "45",
-            "description" : "明水印旋转角度,逆时针方向,取值为[0,90],默认值45",
-            "type" : "string",
-            "maxLength" : 90,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "opacity",
-          "in" : "formData",
-          "description" : "明水印的透明度,取值[0,1],默认值为0.3;",
-          "required" : false,
-          "schema" : {
-            "example" : "0.3",
-            "description" : "明水印的透明度,取值[0,1],默认值为0.3;",
-            "type" : "string",
-            "maxLength" : 8,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "blind_watermark",
-          "in" : "formData",
-          "description" : "暗水印内容,与“visible_watermark”字段至少有一个不为空",
-          "required" : false,
-          "schema" : {
-            "example" : "blind watermark",
-            "description" : "暗水印内容,与“visible_watermark”字段至少有一个不为空",
-            "type" : "string",
-            "maxLength" : 256,
-            "minLength" : 0
-          }
-        }, {
           "name" : "project_id",
           "in" : "path",
           "description" : "项目ID",
@@ -2570,16 +2477,6 @@
             "minLength" : 32
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "要添加水印的文档",
-          "required" : true,
-          "schema" : {
-            "example" : "file",
-            "description" : "要添加水印的文档",
-            "type" : "file"
-          }
-        }, {
           "name" : "X-Auth-Token",
           "in" : "header",
           "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
@@ -2588,26 +2485,70 @@
             "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
             "type" : "string"
           }
-        }, {
-          "name" : "image_mark",
-          "in" : "formData",
-          "description" : "图形水印的字节流。图形文件的格式必须为“png”或“jpg”,否则返回参数错误;图像文件大小不超过1MB;在分段的请求体“Content-Disposition”部分,参数“name”的值必须为“image_mark”。",
-          "required" : false,
-          "schema" : {
-            "description" : "图形水印的字节流。图形文件的格式必须为“png”或“jpg”,否则返回参数错误;图像文件大小不超过1MB;在分段的请求体“Content-Disposition”部分,参数“name”的值必须为“image_mark”。",
-            "type" : "file"
-          }
-        }, {
-          "name" : "visible_type",
-          "in" : "formData",
-          "description" : "该字段为空时,默认为**TEXT**类型。",
-          "required" : false,
-          "schema" : {
-            "description" : "该字段为空时,默认为**TEXT**类型。",
-            "type" : "string",
-            "enum" : [ "TEXT", "IMAGE" ]
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "doc_type" : {
+                    "description" : "要嵌入水印的文档类型",
+                    "type" : "string"
+                  },
+                  "file_password" : {
+                    "description" : "输入文件有密码时,读取文件的密码, 最大支持长度256。如果Office文档有读密码或域控的权限密码,请输入读密码,或者有读权限的域控密码。",
+                    "type" : "string"
+                  },
+                  "marked_file_password" : {
+                    "description" : "添加水印后给文件设置密码, 最大支持长度256。默认不加文档密码。",
+                    "type" : "string"
+                  },
+                  "readonly_password" : {
+                    "description" : "添加水印后给文件设置只读密码, 最大支持长度256。默认不加只读密码。",
+                    "type" : "string"
+                  },
+                  "visible_watermark" : {
+                    "description" : "明水印内容,与“blind_watermark”字段至少有一个不为空",
+                    "type" : "string"
+                  },
+                  "font_size" : {
+                    "description" : "明水印字体大小,取值为[1,100],默认值50",
+                    "type" : "string"
+                  },
+                  "rotation" : {
+                    "description" : "明水印旋转角度,逆时针方向,取值为[0,90],默认值45",
+                    "type" : "string"
+                  },
+                  "opacity" : {
+                    "description" : "明水印的透明度,取值[0,1],默认值为0.3;",
+                    "type" : "string"
+                  },
+                  "blind_watermark" : {
+                    "description" : "暗水印内容,与“visible_watermark”字段至少有一个不为空",
+                    "type" : "string"
+                  },
+                  "file" : {
+                    "description" : "要添加水印的文档",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "image_mark" : {
+                    "description" : "图形水印的字节流。图形文件的格式必须为“png”或“jpg”,否则返回参数错误;图像文件大小不超过1MB;在分段的请求体“Content-Disposition”部分,参数“name”的值必须为“image_mark”。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "visible_type" : {
+                    "description" : "该字段为空时,默认为**TEXT**类型。",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "doc_type", "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -3313,39 +3254,6 @@
             "minLength" : 32
           }
         }, {
-          "name" : "doc_type",
-          "in" : "formData",
-          "description" : "待提取水印的文档类型",
-          "required" : true,
-          "schema" : {
-            "example" : "EXCEL",
-            "description" : "待提取水印的文档类型",
-            "type" : "string",
-            "enum" : [ "WORD", "EXCEL", "PDF", "PPT" ]
-          }
-        }, {
-          "name" : "file_password",
-          "in" : "formData",
-          "description" : "解密文件的密码, 最大支持长度256。如果Office文档有读密码或域控的权限密码,请输入读密码,或者有读权限的域控密码。",
-          "required" : false,
-          "schema" : {
-            "example" : "password",
-            "description" : "解密文件的密码, 最大支持长度256。如果Office文档有读密码或域控的权限密码,请输入读密码,或者有读权限的域控密码。",
-            "type" : "string",
-            "maxLength" : 256,
-            "minLength" : 0
-          }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "上传要提取水印的文档",
-          "required" : true,
-          "schema" : {
-            "example" : "file",
-            "description" : "上传要提取水印的文档",
-            "type" : "file"
-          }
-        }, {
           "name" : "X-Auth-Token",
           "in" : "header",
           "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
@@ -3354,7 +3262,33 @@
             "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
             "type" : "string"
           }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "doc_type" : {
+                    "description" : "待提取水印的文档类型",
+                    "type" : "string"
+                  },
+                  "file_password" : {
+                    "description" : "解密文件的密码, 最大支持长度256。如果Office文档有读密码或域控的权限密码,请输入读密码,或者有读权限的域控密码。",
+                    "type" : "string"
+                  },
+                  "file" : {
+                    "description" : "上传要提取水印的文档",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "doc_type", "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -3893,15 +3827,6 @@
             "minLength" : 32
           }
         }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "待提取暗水印的图片文件。",
-          "required" : true,
-          "schema" : {
-            "description" : "待提取暗水印的图片文件。",
-            "type" : "file"
-          }
-        }, {
           "name" : "X-Auth-Token",
           "in" : "header",
           "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
@@ -3910,18 +3835,29 @@
             "description" : "用户Token。通过调用IAM服务“获取用户Token接口”获取(响应消息头中X-Subject-Token的值)",
             "type" : "string"
           }
-        }, {
-          "name" : "mark_len",
-          "in" : "formData",
-          "description" : "指定待提取水印的长度,mark_len长度大于0,小于32。设置后可以提升水印提取性能",
-          "required" : false,
-          "schema" : {
-            "description" : "指定待提取水印的长度,mark_len长度大于0,小于32。设置后可以提升水印提取性能",
-            "type" : "string",
-            "maxLength" : 32,
-            "minLength" : 0
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "待提取暗水印的图片文件。",
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "mark_len" : {
+                    "description" : "指定待提取水印的长度,mark_len长度大于0,小于32。设置后可以提升水印提取性能",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

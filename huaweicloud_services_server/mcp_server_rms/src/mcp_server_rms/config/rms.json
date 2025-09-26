@@ -3,8 +3,9 @@
   "info" : {
     "description" : "RMS-聚合器",
     "title" : "RMS",
-    "version" : "2025-08-06",
-    "x-host_prefix" : "rms"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "rms",
+    "x-host" : "rms.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

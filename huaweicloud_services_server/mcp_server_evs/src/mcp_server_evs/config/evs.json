@@ -3,8 +3,9 @@
   "info" : {
     "description" : "EVS-云硬盘过户",
     "title" : "EVS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "evs"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "evs",
+    "x-host" : "evs.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

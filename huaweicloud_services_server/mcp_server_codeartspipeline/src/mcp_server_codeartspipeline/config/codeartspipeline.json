@@ -3,7 +3,9 @@
   "info" : {
     "description" : "CodeArtsPipeline-流水线管理--新",
     "title" : "CodeArtsPipeline",
-    "version" : "2025-07-07"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cloudpipeline-ext",
+    "x-host" : "cloudpipeline-ext.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -6829,7 +6831,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -6884,14 +6886,24 @@
           }
         }, {
           "$ref" : "#/components/parameters/X-Auth-Token"
-        }, {
-          "name" : "upload_file",
-          "in" : "formData",
-          "required" : true,
-          "schema" : {
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "upload_file" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "upload_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -7465,7 +7477,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -7691,14 +7703,9 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "pipeline_ids" : {
-                    "description" : "流水线ID列表",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
@@ -7838,19 +7845,14 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "arrayString" : {
-                    "description" : "发布商ID",
-                    "type" : "array",
-                    "items" : {
-                      "type" : "string"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
                 }
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8029,7 +8031,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8322,7 +8324,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -8366,16 +8368,25 @@
           }
         }, {
           "$ref" : "#/components/parameters/X-Auth-Token"
-        }, {
-          "name" : "upload_file",
-          "in" : "formData",
-          "description" : "图标文件",
-          "required" : true,
-          "schema" : {
-            "description" : "图标文件",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "upload_file" : {
+                    "description" : "图标文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "upload_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -8424,7 +8435,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8602,7 +8613,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8807,7 +8818,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -8856,16 +8867,25 @@
           }
         }, {
           "$ref" : "#/components/parameters/X-Auth-Token"
-        }, {
-          "name" : "upload_file",
-          "in" : "formData",
-          "description" : "图标文件",
-          "required" : true,
-          "schema" : {
-            "description" : "图标文件",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "upload_file" : {
+                    "description" : "图标文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "upload_file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -8929,7 +8949,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8994,7 +9014,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -9049,7 +9069,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -9095,7 +9115,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -9140,19 +9160,14 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "PluginPartQueryDTO" : {
-                    "description" : null,
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/PluginPartQueryDTO"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/PluginPartQueryDTO"
                 }
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -9334,7 +9349,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -9654,7 +9669,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "security" : [ {
           "apig-auth-iam" : [ ]
@@ -10388,7 +10403,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11026,19 +11041,14 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "PluginPartQueryDTO" : {
-                    "description" : null,
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/PluginPartQueryDTO"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/PluginPartQueryDTO"
                 }
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11086,7 +11096,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11132,7 +11142,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11227,7 +11237,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11367,7 +11377,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11738,19 +11748,14 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "properties" : {
-                  "PluginPartQueryDTO" : {
-                    "description" : null,
-                    "type" : "array",
-                    "items" : {
-                      "$ref" : "#/components/schemas/PluginPartQueryDTO"
-                    }
-                  }
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/PluginPartQueryDTO"
                 }
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -11919,7 +11924,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "HSS-安装配置",
     "title" : "HSS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "hss"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "hss",
+    "x-host" : "hss.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -144,7 +145,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusTaskPrivateIp" : {
+      "param_1756780399875_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -172,7 +173,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusTaskTaskStatus" : {
+      "TaskStatus" : {
         "name" : "task_status",
         "in" : "query",
         "description" : "任务状态,包含如下4种",
@@ -185,7 +186,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusTaskHostName" : {
+      "param_1756780399875_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -200,7 +201,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusTaskTaskName" : {
+      "TaskName" : {
         "name" : "task_name",
         "in" : "query",
         "description" : "任务名称",
@@ -225,7 +226,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusTaskPublicIp" : {
+      "param_1756780399875_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -240,7 +241,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusTaskHostTaskStatus" : {
+      "HostTaskStatus" : {
         "name" : "host_task_status",
         "in" : "query",
         "description" : "服务器扫描状态,包含如下4种",
@@ -286,7 +287,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryPrivateIp" : {
+      "param_1756780399878_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -301,7 +302,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryHostName" : {
+      "param_1756780399878_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -316,7 +317,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryFilePath" : {
+      "param_1756780399878_FilePath" : {
         "name" : "file_path",
         "in" : "query",
         "description" : "文件路径",
@@ -348,7 +349,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryPublicIp" : {
+      "param_1756780399878_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -363,7 +364,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryMalwareName" : {
+      "MalwareName" : {
         "name" : "malware_name",
         "in" : "query",
         "description" : "病毒名称",
@@ -378,7 +379,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryUserName" : {
+      "UserName" : {
         "name" : "user_name",
         "in" : "query",
         "description" : "用户名",
@@ -392,7 +393,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryAssetValue" : {
+      "param_1756780399878_AssetValue" : {
         "name" : "asset_value",
         "in" : "query",
         "description" : "资产重要性,包含如下3种",
@@ -406,7 +407,7 @@
         },
         "type" : "object"
       },
-      "ListAntivirusHandleHistoryHandleMethod" : {
+      "param_1756780399878_HandleMethod" : {
         "name" : "handle_method",
         "in" : "query",
         "description" : "处理方式,包含如下:",
@@ -419,21 +420,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultTaskName" : {
-        "name" : "task_name",
-        "in" : "query",
-        "description" : "任务名称",
-        "required" : false,
-        "schema" : {
-          "description" : "任务名称",
-          "type" : "string",
-          "maximum" : 255,
-          "minLength" : 1,
-          "pattern" : "^.*$"
-        },
-        "type" : "object"
-      },
-      "ExportAntiVirusResultFileHash" : {
+      "param_1756780399881_FileHash" : {
         "name" : "file_hash",
         "in" : "query",
         "description" : "文件hash,当前为sha256",
@@ -447,7 +434,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultPrivateIp" : {
+      "param_1756780399881_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -462,7 +449,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultPublicIp" : {
+      "param_1756780399881_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -477,22 +464,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultMalwareName" : {
-        "name" : "malware_name",
-        "in" : "query",
-        "description" : "病毒名称",
-        "required" : false,
-        "schema" : {
-          "example" : "MalwareName",
-          "description" : "病毒名称",
-          "type" : "string",
-          "maxLength" : 128,
-          "minLength" : 1,
-          "pattern" : "^.*$"
-        },
-        "type" : "object"
-      },
-      "ExportAntiVirusResultHandleStatus" : {
+      "param_1756780399881_HandleStatus" : {
         "name" : "handle_status",
         "in" : "query",
         "description" : "处置状态,包含如下:",
@@ -516,7 +488,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultHostName" : {
+      "param_1756780399881_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -545,7 +517,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultAssetValue" : {
+      "param_1756780399881_AssetValue" : {
         "name" : "asset_value",
         "in" : "query",
         "description" : "资产重要性,包含如下3种",
@@ -559,7 +531,7 @@
         },
         "type" : "object"
       },
-      "ExportAntiVirusResultFilePath" : {
+      "param_1756780399881_FilePath" : {
         "name" : "file_path",
         "in" : "query",
         "description" : "文件路径",
@@ -588,7 +560,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryEventType" : {
+      "param_1756780399885_EventType" : {
         "name" : "event_type",
         "in" : "query",
         "description" : "事件类型,包含如下:",
@@ -602,7 +574,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryPrivateIp" : {
+      "param_1756780399885_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -632,7 +604,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryHandleStatus" : {
+      "param_1756780399885_HandleStatus" : {
         "name" : "handle_status",
         "in" : "query",
         "description" : "处置状态,包含如下:",
@@ -645,7 +617,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryHostName" : {
+      "param_1756780399885_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -660,7 +632,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryEventName" : {
+      "param_1756780399885_EventName" : {
         "name" : "event_name",
         "in" : "query",
         "description" : "告警名称",
@@ -692,7 +664,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistorySeverity" : {
+      "param_1756780399885_Severity" : {
         "name" : "severity",
         "in" : "query",
         "description" : "威胁等级,包含如下:",
@@ -705,7 +677,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryPublicIp" : {
+      "param_1756780399885_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -720,7 +692,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryAttackTag" : {
+      "param_1756780399885_AttackTag" : {
         "name" : "attack_tag",
         "in" : "query",
         "description" : "攻击标识,包含如下:",
@@ -733,7 +705,7 @@
         },
         "type" : "object"
       },
-      "ListEventHandleHistoryAssetValue" : {
+      "param_1756780399885_AssetValue" : {
         "name" : "asset_value",
         "in" : "query",
         "description" : "资产重要性,包含如下3种",
@@ -747,7 +719,62 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultFileHash" : {
+      "param_1756780399886_Severity" : {
+        "name" : "severity",
+        "in" : "query",
+        "description" : "威胁等级,包含如下:",
+        "required" : false,
+        "schema" : {
+          "description" : "威胁等级,包含如下:",
+          "type" : "string",
+          "maxLength" : 32,
+          "minLength" : 1
+        },
+        "type" : "object"
+      },
+      "param_1756780399886_PublicIp" : {
+        "name" : "public_ip",
+        "in" : "query",
+        "description" : "服务器公网IP",
+        "required" : false,
+        "schema" : {
+          "example" : "192.168.1.1",
+          "description" : "服务器公网IP",
+          "type" : "string",
+          "maxLength" : 128,
+          "minLength" : 1,
+          "pattern" : "^.*$"
+        },
+        "type" : "object"
+      },
+      "param_1756780399886_AttackTag" : {
+        "name" : "attack_tag",
+        "in" : "query",
+        "description" : "攻击标识,包含如下:",
+        "required" : false,
+        "schema" : {
+          "description" : "攻击标识,包含如下:",
+          "type" : "string",
+          "maxLength" : 32,
+          "minLength" : 0
+        },
+        "type" : "object"
+      },
+      "param_1756780399886_AssetValue" : {
+        "name" : "asset_value",
+        "in" : "query",
+        "description" : "资产重要性,包含如下3种",
+        "required" : false,
+        "schema" : {
+          "description" : "资产重要性,包含如下3种",
+          "type" : "string",
+          "maxLength" : 128,
+          "minLength" : 0,
+          "pattern" : "^important|common|test$"
+        },
+        "type" : "object"
+      },
+      "param_1756780399887_FileHash" : {
         "name" : "file_hash",
         "in" : "query",
         "description" : "文件hash,当前为sha256",
@@ -761,7 +788,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultPrivateIp" : {
+      "param_1756780399887_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -776,7 +803,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultHandleStatus" : {
+      "param_1756780399887_HandleStatus" : {
         "name" : "handle_status",
         "in" : "query",
         "description" : "处置状态,包含如下:",
@@ -789,7 +816,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultHostName" : {
+      "param_1756780399887_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -804,7 +831,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultFilePath" : {
+      "param_1756780399887_FilePath" : {
         "name" : "file_path",
         "in" : "query",
         "description" : "文件路径",
@@ -818,21 +845,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultTaskName" : {
-        "name" : "task_name",
-        "in" : "query",
-        "description" : "任务名称",
-        "required" : false,
-        "schema" : {
-          "description" : "任务名称",
-          "type" : "string",
-          "maximum" : 255,
-          "minLength" : 1,
-          "pattern" : "^.*$"
-        },
-        "type" : "object"
-      },
-      "ListAntiVirusResultPublicIp" : {
+      "param_1756780399887_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -847,14 +860,57 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultMalwareName" : {
-        "name" : "malware_name",
+      "param_1756780399887_AssetValue" : {
+        "name" : "asset_value",
         "in" : "query",
-        "description" : "病毒名称",
+        "description" : "资产重要性,包含如下3种",
         "required" : false,
         "schema" : {
-          "example" : "MalwareName",
-          "description" : "病毒名称",
+          "description" : "资产重要性,包含如下3种",
+          "type" : "string",
+          "maxLength" : 128,
+          "minLength" : 0,
+          "pattern" : "^important|common|test$"
+        },
+        "type" : "object"
+      },
+      "param_1756780399888_HostName" : {
+        "name" : "host_name",
+        "in" : "query",
+        "description" : "服务器名称",
+        "required" : false,
+        "schema" : {
+          "example" : "HostName",
+          "description" : "服务器名称",
+          "type" : "string",
+          "maxLength" : 256,
+          "minLength" : 1,
+          "pattern" : "^.*$"
+        },
+        "type" : "object"
+      },
+      "param_1756780399888_FilePath" : {
+        "name" : "file_path",
+        "in" : "query",
+        "description" : "文件路径",
+        "required" : false,
+        "schema" : {
+          "description" : "文件路径",
+          "type" : "string",
+          "maxLength" : 512,
+          "minLength" : 1,
+          "pattern" : "^.*$"
+        },
+        "type" : "object"
+      },
+      "param_1756780399888_PublicIp" : {
+        "name" : "public_ip",
+        "in" : "query",
+        "description" : "服务器公网IP",
+        "required" : false,
+        "schema" : {
+          "example" : "192.168.1.1",
+          "description" : "服务器公网IP",
           "type" : "string",
           "maxLength" : 128,
           "minLength" : 1,
@@ -862,7 +918,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusResultAssetValue" : {
+      "param_1756780399888_AssetValue" : {
         "name" : "asset_value",
         "in" : "query",
         "description" : "资产重要性,包含如下3种",
@@ -903,7 +959,7 @@
         },
         "type" : "object"
       },
-      "ListSystemUserWhiteListSystemUserName" : {
+      "param_1756780399895_SystemUserName" : {
         "name" : "system_user_name",
         "in" : "query",
         "description" : "系统用户名",
@@ -917,7 +973,7 @@
         },
         "type" : "object"
       },
-      "ListSystemUserWhiteListHostId" : {
+      "param_1756780399895_HostId" : {
         "name" : "host_id",
         "in" : "query",
         "description" : "服务器ID",
@@ -932,7 +988,7 @@
         },
         "type" : "object"
       },
-      "ListSystemUserWhiteListPrivateIp" : {
+      "param_1756780399895_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -947,7 +1003,7 @@
         },
         "type" : "object"
       },
-      "ListSystemUserWhiteListPublicIp" : {
+      "param_1756780399895_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -962,7 +1018,7 @@
         },
         "type" : "object"
       },
-      "ListSystemUserWhiteListHostName" : {
+      "param_1756780399895_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -977,7 +1033,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusPolicyPolicyName" : {
+      "param_1756780399896_PolicyName" : {
         "name" : "policy_name",
         "in" : "query",
         "description" : "策略名称",
@@ -1019,7 +1075,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostHostId" : {
+      "param_1756780399900_HostId" : {
         "name" : "host_id",
         "in" : "query",
         "description" : "服务器ID",
@@ -1034,7 +1090,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostGroupId" : {
+      "param_1756780399900_GroupId" : {
         "name" : "group_id",
         "in" : "query",
         "description" : "服务器组ID",
@@ -1062,7 +1118,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostPrivateIp" : {
+      "param_1756780399900_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -1077,7 +1133,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostPolicyId" : {
+      "param_1756780399900_PolicyId" : {
         "name" : "policy_id",
         "in" : "query",
         "description" : "策略ID",
@@ -1091,7 +1147,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostPublicIp" : {
+      "param_1756780399900_PublicIp" : {
         "name" : "public_ip",
         "in" : "query",
         "description" : "服务器公网IP",
@@ -1106,7 +1162,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostNextStartTime" : {
+      "param_1756780399900_NextStartTime" : {
         "name" : "next_start_time",
         "in" : "query",
         "description" : "下次启动时间,毫秒",
@@ -1119,7 +1175,7 @@
         },
         "type" : "object"
       },
-      "ListAntiVirusHostHostName" : {
+      "param_1756780399900_HostName" : {
         "name" : "host_name",
         "in" : "query",
         "description" : "服务器名称",
@@ -1134,7 +1190,7 @@
         },
         "type" : "object"
       },
-      "ListLoginWhiteListLoginIp" : {
+      "param_1756780399901_LoginIp" : {
         "name" : "login_ip",
         "in" : "query",
         "description" : "登录源IP",
@@ -1148,7 +1204,7 @@
         },
         "type" : "object"
       },
-      "ListLoginWhiteListPrivateIp" : {
+      "param_1756780399901_PrivateIp" : {
         "name" : "private_ip",
         "in" : "query",
         "description" : "服务器私有IP",
@@ -1163,7 +1219,7 @@
         },
         "type" : "object"
       },
-      "ListLoginWhiteListLoginUserName" : {
+      "param_1756780399901_LoginUserName" : {
         "name" : "login_user_name",
         "in" : "query",
         "description" : "登录用户名",
@@ -5263,12 +5319,12 @@
         "minLength" : 1,
         "maxLength" : 64
       },
-      "TaskStatus" : {
+      "ListAntiVirusTaskTaskStatus" : {
         "description" : "任务状态,包含如下2种",
         "type" : "object",
         "example" : "scanning"
       },
-      "HostTaskStatus" : {
+      "ListAntiVirusTaskHostTaskStatus" : {
         "description" : "服务器扫描状态,包含如下4种",
         "type" : "object",
         "example" : "success"
@@ -5510,7 +5566,7 @@
         "description" : "资产重要性,包含如下3种",
         "example" : "common"
       },
-      "TaskName" : {
+      "ListAntiVirusTaskTaskName" : {
         "description" : "任务名称",
         "type" : "object",
         "pattern" : "^.*$",
@@ -7464,7 +7520,7 @@
           }
         }
       },
-      "MalwareName" : {
+      "ListAntivirusHandleHistoryMalwareName" : {
         "type" : "object",
         "pattern" : "^.*$",
         "description" : "病毒名称",
@@ -7476,7 +7532,7 @@
         "description" : "病毒查杀结果ID",
         "example" : "0009bae0-8700-11eb-bb3f-fa163e01e338"
       },
-      "UserName" : {
+      "ListAntivirusHandleHistoryUserName" : {
         "description" : "用户名",
         "type" : "object",
         "pattern" : "^.*$",
@@ -11407,6 +11463,12 @@
         },
         "description" : "已隔离文件详情"
       },
+      "ListIsolatedFileMalwareName" : {
+        "type" : "object",
+        "pattern" : "^.*$",
+        "description" : "病毒名称",
+        "example" : "HTML.WebShell.Agent"
+      },
       "RecentTime" : {
         "type" : "object",
         "minimum" : 0,
@@ -11531,6 +11593,12 @@
           }
         }
       },
+      "ListAntiVirusResultMalwareName" : {
+        "type" : "object",
+        "pattern" : "^.*$",
+        "description" : "病毒名称",
+        "example" : "HTML.WebShell.Agent"
+      },
       "AntiVirusResultResponseInfo" : {
         "type" : "object",
         "description" : "病毒查杀结果列表响应详情",
@@ -11601,6 +11669,14 @@
             "maxLength" : 128
           }
         }
+      },
+      "ListAntiVirusResultTaskName" : {
+        "description" : "任务名称",
+        "type" : "object",
+        "pattern" : "^.*$",
+        "example" : "task name",
+        "minLength" : 1,
+        "maximum" : 255
       },
       "ResultFileResponseInfo" : {
         "type" : "object",
@@ -12613,6 +12689,14 @@
             }
           }
         }
+      },
+      "CreateAntiVirusTaskTaskName" : {
+        "description" : "任务名称",
+        "type" : "object",
+        "pattern" : "^.*$",
+        "example" : "task name",
+        "minLength" : 1,
+        "maximum" : 255
       },
       "ListPoliciesResponseInfo" : {
         "type" : "object",
@@ -20441,7 +20525,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -21137,7 +21221,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -26926,7 +27010,7 @@
         }, {
           "$ref" : "#/components/parameters/ExportAntiVirusResultAssetValue"
         }, {
-          "$ref" : "#/components/parameters/ExportAntiVirusResultMalwareName"
+          "$ref" : "#/components/parameters/MalwareName"
         }, {
           "$ref" : "#/components/parameters/ExportAntiVirusResultFilePath"
         }, {
@@ -26934,7 +27018,7 @@
         }, {
           "$ref" : "#/components/parameters/ExportAntiVirusResultFileHash"
         }, {
-          "$ref" : "#/components/parameters/ExportAntiVirusResultTaskName"
+          "$ref" : "#/components/parameters/TaskName"
         }, {
           "$ref" : "#/components/parameters/ManualIsolate"
         } ],
@@ -31405,7 +31489,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -31786,7 +31870,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -35338,7 +35422,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "FunctionGraph-函数应用中心",
     "title" : "FunctionGraph",
-    "version" : "2025-06-13",
-    "x-host_prefix": "functiongraph"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "functiongraph",
+    "x-host" : "functiongraph.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

@@ -3,8 +3,9 @@
   "info" : {
     "description" : "WorkspaceApp-服务器管理",
     "title" : "WorkspaceApp",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "appstream"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "appstream",
+    "x-host" : "appstream.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -12059,16 +12060,25 @@
             "maxLength" : 128,
             "minLength" : 1
           }
-        }, {
-          "name" : "data",
-          "in" : "formData",
-          "description" : "应用图标,png格式,限制大小8KB。",
-          "required" : true,
-          "schema" : {
-            "description" : "应用图标,png格式,限制大小8KB。",
-            "type" : "file"
-          }
         } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "data" : {
+                    "description" : "应用图标,png格式,限制大小8KB。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "data" ]
+              }
+            }
+          },
+          "required" : true
+        },
         "security" : [ {
           "apig-auth-iam-used-authn5" : [ ]
         } ]
@@ -25574,16 +25584,24 @@
             "maxLength" : 128,
             "minLength" : 1
           }
-        }, {
-          "name" : "data",
-          "in" : "formData",
-          "description" : "应用图标,png格式,限制大小8KB。",
-          "required" : false,
-          "schema" : {
-            "description" : "应用图标,png格式,限制大小8KB。",
-            "type" : "file"
-          }
         } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "data" : {
+                    "description" : "应用图标,png格式,限制大小8KB。",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
         "security" : [ {
           "apig-auth-iam-used-authn5" : [ ]
         } ]

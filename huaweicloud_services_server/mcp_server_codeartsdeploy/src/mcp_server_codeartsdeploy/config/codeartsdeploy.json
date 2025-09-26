@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CodeArtsDeploy-主机集群管理",
     "title" : "CodeArtsDeploy",
-    "version" : "2025-06-13",
-    "x-host_prefix": "codearts-deploy"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "codearts-deploy",
+    "x-host" : "codearts-deploy.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

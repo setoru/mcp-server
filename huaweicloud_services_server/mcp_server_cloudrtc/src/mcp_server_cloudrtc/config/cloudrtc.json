@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CloudRTC-应用管理",
     "title" : "CloudRTC",
-    "version" : "2025-07-30",
-    "x-host_prefix" : "rtc-api"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "rtc-api",
+    "x-host" : "rtc-api.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

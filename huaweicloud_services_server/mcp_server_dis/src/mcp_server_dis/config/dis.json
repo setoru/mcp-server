@@ -3,8 +3,9 @@
   "info" : {
     "description" : "DIS-通道管理",
     "title" : "DIS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "dis"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "dis",
+    "x-host" : "dis.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"

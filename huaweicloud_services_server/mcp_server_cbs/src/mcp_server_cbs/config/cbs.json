@@ -3,8 +3,9 @@
   "info" : {
     "description" : "CBS-问答会话",
     "title" : "CBS",
-    "version" : "2025-06-13",
-    "x-host_prefix": "cbs-ext"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "cbs-ext",
+    "x-host" : "cbs-ext.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -2577,7 +2578,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -2650,7 +2651,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -2724,16 +2725,25 @@
             "description" : "图片名",
             "type" : "string"
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "图片",
-          "required" : true,
-          "schema" : {
-            "description" : "图片",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "图片",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",
@@ -3529,7 +3539,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -3574,16 +3584,25 @@
             "description" : "视频id",
             "type" : "string"
           }
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "ppt文件",
-          "required" : true,
-          "schema" : {
-            "description" : "ppt文件",
-            "type" : "file"
-          }
-        } ]
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "description" : "ppt文件",
+                    "type" : "string",
+                    "format" : "binary"
+                  }
+                },
+                "required" : [ "file" ]
+              }
+            }
+          },
+          "required" : true
+        }
       },
       "x-method" : "post",
       "x-content-type" : "application/json;charset=UTF-8",

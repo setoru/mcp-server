@@ -3,8 +3,9 @@
   "info" : {
     "description" : "WAF-策略规则管理",
     "title" : "WAF",
-    "version" : "2025-06-13",
-    "x-host_prefix": "waf"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "waf",
+    "x-host" : "waf.{region}.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -10463,7 +10464,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -11500,7 +11501,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -12095,7 +12096,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -13549,7 +13550,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -15066,7 +15067,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -16599,7 +16600,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -17055,7 +17056,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -18365,7 +18366,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "patch",
@@ -19342,7 +19343,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -20588,7 +20589,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -21538,7 +21539,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -22037,7 +22038,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",

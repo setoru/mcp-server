@@ -3,8 +3,9 @@
   "info" : {
     "description" : "COC-ScheduledTask",
     "title" : "COC",
-    "version" : "2025-06-13",
-    "x-host_prefix": "coc"
+    "version" : "2025-09-02",
+    "x-host_prefix" : "coc",
+    "x-host" : "coc.myhuaweicloud.com"
   },
   "servers" : [ {
     "url" : "/"
@@ -6343,7 +6344,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -6631,7 +6632,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -6827,6 +6828,21 @@
       "x-url" : "{endpoint}/v1/patch/instance/compliant"
     },
     "/UpdateScript" : {
+      "get": {
+        "description": "New endpoint",
+        "responses": {
+          "200": {
+            "description": "New response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "": ""
+                }
+              }
+            }
+          }
+        }
+      },
       "put" : {
         "tags" : [ "ScriptManagement" ],
         "summary" : "修改脚本",
@@ -7244,7 +7260,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -8969,7 +8985,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "put",
@@ -9092,19 +9108,14 @@
           "content" : {
             "application/json; charset=utf-8" : {
               "schema" : {
-                "properties" : {
-                  "PrometheusMessageRequestBody" : {
-                    "description" : "Prometheus事件接入请求内容",
-                    "additionalProperties" : {
-                      "type" : "object"
-                    },
-                    "type" : "object"
-                  }
-                }
+                "additionalProperties" : {
+                  "type" : "object"
+                },
+                "type" : "object"
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
@@ -9220,7 +9231,7 @@
               }
             }
           },
-          "required" : false
+          "required" : true
         }
       },
       "x-method" : "post",
