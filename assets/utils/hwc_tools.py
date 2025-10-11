@@ -7,6 +7,7 @@ import yaml
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkcore.client import Client, ClientBuilder
 from huaweicloudsdkcore.exceptions.exceptions import HostUnreachableException
+from huaweicloudsdkcore.http.http_config import HttpConfig
 from huaweicloudsdkcore.region.region import Region
 from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
@@ -169,6 +170,9 @@ def create_api_client(ak, sk, x_host, region="cn-north-4"):
         endpoint = endpoint.replace("{region}", region)
 
     credentials = BasicCredentials(ak, sk)
+
+    http_config = HttpConfig()
+    http_config.ignore_ssl_verification = True
 
     return (
         ClientBuilder(CustomClient)
