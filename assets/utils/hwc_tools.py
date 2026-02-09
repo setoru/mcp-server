@@ -200,11 +200,15 @@ def build_http_info(name, arguments, openapi_spec, mcp_tools):
     form_params = {}
     request_body = {}
     response_headers = None
+    
+    # 用于收集需要包装的参数
+    wrapper_params = {}
 
     properties = invoked_tool.inputSchema.get("properties", {})
     for property_name, property_body in properties.items():
-        if property_name in ["X-Auth-Token"]:
-            pass
+        # 跳过特殊参数（region用于选择endpoint，不发送到API）
+        if property_name in ["X-Auth-Token", "region"]:
+            continue
         elif (
             property_name in invoked_tool.inputSchema.get("required", [])
             and arguments.get(property_name) is None
@@ -212,14 +216,29 @@ def build_http_info(name, arguments, openapi_spec, mcp_tools):
             raise Exception(f"{property_name}为必填参数.")
 
         property_in = property_body.get("in")
+        body_wrapper = property_body.get("_body_wrapper")
+        
         if property_in == "query":
             query_params[property_name] = arguments.get(property_name)
         elif property_in == "path":
             path_params[property_name] = arguments.get(property_name)
         elif property_in == "header":
             header_params[property_name] = arguments.get(property_name)
+        elif body_wrapper:
+            # 这个参数需要被包装到指定的wrapper中
+            if body_wrapper not in wrapper_params:
+                wrapper_params[body_wrapper] = {}
+            param_value = arguments.get(property_name)
+            if param_value is not None:
+                wrapper_params[body_wrapper][property_name] = param_value
         elif property_in is None:
             request_body[property_name] = arguments.get(property_name)
+    
+    # 将收集的wrapper参数添加到request_body
+    for wrapper_name, wrapper_content in wrapper_params.items():
+        if wrapper_content:  # 只有非空的wrapper才添加
+            request_body[wrapper_name] = wrapper_content
+            
     header_params["Content-Type"] = http_utils.select_header_content_type(
         ["application/json;charset=UTF-8"]
     )
@@ -297,9 +316,17 @@ def load_config(config_path: Union[str, Path]) -> MCPConfig:
 
 
 def filter_parameters(params_dict):
+    """过滤参数，移除None值、空列表和特殊参数（如region）"""
+    # 需要从请求中移除的特殊参数（这些参数用于路由而非API调用）
+    special_params = {"region"}
+    
     filtered_dict = {}
     for key, value in params_dict.items():
+        # 跳过特殊参数
+        if key in special_params:
+            continue
         # 检查值是否不是 None 并且不是空列表
         if value is not None and not (isinstance(value, list) and not value):
             filtered_dict[key] = value
     return filtered_dict
+

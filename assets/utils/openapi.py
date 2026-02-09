@@ -330,8 +330,51 @@ class OpenAPIToToolsConverter:
         parameter_properties: Dict[str, Any],
         required_parameters: Set[str],
     ) -> None:
-        """处理请求体中的属性"""
-        for prop_name, prop_schema in body_schema["properties"].items():
+        """处理请求体中的属性
+        
+        如果请求体只有一个顶层属性，且该属性是嵌套对象类型，
+        则将其子属性扁平化，便于AI模型直接传入参数。
+        """
+        body_properties = body_schema.get("properties", {})
+        body_required_list = body_schema.get("required", [])
+        
+        # 检测是否需要扁平化：只有一个顶层属性且为对象类型
+        if len(body_properties) == 1:
+            wrapper_name, wrapper_schema = next(iter(body_properties.items()))
+            if (
+                isinstance(wrapper_schema, dict)
+                and wrapper_schema.get("type") == "object"
+                and isinstance(wrapper_schema.get("properties"), dict)
+            ):
+                # 扁平化处理：提取wrapper内的子属性
+                nested_props = wrapper_schema.get("properties", {})
+                nested_required = wrapper_schema.get("required", [])
+                
+                for prop_name, prop_schema in nested_props.items():
+                    if (
+                        not isinstance(prop_name, str)
+                        or not isinstance(prop_schema, dict)
+                        or "$ref_cycle_detected" in prop_schema
+                    ):
+                        continue
+                    
+                    if prop_name in parameter_properties:
+                        logger.warning(f"属性名称冲突 '{prop_name}'，请求体属性将覆盖")
+                    
+                    # 标记这个属性需要被包装到哪个wrapper中
+                    prop_schema_copy = prop_schema.copy()
+                    prop_schema_copy["_body_wrapper"] = wrapper_name
+                    parameter_properties[prop_name] = prop_schema_copy
+                
+                # 处理嵌套层级的required字段
+                if isinstance(nested_required, list):
+                    required_parameters.update(
+                        req for req in nested_required if isinstance(req, str)
+                    )
+                return
+        
+        # 默认处理：直接添加顶层属性
+        for prop_name, prop_schema in body_properties.items():
             if (
                 not isinstance(prop_name, str)
                 or not isinstance(prop_schema, dict)
@@ -345,10 +388,9 @@ class OpenAPIToToolsConverter:
             parameter_properties[prop_name] = prop_schema
 
         # 合并必需字段
-        body_required = body_schema.get("required", [])
-        if isinstance(body_required, list):
+        if isinstance(body_required_list, list):
             required_parameters.update(
-                req for req in body_required if isinstance(req, str)
+                req for req in body_required_list if isinstance(req, str)
             )
 
     @staticmethod
