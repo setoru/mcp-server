@@ -104,11 +104,13 @@ packages = [
     "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws",
     "huaweicloud_services_server.mcp_server_ec.src.mcp_server_ec",
     "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs",
+    "huaweicloud_services_server.mcp_server_ecs_lite.src.mcp_server_ecs_lite",
     "huaweicloud_services_server.mcp_server_eds.src.mcp_server_eds",
     "huaweicloud_services_server.mcp_server_eg.src.mcp_server_eg",
     "huaweicloud_services_server.mcp_server_eihealth.src.mcp_server_eihealth",
     "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip",
     "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps",
+    "huaweicloud_services_server.mcp_server_eps_lite.src.mcp_server_eps_lite",
     "huaweicloud_services_server.mcp_server_er.src.mcp_server_er",
     "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs",
     "huaweicloud_services_server.mcp_server_frs.src.mcp_server_frs",
@@ -122,6 +124,7 @@ packages = [
     "huaweicloud_services_server.mcp_server_hilens.src.mcp_server_hilens",
     "huaweicloud_services_server.mcp_server_hss.src.mcp_server_hss",
     "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam",
+    "huaweicloud_services_server.mcp_server_iam_lite.src.mcp_server_iam_lite",
     "huaweicloud_services_server.mcp_server_identitycenter.src.mcp_server_identitycenter",
     "huaweicloud_services_server.mcp_server_identitycenteroidc.src.mcp_server_identitycenteroidc",
     "huaweicloud_services_server.mcp_server_identitycenterportalapi.src.mcp_server_identitycenterportalapi",
@@ -272,12 +275,14 @@ packages = [
  "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_ec.src.mcp_server_ec" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_ecs_lite.src.mcp_server_ecs_lite" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_eds.src.mcp_server_eds" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_eg.src.mcp_server_eg" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_eihealth.src.mcp_server_eihealth" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_elb.src.mcp_server_elb" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_eps_lite.src.mcp_server_eps_lite" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_er.src.mcp_server_er" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_frs.src.mcp_server_frs" = ["config/*.yaml", "config/*.json"]
@@ -291,6 +296,7 @@ packages = [
  "huaweicloud_services_server.mcp_server_hilens.src.mcp_server_hilens" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_hss.src.mcp_server_hss" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_iam_lite.src.mcp_server_iam_lite" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_identitycenter.src.mcp_server_identitycenter" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_identitycenteroidc.src.mcp_server_identitycenteroidc" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_identitycenterportalapi.src.mcp_server_identitycenterportalapi" = ["config/*.yaml", "config/*.json"]
@@ -425,11 +431,13 @@ mcp-server-dsc = "huaweicloud_services_server.mcp_server_dsc.src.mcp_server_dsc.
 mcp-server-dss = "huaweicloud_services_server.mcp_server_dss.src.mcp_server_dss.run:main"
 mcp-server-dws = "huaweicloud_services_server.mcp_server_dws.src.mcp_server_dws.run:main"
 mcp-server-ecs = "huaweicloud_services_server.mcp_server_ecs.src.mcp_server_ecs.run:main"
+mcp-server-ecs-lite = "huaweicloud_services_server.mcp_server_ecs_lite.src.mcp_server_ecs_lite.run:main"
 mcp-server-eds = "huaweicloud_services_server.mcp_server_eds.src.mcp_server_eds.run:main"
 mcp-server-eg = "huaweicloud_services_server.mcp_server_eg.src.mcp_server_eg.run:main"
 mcp-server-eip = "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip.run:main"
 mcp-server-elb = "huaweicloud_services_server.mcp_server_elb.src.mcp_server_elb.run:main"
 mcp-server-eps = "huaweicloud_services_server.mcp_server_eps.src.mcp_server_eps.run:main"
+mcp-server-eps-lite = "huaweicloud_services_server.mcp_server_eps_lite.src.mcp_server_eps_lite.run:main"
 mcp-server-er = "huaweicloud_services_server.mcp_server_er.src.mcp_server_er.run:main"
 mcp-server-evs = "huaweicloud_services_server.mcp_server_evs.src.mcp_server_evs.run:main"
 mcp-server-frs = "huaweicloud_services_server.mcp_server_frs.src.mcp_server_frs.run:main"
@@ -440,6 +448,7 @@ mcp-server-ges = "huaweicloud_services_server.mcp_server_ges.src.mcp_server_ges.
 mcp-server-gsl = "huaweicloud_services_server.mcp_server_gsl.src.mcp_server_gsl.run:main"
 mcp-server-hss = "huaweicloud_services_server.mcp_server_hss.src.mcp_server_hss.run:main"
 mcp-server-iam = "huaweicloud_services_server.mcp_server_iam.src.mcp_server_iam.run:main"
+mcp-server-iam-lite = "huaweicloud_services_server.mcp_server_iam_lite.src.mcp_server_iam_lite.run:main"
 mcp-server-idt = "huaweicloud_services_server.mcp_server_idt.src.mcp_server_idt.run:main"
 mcp-server-iec = "huaweicloud_services_server.mcp_server_iec.src.mcp_server_iec.run:main"
 mcp-server-ief = "huaweicloud_services_server.mcp_server_ief.src.mcp_server_ief.run:main"

@@ -361,6 +361,13 @@ class OpenAPIToToolsConverter:
         if parameter_properties:
             tool_parameters["properties"] = parameter_properties.copy()  # 创建副本
 
+        # 添加region参数，让AI模型知道可以传入region
+        tool_parameters["properties"]["region"] = {
+            "type": "string",
+            "description": "华为云区域ID，例如：cn-south-1(华南-广州)、cn-north-4(华北-北京四)、cn-east-3(华东-上海一)。如果用户指定了区域，请务必传入此参数。",
+            "example": "cn-south-1"
+        }
+
         valid_required = [
             req for req in sorted(required_parameters) if req in parameter_properties
         ]

@@ -7,3 +7,4 @@ test.py
 .vscode
 *.egg-info
 uv.lock
+.ace-tool/
