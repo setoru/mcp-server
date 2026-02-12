@@ -200,6 +200,7 @@ packages = [
     "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis",
     "huaweicloud_services_server.mcp_server_vod.src.mcp_server_vod",
     "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc",
+    "huaweicloud_services_server.mcp_server_vpc_lite.src.mcp_server_vpc_lite",
     "huaweicloud_services_server.mcp_server_vpcep.src.mcp_server_vpcep",
     "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn",
     "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf",
@@ -373,6 +374,7 @@ packages = [
  "huaweicloud_services_server.mcp_server_vias.src.mcp_server_vias" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_vpc_lite.src.mcp_server_vpc_lite" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_vpcep.src.mcp_server_vpcep" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf" = ["config/*.yaml", "config/*.json"]
@@ -498,6 +500,7 @@ mcp-server-vias = "huaweicloud_services_server.mcp_server_vias.src.mcp_server_vi
 mcp-server-vis = "huaweicloud_services_server.mcp_server_vis.src.mcp_server_vis.run:main"
 mcp-server-vod = "huaweicloud_services_server.mcp_server_vod.src.mcp_server_vod.run:main"
 mcp-server-vpc = "huaweicloud_services_server.mcp_server_vpc.src.mcp_server_vpc.run:main"
+mcp-server-vpc-lite = "huaweicloud_services_server.mcp_server_vpc_lite.src.mcp_server_vpc_lite.run:main"
 mcp-server-vpcep = "huaweicloud_services_server.mcp_server_vpcep.src.mcp_server_vpcep.run:main"
 mcp-server-vpn = "huaweicloud_services_server.mcp_server_vpn.src.mcp_server_vpn.run:main"
 mcp-server-waf = "huaweicloud_services_server.mcp_server_waf.src.mcp_server_waf.run:main"

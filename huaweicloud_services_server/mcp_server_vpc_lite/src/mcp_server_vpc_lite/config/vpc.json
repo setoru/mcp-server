@@ -1,0 +1,1515 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "VPC-安全组管理",
+    "title": "VPC",
+    "version": "2025-09-02",
+    "x-host_prefix": "vpc",
+    "x-host": "vpc.{region}.myhuaweicloud.com"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "parameters": {},
+    "schemas": {
+      "CreateSecurityGroupOption": {
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "功能描述:安全组名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:安全组的描述信息"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "功能说明:企业项目ID。创建安全组时,给安全组绑定企业项目ID。",
+            "minLength": 0,
+            "maxLength": 36
+          },
+          "tags": {
+            "type": "array",
+            "description": "功能描述:安全组的标签信息",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/ResourceTag"
+            }
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "CreateSecurityGroupRequestBody": {
+        "required": [
+          "security_group"
+        ],
+        "properties": {
+          "dry_run": {
+            "type": "boolean",
+            "description": "功能说明:是否只预检此次请求"
+          },
+          "security_group": {
+            "description": "功能说明:创建安全组的请求体",
+            "$ref": "#/components/schemas/CreateSecurityGroupOption"
+          }
+        },
+        "description": "This is a auto create Body Object",
+        "type": "object"
+      },
+      "CreateSecurityGroupResponseBody": {
+        "required": [
+          "request_id",
+          "security_group"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求Id"
+          },
+          "security_group": {
+            "description": "创建安全组响应体",
+            "$ref": "#/components/schemas/SecurityGroupInfo"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "CreateSecurityGroupRuleOption": {
+        "required": [
+          "direction",
+          "security_group_id"
+        ],
+        "properties": {
+          "security_group_id": {
+            "type": "string",
+            "description": "功能说明:安全组规则所属的安全组ID"
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:安全组的描述信息"
+          },
+          "direction": {
+            "type": "string",
+            "description": "功能说明:安全组规则的出入控制方向"
+          },
+          "ethertype": {
+            "type": "string",
+            "description": "功能说明:IP地址协议类型"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "功能说明:协议类型"
+          },
+          "multiport": {
+            "type": "string",
+            "description": "功能说明:端口取值范围"
+          },
+          "remote_ip_prefix": {
+            "type": "string",
+            "description": "功能说明:远端IP地址,当direction是egress时为虚拟机访问端的地址,当direction是ingress时为访问虚拟机的地址"
+          },
+          "remote_group_id": {
+            "type": "string",
+            "description": "功能说明:远端安全组ID,表示该安全组内的流量允许或拒绝"
+          },
+          "remote_address_group_id": {
+            "type": "string",
+            "description": "功能说明:远端地址组ID"
+          },
+          "action": {
+            "type": "string",
+            "description": "功能说明:安全组规则生效策略"
+          },
+          "priority": {
+            "type": "string",
+            "description": "功能说明:规则在安全组中的优先级"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "功能说明:是否启用安全组规则。"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "CreateSecurityGroupRuleRequestBody": {
+        "required": [
+          "security_group_rule"
+        ],
+        "properties": {
+          "dry_run": {
+            "type": "boolean",
+            "description": "功能说明:是否只预检此次请求"
+          },
+          "security_group_rule": {
+            "description": "创建安全组规则的请求体",
+            "$ref": "#/components/schemas/CreateSecurityGroupRuleOption"
+          }
+        },
+        "description": "This is a auto create Body Object",
+        "type": "object"
+      },
+      "CreateSecurityGroupRuleResponseBody": {
+        "required": [
+          "request_id",
+          "security_group_rule"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "security_group_rule": {
+            "description": "创建安全组规则的响应体",
+            "$ref": "#/components/schemas/SecurityGroupRule"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "ErrorResp": {
+        "required": [
+          "error_code",
+          "error_msg",
+          "request_id"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "error_msg": {
+            "type": "string",
+            "description": "错误消息"
+          },
+          "error_code": {
+            "type": "string",
+            "description": "错误码"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ListSecurityGroupRulesResponseBody": {
+        "required": [
+          "page_info",
+          "request_id",
+          "security_group_rules"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "security_group_rules": {
+            "type": "array",
+            "description": "安全组规则列表响应体",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/SecurityGroupRule"
+            }
+          },
+          "page_info": {
+            "description": "分页信息",
+            "$ref": "#/components/schemas/PageInfo"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "ListSecurityGroupsResponseBody": {
+        "required": [
+          "page_info",
+          "request_id",
+          "security_groups"
+        ],
+        "properties": {
+          "security_groups": {
+            "type": "array",
+            "description": "安全组列表响应体",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/SecurityGroup"
+            }
+          },
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "page_info": {
+            "description": "分页信息",
+            "$ref": "#/components/schemas/PageInfo"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "PageInfo": {
+        "required": [
+          "current_count",
+          "previous_marker"
+        ],
+        "properties": {
+          "previous_marker": {
+            "type": "string",
+            "description": "当前页第一条记录"
+          },
+          "current_count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页总数"
+          },
+          "next_marker": {
+            "type": "string",
+            "description": "当前页最后一条记录,最后一页时无next_marker字段"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ResourceTag": {
+        "required": [
+          "key",
+          "value"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "功能说明:标签键",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "value": {
+            "type": "string",
+            "description": "功能说明:标签值",
+            "maxLength": 255
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "SecurityGroup": {
+        "required": [
+          "created_at",
+          "description",
+          "enterprise_project_id",
+          "id",
+          "name",
+          "project_id",
+          "updated_at",
+          "tags"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "功能描述:安全组对应的唯一标识",
+            "minLength": 36,
+            "maxLength": 36
+          },
+          "name": {
+            "type": "string",
+            "description": "功能说明:安全组名称",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:安全组的描述信息",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "project_id": {
+            "type": "string",
+            "description": "功能说明:安全组所属的项目ID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:安全组创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:安全组更新时间"
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "功能说明:安全组所属的企业项目ID。",
+            "minLength": 1,
+            "maxLength": 36
+          },
+          "tags": {
+            "type": "array",
+            "description": "功能描述:安全组的标签信息",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/ResourceTag"
+            }
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "SecurityGroupInfo": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecurityGroup"
+          },
+          {
+            "required": [
+              "security_group_rules"
+            ],
+            "properties": {
+              "security_group_rules": {
+                "type": "array",
+                "description": "安全组规则",
+                "items": {
+                  "description": "",
+                  "$ref": "#/components/schemas/SecurityGroupRule"
+                }
+              }
+            }
+          }
+        ],
+        "description": "",
+        "type": "object"
+      },
+      "SecurityGroupRule": {
+        "required": [
+          "action",
+          "created_at",
+          "description",
+          "direction",
+          "enabled",
+          "ethertype",
+          "id",
+          "multiport",
+          "priority",
+          "project_id",
+          "protocol",
+          "remote_address_group_id",
+          "remote_group_id",
+          "remote_ip_prefix",
+          "security_group_id",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "功能描述:安全组规则对应的唯一标识"
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:安全组的描述信息"
+          },
+          "security_group_id": {
+            "type": "string",
+            "description": "功能说明:安全组规则所属的安全组ID"
+          },
+          "direction": {
+            "type": "string",
+            "description": "功能说明:安全组规则的出入控制方向"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "功能说明:协议类型"
+          },
+          "ethertype": {
+            "type": "string",
+            "description": "功能说明:IP地址协议类型",
+            "default": "IPv4"
+          },
+          "multiport": {
+            "type": "string",
+            "description": "功能说明:端口取值范围"
+          },
+          "action": {
+            "type": "string",
+            "description": "功能说明:安全组规则生效策略"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "功能说明:优先级"
+          },
+          "remote_group_id": {
+            "type": "string",
+            "description": "功能说明:远端安全组ID,表示该安全组内的流量允许或拒绝"
+          },
+          "remote_ip_prefix": {
+            "type": "string",
+            "description": "功能说明:远端IP地址,当direction是egress时为虚拟机访问端的地址,当direction是ingress时为访问虚拟机的地址"
+          },
+          "remote_address_group_id": {
+            "type": "string",
+            "description": "功能说明:远端地址组ID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:安全组规则创建时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:安全组规则更新时间"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "功能说明:安全组规则所属项目ID"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "功能说明:是否启用安全组规则。"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ShowSecurityGroupResponseBody": {
+        "required": [
+          "request_id",
+          "security_group"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "security_group": {
+            "description": "查询安全组详情响应体",
+            "$ref": "#/components/schemas/SecurityGroupInfo"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "ShowSecurityGroupRuleResponseBody": {
+        "required": [
+          "request_id",
+          "security_group_rule"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "security_group_rule": {
+            "description": "安全组规则详情响应体",
+            "$ref": "#/components/schemas/SecurityGroupRule"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "UpdateSecurityGroupOption": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "功能说明:安全组名称"
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:安全组描述"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "UpdateSecurityGroupRequestBody": {
+        "required": [
+          "security_group"
+        ],
+        "properties": {
+          "dry_run": {
+            "type": "boolean",
+            "description": "功能说明:是否只预检此次请求"
+          },
+          "security_group": {
+            "description": "更新安全组的请求体",
+            "$ref": "#/components/schemas/UpdateSecurityGroupOption"
+          }
+        },
+        "description": "This is a auto create Body Object",
+        "type": "object"
+      },
+      "UpdateSecurityGroupResponseBody": {
+        "required": [
+          "request_id",
+          "security_group"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "security_group": {
+            "description": "更新安全组的响应体",
+            "$ref": "#/components/schemas/SecurityGroupInfo"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      }
+    }
+  },
+  "paths": {
+    "/CreateSecurityGroup": {
+      "post": {
+        "tags": [
+          "安全组"
+        ],
+        "summary": "创建安全组",
+        "description": "创建安全组",
+        "operationId": "CreateSecurityGroup",
+        "deprecated": false,
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSecurityGroupResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSecurityGroupRequestBody"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "CreateSecurityGroup",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-groups"
+    },
+    "/DeleteSecurityGroup": {
+      "delete": {
+        "tags": [
+          "安全组"
+        ],
+        "summary": "删除安全组",
+        "description": "删除安全组",
+        "operationId": "DeleteSecurityGroup",
+        "deprecated": false,
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "security_group_id",
+            "in": "path",
+            "description": "安全组资源ID",
+            "required": true,
+            "schema": {
+              "description": "安全组资源ID",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "delete",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "DeleteSecurityGroup",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-groups/{security_group_id}"
+    },
+    "/ShowSecurityGroup": {
+      "get": {
+        "tags": [
+          "安全组"
+        ],
+        "summary": "查询安全组",
+        "description": "查询单个安全组详情",
+        "operationId": "ShowSecurityGroup",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSecurityGroupResponseBody"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "security_group_id",
+            "in": "path",
+            "description": "安全组资源ID",
+            "required": true,
+            "schema": {
+              "description": "安全组资源ID",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ShowSecurityGroup",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-groups/{security_group_id}"
+    },
+    "/ListSecurityGroups": {
+      "get": {
+        "tags": [
+          "安全组"
+        ],
+        "summary": "查询安全组列表",
+        "description": "查询某租户下的安全组列表",
+        "operationId": "ListSecurityGroups",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSecurityGroupsResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "功能说明:每页返回的个数",
+            "required": false,
+            "schema": {
+              "description": "功能说明:每页返回的个数",
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "marker",
+            "in": "query",
+            "description": "分页查询起始的资源ID,为空时查询第一页",
+            "required": false,
+            "schema": {
+              "description": "分页查询起始的资源ID,为空时查询第一页",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "功能说明:安全组资源ID。可以使用该字段精确过滤安全组,支持多个ID",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组资源ID。可以使用该字段精确过滤安全组,支持多个ID",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "功能说明:安全组名称。可以使用该字段精确过滤满足条件的安全组,支持传入多个name过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组名称。可以使用该字段精确过滤满足条件的安全组,支持传入多个name过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "功能说明:安全组描述新增。可以使用该字段精确过滤安全组,支持传入多个描述进行过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组描述新增。可以使用该字段精确过滤安全组,支持传入多个描述进行过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "enterprise_project_id",
+            "in": "query",
+            "description": "功能说明:企业项目ID。可以使用该字段过滤某个企业项目下的安全组。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:企业项目ID。可以使用该字段过滤某个企业项目下的安全组。",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ListSecurityGroups",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-groups"
+    },
+    "/UpdateSecurityGroup": {
+      "put": {
+        "tags": [
+          "安全组"
+        ],
+        "summary": "更新安全组",
+        "description": "更新安全组",
+        "operationId": "UpdateSecurityGroup",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateSecurityGroupResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "security_group_id",
+            "in": "path",
+            "description": "安全组ID",
+            "required": true,
+            "schema": {
+              "description": "安全组ID",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSecurityGroupRequestBody"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "put",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "UpdateSecurityGroup",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-groups/{security_group_id}"
+    },
+    "/CreateSecurityGroupRule": {
+      "post": {
+        "tags": [
+          "安全组规则"
+        ],
+        "summary": "创建安全组规则",
+        "description": "创建安全组规则",
+        "operationId": "CreateSecurityGroupRule",
+        "deprecated": false,
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSecurityGroupRuleResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSecurityGroupRuleRequestBody"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "CreateSecurityGroupRule",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-group-rules"
+    },
+    "/DeleteSecurityGroupRule": {
+      "delete": {
+        "tags": [
+          "安全组规则"
+        ],
+        "summary": "删除安全组规则",
+        "description": "删除安全组规则",
+        "operationId": "DeleteSecurityGroupRule",
+        "deprecated": false,
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "security_group_rule_id",
+            "in": "path",
+            "description": "安全组规则ID",
+            "required": true,
+            "schema": {
+              "description": "安全组规则ID",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "delete",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "DeleteSecurityGroupRule",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}"
+    },
+    "/ShowSecurityGroupRule": {
+      "get": {
+        "tags": [
+          "安全组规则"
+        ],
+        "summary": "查询安全组规则",
+        "description": "查询单个安全组规则",
+        "operationId": "ShowSecurityGroupRule",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSecurityGroupRuleResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "security_group_rule_id",
+            "in": "path",
+            "description": "安全组规则ID",
+            "required": true,
+            "schema": {
+              "description": "安全组规则ID",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ShowSecurityGroupRule",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}"
+    },
+    "/ListSecurityGroupRules": {
+      "get": {
+        "tags": [
+          "安全组规则"
+        ],
+        "summary": "查询安全组规则列表",
+        "description": "查询安全组规则列表",
+        "operationId": "ListSecurityGroupRules",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSecurityGroupRulesResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "功能说明:每页返回个数",
+            "required": false,
+            "schema": {
+              "description": "功能说明:每页返回个数",
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "marker",
+            "in": "query",
+            "description": "分页查询起始的资源ID,为空时查询第一页",
+            "required": false,
+            "schema": {
+              "description": "分页查询起始的资源ID,为空时查询第一页",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "功能说明:安全组规则ID,支持多个ID过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组规则ID,支持多个ID过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "security_group_id",
+            "in": "query",
+            "description": "功能说明:安全组规则所属安全组ID,支持多个ID过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组规则所属安全组ID,支持多个ID过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "protocol",
+            "in": "query",
+            "description": "功能说明:安全组规则协议,支持多条过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组规则协议,支持多条过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "功能说明:安全组规则的描述,支持多个描述同时过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组规则的描述,支持多个描述同时过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "remote_group_id",
+            "in": "query",
+            "description": "功能说明:远端安全组ID,支持多ID过滤",
+            "required": false,
+            "schema": {
+              "description": "功能说明:远端安全组ID,支持多ID过滤",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "功能说明:安全组规则方向",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组规则方向",
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "功能说明:安全组规则生效策略。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:安全组规则生效策略。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "remote_ip_prefix",
+            "in": "query",
+            "description": "功能说明:远端IP地址",
+            "required": false,
+            "schema": {
+              "description": "功能说明:远端IP地址",
+              "type": "string"
+            }
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "description": "功能说明:优先级,支持多条过滤。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:优先级,支持多条过滤。",
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "ethertype",
+            "in": "query",
+            "description": "功能说明:IP协议类型,支持多条过滤。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:IP协议类型,支持多条过滤。",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "remote_address_group_id",
+            "in": "query",
+            "description": "功能说明:远端IP地址组ID,支持多ID过滤。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:远端IP地址组ID,支持多ID过滤。",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "enabled",
+            "in": "query",
+            "description": "功能说明:是否启用安全组规则,不支持多值过滤。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:是否启用安全组规则,不支持多值过滤。",
+              "type": "boolean"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ListSecurityGroupRules",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/security-group-rules"
+    }
+  }
+}
