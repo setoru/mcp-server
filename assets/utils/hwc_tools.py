@@ -242,6 +242,8 @@ def build_http_info(name, arguments, openapi_spec, mcp_tools):
     header_params["Content-Type"] = http_utils.select_header_content_type(
         ["application/json;charset=UTF-8"]
     )
+    # 如果body为空则设为None（避免DELETE等方法发送空body报错）
+    filtered_body = request_body or None
     http_info = {
         "method": method,
         "resource_path": resource_path,
@@ -251,7 +253,7 @@ def build_http_info(name, arguments, openapi_spec, mcp_tools):
         "query_params": query_params,
         "header_params": header_params,
         "post_params": form_params,
-        "body": request_body,
+        "body": filtered_body,
         "response_headers": response_headers,
     }
 
