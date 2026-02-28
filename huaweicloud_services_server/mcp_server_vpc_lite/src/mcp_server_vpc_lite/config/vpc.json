@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "VPC-安全组管理",
+    "description": "VPC-安全组管理/子网查询/VPC查询",
     "title": "VPC",
     "version": "2025-09-02",
     "x-host_prefix": "vpc",
@@ -556,6 +556,374 @@
           }
         },
         "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "ExtraDhcpOption": {
+        "required": [
+          "opt_name"
+        ],
+        "properties": {
+          "opt_name": {
+            "type": "string",
+            "description": "功能说明:子网配置的NTP地址名称或子网配置的租约到期名称。",
+            "enum": [
+              "ntp",
+              "addresstime"
+            ]
+          },
+          "opt_value": {
+            "type": "string",
+            "description": "功能说明:子网配置的NTP地址或子网配置的租约到期时间。"
+          }
+        },
+        "description": "子网配置的NTP地址或租约时间对象",
+        "type": "object"
+      },
+      "ListSubnetsErrorResp": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "请求返回的错误码"
+          },
+          "message": {
+            "type": "string",
+            "description": "请求返回的错误信息",
+            "minLength": 1,
+            "maxLength": 999
+          }
+        },
+        "description": "http响应码为错误码时的返回体数据模型",
+        "type": "object"
+      },
+      "ListSubnetsResponseBody": {
+        "required": [
+          "subnets"
+        ],
+        "properties": {
+          "subnets": {
+            "type": "array",
+            "description": "subnet对象列表",
+            "items": {
+              "$ref": "#/components/schemas/Subnet"
+            }
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ListVpcsResponseBody": {
+        "required": [
+          "page_info",
+          "request_id",
+          "vpcs"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "vpcs": {
+            "type": "array",
+            "description": "VPC列表响应体",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/Vpc"
+            }
+          },
+          "page_info": {
+            "description": "分页信息",
+            "$ref": "#/components/schemas/PageInfo"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "Route": {
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "功能说明:路由目的地"
+          },
+          "nexthop": {
+            "type": "string",
+            "description": "功能说明:路由下一跳IP地址"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ShowSubnetErrorResp": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "请求返回的错误码"
+          },
+          "message": {
+            "type": "string",
+            "description": "请求返回的错误信息",
+            "minLength": 1,
+            "maxLength": 999
+          }
+        },
+        "description": "http响应码为错误码时的返回体数据模型",
+        "type": "object"
+      },
+      "ShowVpcResponseBody": {
+        "required": [
+          "vpc",
+          "request_id"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "vpc": {
+            "description": "VPC响应体",
+            "$ref": "#/components/schemas/Vpc"
+          }
+        },
+        "description": "This is a auto create Response Object",
+        "type": "object"
+      },
+      "Subnet": {
+        "required": [
+          "availability_zone",
+          "cidr",
+          "cidr_v6",
+          "created_at",
+          "description",
+          "dhcp_enable",
+          "dnsList",
+          "extra_dhcp_opts",
+          "gateway_ip",
+          "gateway_ip_v6",
+          "id",
+          "ipv6_enable",
+          "name",
+          "neutron_network_id",
+          "neutron_subnet_id",
+          "neutron_subnet_id_v6",
+          "primary_dns",
+          "secondary_dns",
+          "status",
+          "tenant_id",
+          "updated_at",
+          "vpc_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "子网ID",
+            "pattern": "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"
+          },
+          "name": {
+            "type": "string",
+            "description": "功能说明:子网名称",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:子网描述",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "cidr": {
+            "type": "string",
+            "description": "功能说明:子网的网段"
+          },
+          "gateway_ip": {
+            "type": "string",
+            "description": "功能说明:子网的网关"
+          },
+          "ipv6_enable": {
+            "type": "boolean",
+            "description": "功能说明:是否创建cidr_v6"
+          },
+          "cidr_v6": {
+            "type": "string",
+            "description": "IPv6子网的网段,如果子网为IPv4子网,则不返回此参数"
+          },
+          "gateway_ip_v6": {
+            "type": "string",
+            "description": "IPv6子网的网关,如果子网为IPv4子网,则不返回此参数"
+          },
+          "dhcp_enable": {
+            "type": "boolean",
+            "description": "子网是否开启dhcp功能"
+          },
+          "primary_dns": {
+            "type": "string",
+            "description": "子网dns服务器地址1"
+          },
+          "secondary_dns": {
+            "type": "string",
+            "description": "子网dns服务器地址2"
+          },
+          "dnsList": {
+            "type": "array",
+            "description": "子网dns服务器地址列表",
+            "items": {
+              "type": "string"
+            }
+          },
+          "availability_zone": {
+            "type": "string",
+            "description": "子网所在的可用区标识"
+          },
+          "vpc_id": {
+            "type": "string",
+            "description": "子网所在VPC标识"
+          },
+          "status": {
+            "type": "string",
+            "description": "功能说明:子网的状态",
+            "enum": [
+              "ACTIVE",
+              "UNKNOWN",
+              "ERROR"
+            ]
+          },
+          "neutron_network_id": {
+            "type": "string",
+            "description": "对应网络(OpenStack Neutron接口)id"
+          },
+          "neutron_subnet_id": {
+            "type": "string",
+            "description": "对应子网(OpenStack Neutron接口)id"
+          },
+          "neutron_subnet_id_v6": {
+            "type": "string",
+            "description": "对应IPv6子网(OpenStack Neutron接口)id,如果子网为IPv4子网,则不返回此参数"
+          },
+          "extra_dhcp_opts": {
+            "type": "array",
+            "description": "子网配置的NTP地址或DHCP租约时间",
+            "items": {
+              "$ref": "#/components/schemas/ExtraDhcpOption"
+            }
+          },
+          "scope": {
+            "type": "string",
+            "description": "功能说明:子网作用域"
+          },
+          "tenant_id": {
+            "type": "string",
+            "example": "b433fedb577940bfa59abff86482ed1a",
+            "description": "项目ID",
+            "pattern": "[0-9a-fA-F]{32}"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:资源创建UTC时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:资源更新UTC时间"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "SubnetResponseBody": {
+        "required": [
+          "subnet"
+        ],
+        "properties": {
+          "subnet": {
+            "description": "subnet对象",
+            "$ref": "#/components/schemas/Subnet"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "Vpc": {
+        "required": [
+          "cidr",
+          "created_at",
+          "description",
+          "enterprise_project_id",
+          "id",
+          "name",
+          "routes",
+          "status",
+          "tenant_id",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "功能说明:虚拟私有云ID",
+            "pattern": "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"
+          },
+          "name": {
+            "type": "string",
+            "description": "功能说明:虚拟私有云名称",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "cidr": {
+            "type": "string",
+            "description": "功能说明:虚拟私有云下可用子网的范围"
+          },
+          "description": {
+            "type": "string",
+            "description": "功能说明:虚拟私有云的描述",
+            "minLength": 0,
+            "maxLength": 255
+          },
+          "routes": {
+            "type": "array",
+            "description": "功能说明:路由信息列表,详情参见route对象",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/Route"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "功能说明:虚拟私有云的状态",
+            "enum": [
+              "CREATING",
+              "OK",
+              "ERROR"
+            ]
+          },
+          "enterprise_project_id": {
+            "type": "string",
+            "description": "功能说明:企业项目ID。",
+            "maxLength": 36
+          },
+          "tenant_id": {
+            "type": "string",
+            "example": "b433fedb577940bfa59abff86482ed1a",
+            "description": "项目ID",
+            "pattern": "[0-9a-fA-F]{32}"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:资源创建UTC时间"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "功能说明:资源更新UTC时间"
+          }
+        },
+        "description": "",
         "type": "object"
       }
     }
@@ -1510,6 +1878,550 @@
       "x-content-type": "application/json;charset=UTF-8",
       "x-operationId": "ListSecurityGroupRules",
       "x-url": "{endpoint}/v3/{project_id}/vpc/security-group-rules"
+    },
+    "/ListSubnets": {
+      "get": {
+        "tags": [
+          "子网"
+        ],
+        "summary": "查询子网列表",
+        "description": "查询子网列表",
+        "operationId": "ListSubnets",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "正常返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "服务器未能处理请求。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsErrorResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "被请求的页面需要用户名和密码。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "对被请求页面的访问被禁止。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsErrorResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "服务器无法找到被请求的页面。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsErrorResp"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "由于冲突,请求无法被完成。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "请求未完成。服务异常。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListSubnetsErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "每页返回的个数",
+            "required": false,
+            "schema": {
+              "description": "每页返回的个数",
+              "type": "integer",
+              "format": "int32",
+              "default": 2000
+            }
+          },
+          {
+            "name": "marker",
+            "in": "query",
+            "description": "分页查询起始的资源id,为空时查询第一页",
+            "required": false,
+            "schema": {
+              "example": "a7dea4c9-21db-4640-aaca-da0209c9ad62",
+              "description": "分页查询起始的资源id,为空时查询第一页",
+              "type": "string",
+              "pattern": "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"
+            }
+          },
+          {
+            "name": "vpc_id",
+            "in": "query",
+            "description": "按照vpc_id过滤查询",
+            "required": false,
+            "schema": {
+              "example": "a7dea4c9-21db-4640-aaca-da0209c9ad62",
+              "description": "按照vpc_id过滤查询",
+              "type": "string",
+              "pattern": "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ListSubnets",
+      "x-url": "{endpoint}/v1/{project_id}/subnets"
+    },
+    "/ShowSubnet": {
+      "get": {
+        "tags": [
+          "子网"
+        ],
+        "summary": "查询子网",
+        "description": "查询子网详情。",
+        "operationId": "ShowSubnet",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "正常返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubnetResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "服务器未能处理请求。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSubnetErrorResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "被请求的页面需要用户名和密码。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSubnetErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "对被请求页面的访问被禁止。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSubnetErrorResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "服务器无法找到被请求的页面。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSubnetErrorResp"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "由于冲突,请求无法被完成。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSubnetErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "请求未完成。服务异常。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowSubnetErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。 ",
+            "required": true,
+            "schema": {
+              "description": "用户Token。 ",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "subnet_id",
+            "in": "path",
+            "description": "子网ID",
+            "required": true,
+            "schema": {
+              "example": "a7dea4c9-21db-4640-aaca-da0209c9ad62",
+              "description": "子网ID",
+              "type": "string",
+              "pattern": "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ShowSubnet",
+      "x-url": "{endpoint}/v1/{project_id}/subnets/{subnet_id}"
+    },
+    "/ListVpcs": {
+      "get": {
+        "tags": [
+          "VPC"
+        ],
+        "summary": "查询VPC列表",
+        "description": "查询vpc列表",
+        "operationId": "ListVpcs",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListVpcsResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResp"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "功能说明:每页返回的个数",
+            "required": false,
+            "schema": {
+              "description": "功能说明:每页返回的个数",
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "marker",
+            "in": "query",
+            "description": "分页查询起始的资源ID,为空时查询第一页",
+            "required": false,
+            "schema": {
+              "description": "分页查询起始的资源ID,为空时查询第一页",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "VPC资源ID。可以使用该字段过滤VPC",
+            "required": false,
+            "schema": {
+              "description": "VPC资源ID。可以使用该字段过滤VPC",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "enterprise_project_id",
+            "in": "query",
+            "description": "功能说明:企业项目ID。可以使用该字段过滤某个企业项目下的VPC。",
+            "required": false,
+            "schema": {
+              "description": "功能说明:企业项目ID。可以使用该字段过滤某个企业项目下的VPC。",
+              "type": "string",
+              "maxLength": 36
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "VPC的name信息,可以使用该字段过滤VPC",
+            "required": false,
+            "schema": {
+              "description": "VPC的name信息,可以使用该字段过滤VPC",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "VPC的描述信息。可以使用该字段过滤VPC",
+            "required": false,
+            "schema": {
+              "description": "VPC的描述信息。可以使用该字段过滤VPC",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          },
+          {
+            "name": "cidr",
+            "in": "query",
+            "description": "VPC的CIDR。可以使用该字段过滤VPC",
+            "required": false,
+            "schema": {
+              "description": "VPC的CIDR。可以使用该字段过滤VPC",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "collectionFormat": "multi"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ListVpcs",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/vpcs"
+    },
+    "/ShowVpc": {
+      "get": {
+        "tags": [
+          "VPC"
+        ],
+        "summary": "查询VPC详情",
+        "description": "查询vpc详情",
+        "operationId": "ShowVpc",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowVpcResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Auth-Token",
+            "in": "header",
+            "description": "用户Token。",
+            "required": true,
+            "schema": {
+              "description": "用户Token。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "description": "项目ID",
+            "required": true,
+            "schema": {
+              "description": "项目ID",
+              "type": "string",
+              "pattern": "[0-9a-fA-F]{32}"
+            }
+          },
+          {
+            "name": "vpc_id",
+            "in": "path",
+            "description": "VPC资源ID",
+            "required": true,
+            "schema": {
+              "description": "VPC资源ID",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ShowVpc",
+      "x-url": "{endpoint}/v3/{project_id}/vpc/vpcs/{vpc_id}"
     }
   }
 }
