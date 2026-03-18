@@ -9237,6 +9237,95 @@
       "x-content-type": "application/json;charset=UTF-8",
       "x-operationId": "ListServersDetails",
       "x-url": "{endpoint}/v1/{project_id}/cloudservers/detail"
+    },
+    "/CreateServers": {
+      "post": {
+        "tags": ["生命周期管理"],
+        "summary": "创建云服务器",
+        "description": "创建一台或多台云服务器。",
+        "operationId": "CreateServers",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateServersResponseBody"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/project_id"
+          },
+          {
+            "$ref": "#/components/parameters/X-Auth-Token"
+          },
+          {
+            "$ref": "#/components/parameters/X-Client-Token"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateServersRequestBody"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "CreateServers",
+      "x-url": "{endpoint}/v1.1/{project_id}/cloudservers"
+    },
+    "/DeleteServers": {
+      "post": {
+        "tags": ["生命周期管理"],
+        "summary": "删除云服务器",
+        "description": "根据指定的云服务器ID列表,删除云服务器。",
+        "operationId": "DeleteServers",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobResult"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/project_id"
+          },
+          {
+            "$ref": "#/components/parameters/X-Auth-Token"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteServersRequestBody"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "DeleteServers",
+      "x-url": "{endpoint}/v1/{project_id}/cloudservers/delete"
     }
   }
 }

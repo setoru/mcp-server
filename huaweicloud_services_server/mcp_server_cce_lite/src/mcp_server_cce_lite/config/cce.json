@@ -1,0 +1,1999 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "CCE-集群管理/节点管理/集群休眠唤醒/创建集群/创建节点",
+    "title": "CCE",
+    "version": "2025-06-13",
+    "x-host_prefix": "cce",
+    "x-host": "cce.{region}.myhuaweicloud.com"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "parameters": {
+      "param_path_clusterid": {
+        "name": "cluster_id",
+        "in": "path",
+        "description": "集群ID,获取方式请参见[如何获取接口URI中参数](cce_02_0271.xml)。",
+        "required": true,
+        "schema": {
+          "description": "集群ID,获取方式请参见[如何获取接口URI中参数](cce_02_0271.xml)。",
+          "type": "string",
+          "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+        },
+        "type": "object"
+      },
+      "param_path_projectid": {
+        "name": "project_id",
+        "in": "path",
+        "description": "项目ID,获取方式请参见[如何获取接口URI中参数](cce_02_0271.xml)。",
+        "required": true,
+        "schema": {
+          "description": "项目ID,获取方式请参见[如何获取接口URI中参数](cce_02_0271.xml)。",
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "param_header_x_auth_token": {
+        "name": "X-Auth-Token",
+        "in": "header",
+        "description": "调用接口的认证方式分为Token和AK/SK两种,如果您使用的Token方式,此参数为必填,请填写Token的值,获取方式请参见[获取token](cce_02_0004.xml)。",
+        "required": true,
+        "schema": {
+          "description": "调用接口的认证方式分为Token和AK/SK两种,如果您使用的Token方式,此参数为必填,请填写Token的值,获取方式请参见[获取token](cce_02_0004.xml)。",
+          "type": "string",
+          "maxLength": 16384
+        },
+        "type": "object"
+      },
+      "param_header_content_type": {
+        "name": "Content-Type",
+        "in": "header",
+        "description": "消息体的类型(格式)",
+        "required": true,
+        "schema": {
+          "description": "消息体的类型(格式)",
+          "type": "string",
+          "default": "application/json"
+        },
+        "type": "object"
+      }
+    },
+    "schemas": {
+      "Cluster": {
+        "required": [
+          "apiVersion",
+          "kind",
+          "metadata",
+          "spec"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "API类型,固定值“Cluster”或“cluster”,该值不可修改。",
+            "default": "Cluster"
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API版本,固定值“v3”,该值不可修改。",
+            "default": "v3"
+          },
+          "metadata": {
+            "description": "集群的基本信息,为集合类的元素类型,包含一组由不同名称定义的属性。",
+            "$ref": "#/components/schemas/ClusterMetadata"
+          },
+          "spec": {
+            "description": "spec是集合类的元素类型,您对需要管理的集群对象进行详细描述的主体部分都在spec中给出。CCE通过spec的描述来创建或更新对象。",
+            "$ref": "#/components/schemas/ClusterSpec"
+          },
+          "status": {
+            "description": "集合类的元素类型,用于记录对象在系统中的当前状态信息,包含了集群状态和本次创建集群作业的jobID",
+            "$ref": "#/components/schemas/ClusterStatus"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ShowCluster": {
+        "required": [
+          "apiVersion",
+          "kind",
+          "metadata",
+          "spec"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "API类型,固定值“Cluster”或“cluster”,该值不可修改。",
+            "default": "Cluster"
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API版本,固定值“v3”,该值不可修改。",
+            "default": "v3"
+          },
+          "metadata": {
+            "description": "集群的基本信息,为集合类的元素类型,包含一组由不同名称定义的属性。",
+            "$ref": "#/components/schemas/ClusterMetadata"
+          },
+          "spec": {
+            "description": "spec是集合类的元素类型,您对需要管理的集群对象进行详细描述的主体部分都在spec中给出。CCE通过spec的描述来创建或更新对象。",
+            "$ref": "#/components/schemas/ClusterSpec"
+          },
+          "status": {
+            "description": "集群状态信息",
+            "$ref": "#/components/schemas/ClusterStatus"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ClusterList": {
+        "required": [
+          "apiVersion",
+          "items",
+          "kind"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "Api type",
+            "minLength": 6,
+            "maxLength": 10,
+            "default": "Cluster"
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API version",
+            "minLength": 2,
+            "maxLength": 5,
+            "default": "v3"
+          },
+          "items": {
+            "type": "array",
+            "description": "集群对象列表,包含了当前项目下所有集群的详细信息。您可通过items.metadata.name下的值来找到对应的集群。",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/Cluster"
+            }
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "NodeList": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "API类型,固定值“List”",
+            "default": "List"
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API版本,固定值“v3”",
+            "default": "v3"
+          },
+          "items": {
+            "type": "array",
+            "description": "节点对象列表,包含了当前集群下所有节点的详细信息。可通过items.metadata.name下的值来找到对应的节点。",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/Node"
+            }
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "Node": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "API类型,固定值“Node”,该值不可修改。",
+            "default": "Node"
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API版本,固定值“v3”,该值不可修改。",
+            "default": "v3"
+          },
+          "metadata": {
+            "description": "metadata是节点对象的元数据定义,是集合类的元素类型,包含一组由不同名称定义的属性。",
+            "$ref": "#/components/schemas/NodeMetadata"
+          },
+          "spec": {
+            "description": "spec是集合类的元素类型,用户对需要管理的节点对象进行详细描述的主体部分都在spec中给出。系统通过spec的描述来创建或更新对象。",
+            "$ref": "#/components/schemas/NodeSpec"
+          },
+          "status": {
+            "description": "节点状态,动态记录,创建或修改时指定无意义.",
+            "$ref": "#/components/schemas/NodeStatus"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ClusterSpec": {
+        "required": [
+          "eniNetwork",
+          "containerNetwork",
+          "flavor",
+          "hostNetwork"
+        ],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "集群类别:",
+            "enum": [
+              "CCE",
+              "Turbo"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "集群Master节点架构:",
+            "enum": [
+              "VirtualMachine",
+              "ARM64"
+            ]
+          },
+          "flavor": {
+            "type": "string",
+            "description": "集群规格,当集群为v1.15及以上版本时支持创建后变更,详情请参见[变更集群规格](ResizeCluster.xml)。请按实际业务需求进行选择:"
+          },
+          "version": {
+            "type": "string",
+            "description": "集群版本,与Kubernetes社区基线版本保持一致,建议选择最新版本。"
+          },
+          "platformVersion": {
+            "type": "string",
+            "description": "CCE集群平台版本号,表示集群版本(version)下的内部版本。用于跟踪某一集群版本内的迭代,集群版本内唯一,跨集群版本重新计数。不支持用户指定,集群创建时自动选择对应集群版本的最新平台版本。"
+          },
+          "description": {
+            "type": "string",
+            "description": "集群描述,对于集群使用目的的描述,可根据实际情况自定义,默认为空。集群创建成功后可通过接口[更新指定的集群](cce_02_0240.xml)来做出修改,也可在CCE控制台中对应集群的“集群详情”下的“描述”处进行修改。仅支持utf-8编码。",
+            "minLength": 0,
+            "maxLength": 200,
+            "pattern": "[\\~\\$\\%\\^\\&\\*\\<\\>\\[\\]\\{\\}\\(\\)\\'\\\"\\#\\\\]"
+          },
+          "customSan": {
+            "$ref": "#/components/schemas/CustomSan"
+          },
+          "ipv6enable": {
+            "type": "boolean",
+            "description": "集群是否使用IPv6模式,1.15版本及以上支持。"
+          },
+          "hostNetwork": {
+            "description": "节点网络参数,包含了虚拟私有云VPC和子网的ID信息,而VPC是集群内节点之间的通信依赖,所以是必选的参数集。",
+            "$ref": "#/components/schemas/HostNetwork"
+          },
+          "containerNetwork": {
+            "description": "容器网络参数,包含了容器网络类型和容器网段的信息。",
+            "$ref": "#/components/schemas/ContainerNetwork"
+          },
+          "eniNetwork": {
+            "description": "云原生网络2.0网络配置,创建CCE Turbo集群时指定。",
+            "$ref": "#/components/schemas/EniNetwork"
+          },
+          "serviceNetwork": {
+            "description": "服务网段参数,包含IPv4 CIDR。",
+            "$ref": "#/components/schemas/ServiceNetwork"
+          },
+          "authentication": {
+            "description": "集群认证方式相关配置。",
+            "$ref": "#/components/schemas/Authentication"
+          },
+          "billingMode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "集群的计费方式。",
+            "default": 0
+          },
+          "masters": {
+            "type": "array",
+            "description": "控制节点的高级配置",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/MasterSpec"
+            },
+            "maxItems": 3,
+            "minItems": 1
+          },
+          "kubernetesSvcIpRange": {
+            "type": "string",
+            "description": "服务网段参数,kubernetes clusterIP取值范围,1.11.7版本及以上支持。创建集群时如若未传参,默认为\"10.247.0.0/16\"。该参数废弃中,推荐使用新字段serviceNetwork,包含IPv4服务网段。"
+          },
+          "clusterTags": {
+            "type": "array",
+            "description": "集群资源标签",
+            "items": {
+              "description": "集群资源标签",
+              "$ref": "#/components/schemas/ResourceTag"
+            },
+            "maxItems": 5,
+            "minItems": 0
+          },
+          "kubeProxyMode": {
+            "type": "string",
+            "description": "服务转发模式,支持以下两种实现:",
+            "enum": [
+              "iptables",
+              "ipvs"
+            ]
+          },
+          "az": {
+            "type": "string",
+            "description": "可用区(仅查询返回字段)。"
+          },
+          "extendParam": {
+            "$ref": "#/components/schemas/ClusterExtendParam",
+            "description": "集群扩展字段,可配置多可用区集群、专属CCE集群,以及将集群创建在特定的企业项目下等。"
+          },
+          "supportIstio": {
+            "type": "boolean",
+            "description": "支持Istio"
+          },
+          "enableDistMgt": {
+            "type": "boolean",
+            "description": "集群开启对分布式云支持。创建CCE Turbo集群时,可在创建集群过程中,开启对分布式云(cloudpond)支持。"
+          },
+          "deletionProtection": {
+            "type": "boolean",
+            "description": "集群删除保护,默认为false关闭,如果开启后用户将无法删除该集群。",
+            "default": false
+          },
+          "configurationsOverride": {
+            "type": "array",
+            "description": "覆盖集群默认组件配置",
+            "items": {
+              "$ref": "#/components/schemas/PackageConfiguration"
+            }
+          },
+          "clusterOps": {
+            "$ref": "#/components/schemas/ClusterOps",
+            "description": "**参数解释:**"
+          },
+          "encryptionConfig": {
+            "type": "object",
+            "description": "secret资源落盘加密配置,当前仅支持配置一种加密方式。默认使用cce托管密钥(用户侧不感知该密钥)进行加密。",
+            "$ref": "#/components/schemas/EncryptionConfig"
+          }
+        },
+        "description": "集群参数定义。",
+        "type": "object"
+      },
+      "ClusterMetadata": {
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "集群名称。",
+            "minLength": 4,
+            "maxLength": 128
+          },
+          "uid": {
+            "type": "string",
+            "description": "集群ID,资源唯一标识,创建成功后自动生成,填写无效。在创建包周期集群时,响应体不返回集群ID。",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+          },
+          "alias": {
+            "type": "string",
+            "description": "集群显示名,用于在 CCE 界面显示,该名称创建后可修改。",
+            "minLength": 4,
+            "maxLength": 128
+          },
+          "annotations": {
+            "type": "object",
+            "description": "集群注解,由key/value组成:",
+            "additionalProperties": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "labels": {
+            "type": "object",
+            "description": "集群标签,key/value对格式。",
+            "additionalProperties": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "creationTimestamp": {
+            "type": "string",
+            "description": "集群创建时间"
+          },
+          "updateTimestamp": {
+            "type": "string",
+            "description": "集群更新时间"
+          }
+        },
+        "description": "可以通过 annotations[\"cluster.install.addons/install\"] 来指定创建集群时需要安装的插件,格式形如",
+        "type": "object"
+      },
+      "ClusterStatus": {
+        "properties": {
+          "phase": {
+            "type": "string",
+            "description": "集群状态,取值如下"
+          },
+          "jobID": {
+            "type": "string",
+            "description": "任务ID,集群当前状态关联的任务ID。当前支持:"
+          },
+          "reason": {
+            "type": "string",
+            "description": "集群变为当前状态的原因,在集群在非“Available”状态下时,会返回此参数。"
+          },
+          "message": {
+            "type": "string",
+            "description": "集群变为当前状态的原因的详细信息,在集群在非“Available”状态下时,会返回此参数。"
+          },
+          "endpoints": {
+            "description": "集群中 kube-apiserver 的访问地址。",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClusterEndpoints"
+            }
+          },
+          "isLocked": {
+            "type": "boolean",
+            "description": "CBC资源锁定"
+          },
+          "lockScene": {
+            "type": "string",
+            "description": "CBC资源锁定场景"
+          },
+          "lockSource": {
+            "type": "string",
+            "description": "锁定资源"
+          },
+          "lockSourceId": {
+            "type": "string",
+            "description": "锁定的资源ID"
+          },
+          "deleteOption": {
+            "type": "object",
+            "description": "删除配置状态(仅删除请求响应包含)"
+          },
+          "deleteStatus": {
+            "type": "object",
+            "description": "删除状态信息(仅删除请求响应包含)"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ContainerNetwork": {
+        "required": [
+          "mode"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "容器网络类型(只可选择其一)",
+            "minLength": 0,
+            "maxLength": 64,
+            "enum": [
+              "overlay_l2",
+              "vpc-router",
+              "eni"
+            ]
+          },
+          "cidr": {
+            "type": "string",
+            "description": "容器网络网段,建议使用网段10.0.0.0/12~19,172.16.0.0/16~19,192.168.0.0/16~19,如存在网段冲突,将会报错。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "cidrs": {
+            "type": "array",
+            "description": "容器网络网段列表。1.21及新版本集群使用cidrs字段,当集群网络类型为vpc-router类型时,支持多个容器网段,最多配置20个;1.21之前版本若使用cidrs字段,则取值cidrs数组中的第一个cidr元素作为容器网络网段地址。",
+            "items": {
+              "description": "容器网络网段",
+              "$ref": "#/components/schemas/ContainerCIDR"
+            },
+            "maxItems": 20
+          }
+        },
+        "description": "Container network parameters.",
+        "type": "object"
+      },
+      "ResourceTag": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key值。",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "value": {
+            "type": "string",
+            "description": "Value值。",
+            "maxLength": 255
+          }
+        },
+        "description": "CCE资源标签",
+        "type": "object"
+      },
+      "EncryptionConfig": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "**参数解释**:",
+            "enum": [
+              "Default",
+              "KMS"
+            ],
+            "example": "KMS"
+          },
+          "kmsKeyID": {
+            "type": "string",
+            "description": "**参数解释**:",
+            "example": "c8e90454-62ed-4588-b1c1-bbb6d405fb71"
+          }
+        },
+        "type": "object"
+      },
+      "NodeSpec": {
+        "required": [
+          "flavor",
+          "az",
+          "login",
+          "rootVolume",
+          "dataVolumes"
+        ],
+        "properties": {
+          "flavor": {
+            "type": "string",
+            "description": "节点的规格,CCE支持的节点规格请参考[节点规格说明](https://support.huaweicloud.com/api-cce/cce_02_0368.html)获取。",
+            "minLength": 1,
+            "maxLength": 50,
+            "pattern": "^[A-Za-z0-9-_.]+$"
+          },
+          "az": {
+            "type": "string",
+            "description": "待创建节点所在的可用区,需要指定可用区(AZ)的名称,不填或者填random选择随机可用区。",
+            "maxLength": 200
+          },
+          "os": {
+            "type": "string",
+            "description": "节点的操作系统类型。具体支持的操作系统请参见[节点操作系统说明](https://support.huaweicloud.com/api-cce/node-os.html)。"
+          },
+          "login": {
+            "description": "节点的登录方式。密钥对和密码登录方式二者必选其一。",
+            "$ref": "#/components/schemas/Login"
+          },
+          "rootVolume": {
+            "description": "节点的磁盘信息",
+            "$ref": "#/components/schemas/Volume"
+          },
+          "dataVolumes": {
+            "type": "array",
+            "description": "节点的数据盘参数(目前已支持通过控制台为CCE节点添加第二块数据盘)。",
+            "items": {
+              "$ref": "#/components/schemas/Volume"
+            }
+          },
+          "storage": {
+            "$ref": "#/components/schemas/Storage"
+          },
+          "publicIP": {
+            "description": "节点的弹性公网IP",
+            "$ref": "#/components/schemas/NodePublicIP"
+          },
+          "nodeNicSpec": {
+            "description": "节点的网卡信息",
+            "$ref": "#/components/schemas/NodeNicSpec"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "批量创建时节点的个数,必须为大于等于1,小于等于最大限额的正整数。作用于节点池时该项可以不填写。"
+          },
+          "billingMode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "节点的计费模式:"
+          },
+          "taints": {
+            "type": "array",
+            "description": "支持给创建出来的节点加Taints来设置反亲和性,taints配置不超过20条。每条Taints包含以下3个参数:",
+            "items": {
+              "$ref": "#/components/schemas/Taint"
+            },
+            "maxItems": 20
+          },
+          "k8sTags": {
+            "type": "object",
+            "description": "格式为key/value键值对。键值对个数不超过20条。",
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 63
+            }
+          },
+          "ecsGroupId": {
+            "type": "string",
+            "description": "云服务器组ID,若指定,将节点创建在该云服务器组下",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+          },
+          "dedicatedHostId": {
+            "type": "string",
+            "description": "指定DeH主机的ID,将节点调度到自己的DeH上。"
+          },
+          "userTags": {
+            "type": "array",
+            "description": "云服务器标签,键必须唯一,CCE支持的最大用户自定义标签数量依region而定,自定义标签数上限为8个。",
+            "items": {
+              "$ref": "#/components/schemas/UserTag"
+            }
+          },
+          "runtime": {
+            "$ref": "#/components/schemas/Runtime",
+            "description": "容器运行时, 默认场景:"
+          },
+          "initializedConditions": {
+            "type": "array",
+            "description": "自定义初始化标记。",
+            "maxItems": 2,
+            "items": {
+              "pattern": "^[A-Za-z0-9]+$",
+              "minLength": 1,
+              "maxLength": 20,
+              "type": "string"
+            }
+          },
+          "extendParam": {
+            "$ref": "#/components/schemas/NodeExtendParam",
+            "description": "创建节点时的扩展参数。"
+          },
+          "hostnameConfig": {
+            "$ref": "#/components/schemas/HostnameConfig",
+            "description": "K8S节点名称配置参数,支持的集群版本为v1.23.6-r0到v1.25或者v1.25.2-r0及以上。"
+          },
+          "serverEnterpriseProjectID": {
+            "type": "string",
+            "description": "服务器企业项目ID。CCE服务不实现EPS相关特性,该字段仅用于同步服务器企业项目ID。"
+          },
+          "partition": {
+            "type": "string",
+            "description": "**参数解释**:"
+          }
+        },
+        "type": "object"
+      },
+      "ClusterEndpoints": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "集群中 kube-apiserver 的访问地址"
+          },
+          "type": {
+            "type": "string",
+            "description": "集群访问地址的类型"
+          }
+        },
+        "type": "object"
+      },
+      "ClusterExtendParam": {
+        "properties": {
+          "clusterAZ": {
+            "type": "string",
+            "description": "集群控制节点可用区配置。"
+          },
+          "dssMasterVolumes": {
+            "type": "string",
+            "description": "用于指定控制节点的系统盘和数据盘使用专属分布式存储,未指定或者值为空时,默认使用EVS云硬盘。"
+          },
+          "enterpriseProjectId": {
+            "type": "string",
+            "description": "集群所属的企业项目ID。"
+          },
+          "kubeProxyMode": {
+            "type": "string",
+            "description": "服务转发模式,支持以下两种实现:"
+          },
+          "clusterExternalIP": {
+            "type": "string",
+            "description": "master 弹性公网IP"
+          },
+          "alpha.cce/fixPoolMask": {
+            "type": "string",
+            "description": "容器网络固定IP池掩码位数,仅vpc-router网络支持。"
+          },
+          "decMasterFlavor": {
+            "type": "string",
+            "description": "专属CCE集群指定可控制节点的规格。"
+          },
+          "dockerUmaskMode": {
+            "type": "string",
+            "description": "集群默认Docker的UmaskMode配置,可取值为secure或normal,不指定时默认为normal。"
+          },
+          "kubernetes.io/cpuManagerPolicy": {
+            "type": "string",
+            "description": "集群CPU管理策略。取值为none(或空值)或static,默认为none(或空值)。"
+          },
+          "orderID": {
+            "type": "string",
+            "description": "订单ID,集群付费类型为自动付费包周期类型时,响应中会返回此字段(仅创建场景涉及)。"
+          },
+          "periodType": {
+            "type": "string",
+            "description": "- month:月"
+          },
+          "periodNum": {
+            "type": "integer",
+            "description": "订购周期数,取值范围:"
+          },
+          "isAutoRenew": {
+            "type": "string",
+            "description": "是否自动续订"
+          },
+          "isAutoPay": {
+            "type": "string",
+            "description": "是否自动扣款"
+          },
+          "upgradefrom": {
+            "type": "string",
+            "description": "记录集群通过何种升级方式升级到当前版本。"
+          }
+        },
+        "type": "object"
+      },
+      "MasterSpec": {
+        "properties": {
+          "availabilityZone": {
+            "type": "string",
+            "description": "可用区"
+          }
+        },
+        "description": "master的配置,支持指定可用区、规格和故障域。若指定故障域,则必须所有master节点都需要指定故障字段。",
+        "type": "object"
+      },
+      "Authentication": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "集群认证模式。"
+          },
+          "authenticatingProxy": {
+            "description": "authenticatingProxy模式相关配置。认证模式为authenticating_proxy时必选。",
+            "$ref": "#/components/schemas/AuthenticatingProxy"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "NodeMetadata": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "节点名称",
+            "minLength": 1,
+            "maxLength": 56
+          },
+          "uid": {
+            "type": "string",
+            "description": "节点ID,资源唯一标识,创建成功后自动生成,填写无效",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+          },
+          "labels": {
+            "type": "object",
+            "description": "CCE自有节点标签,非Kubernetes原生labels。",
+            "additionalProperties": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "annotations": {
+            "type": "object",
+            "description": "CCE自有节点注解,非Kubernetes原生annotations,格式为key/value键值对。",
+            "additionalProperties": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "creationTimestamp": {
+            "type": "string",
+            "description": "创建时间,创建成功后自动生成,填写无效"
+          },
+          "updateTimestamp": {
+            "type": "string",
+            "description": "更新时间,创建成功后自动生成,填写无效"
+          },
+          "ownerReference": {
+            "description": "节点的属主对象信息",
+            "$ref": "#/components/schemas/NodeOwnerReference"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "ClusterOps": {
+        "type": "object",
+        "description": "**参数解释:**",
+        "properties": {
+          "alarm": {
+            "type": "object",
+            "description": "**参数解释:**",
+            "$ref": "#/components/schemas/AlarmInfo"
+          }
+        },
+        "required": [
+          "alarm"
+        ]
+      },
+      "ServiceNetwork": {
+        "properties": {
+          "IPv4CIDR": {
+            "type": "string",
+            "description": "kubernetes clusterIP IPv4 CIDR取值范围。创建集群时若未传参,默认为\"10.247.0.0/16\"。"
+          }
+        },
+        "type": "object"
+      },
+      "EniNetwork": {
+        "required": [
+          "eniSubnetId",
+          "subnets"
+        ],
+        "properties": {
+          "eniSubnetId": {
+            "type": "string",
+            "description": "ENI所在子网的IPv4子网ID(暂不支持IPv6,废弃中)。获取方法如下:",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+          },
+          "eniSubnetCIDR": {
+            "type": "string",
+            "description": "ENI子网CIDR(废弃中)"
+          },
+          "subnets": {
+            "type": "array",
+            "description": "IPv4子网ID列表",
+            "items": {
+              "description": "IPv4子网ID",
+              "$ref": "#/components/schemas/NetworkSubnet"
+            }
+          }
+        },
+        "description": "ENI网络配置,创建集群指定使用云原生网络2.0网络模式时必填subnets和eniSubnetId其中一个字段(eniSubnetCIDR可选,若填写了会校验是否合法),1.19.10及新版本集群使用subnets字段,1.19.8及老版本若使用subnets字段,则取值subnets数组中的第一个子网ID作为容器地址使用的子网ID。",
+        "type": "object"
+      },
+      "NodeStatus": {
+        "properties": {
+          "phase": {
+            "type": "string",
+            "description": "节点状态:节点资源生命周期管理(如安装卸载等)状态和集群内k8s node状态的综合体现,取值如下",
+            "enum": [
+              "Build",
+              "Installing",
+              "Upgrading",
+              "Active",
+              "Abnormal",
+              "Deleting",
+              "Error"
+            ]
+          },
+          "lastProbeTime": {
+            "type": "string",
+            "description": "节点最近一次状态检查时间。集群处于异常、冻结或者中间态(例如创建中)时,节点的状态检查动作可能受影响。检查时间超过5分的节点状态不具有参考意义。"
+          },
+          "jobID": {
+            "type": "string",
+            "description": "创建或删除时的任务ID。"
+          },
+          "serverId": {
+            "type": "string",
+            "description": "底层云服务器或裸金属节点ID。"
+          },
+          "privateIP": {
+            "type": "string",
+            "description": "节点主网卡私有网段IP地址。"
+          },
+          "privateIPv6IP": {
+            "type": "string",
+            "description": "节点主网卡私有网段IPv6地址。"
+          },
+          "publicIP": {
+            "type": "string",
+            "description": "节点弹性公网IP地址。如果ECS的数据没有实时同步,可在界面上通过“同步节点信息”手动进行更新。"
+          },
+          "deleteStatus": {
+            "description": "删除资源时表示资源删除状态",
+            "$ref": "#/components/schemas/DeleteStatus"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "CustomSan": {
+        "type": "object",
+        "description": "集群的API Server服务端证书中的自定义SAN(Subject Alternative Name)字段,遵从SSL标准X509定义的格式规范。",
+        "items": {
+          "type": "string",
+          "description": "",
+          "maxLength": 255,
+          "minLength": 0
+        },
+        "maxItems": 128,
+        "minItems": 0
+      },
+      "PackageConfiguration": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "组件名称"
+          },
+          "configurations": {
+            "type": "array",
+            "description": "组件配置项",
+            "items": {
+              "$ref": "#/components/schemas/ConfigurationItem"
+            }
+          }
+        }
+      },
+      "HostNetwork": {
+        "required": [
+          "subnet",
+          "vpc"
+        ],
+        "properties": {
+          "vpc": {
+            "type": "string",
+            "description": "用于创建控制节点的VPC的ID。",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "subnet": {
+            "type": "string",
+            "description": "用于创建控制节点的subnet的网络ID。获取方法如下:",
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "SecurityGroup": {
+            "type": "string",
+            "description": "集群默认的Node节点安全组ID,不指定该字段系统将自动为用户创建默认Node节点安全组,指定该字段时集群将绑定指定的安全组。Node节点安全组需要放通部分端口来保证正常通信。详细设置请参考[集群安全组规则配置](https://support.huaweicloud.com/cce_faq/cce_faq_00265.html)。"
+          }
+        },
+        "description": "Node network parameters.",
+        "type": "object"
+      },
+      "NetworkSubnet": {
+        "required": [
+          "subnetID"
+        ],
+        "properties": {
+          "subnetID": {
+            "type": "string",
+            "description": "用于创建控制节点的subnet的IPv4子网ID(暂不支持IPv6)。获取方法如下:",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+          }
+        },
+        "description": "ENI网络配置,创建集群指定subnets字段使用时必填。",
+        "type": "object"
+      },
+      "AuthenticatingProxy": {
+        "properties": {
+          "ca": {
+            "type": "string",
+            "description": "authenticating_proxy模式配置的x509格式CA证书(base64编码)。当集群认证模式为authenticating_proxy时,此项必须填写。"
+          },
+          "cert": {
+            "type": "string",
+            "description": "authenticating_proxy模式配置的x509格式CA证书签发的客户端证书,用于kube-apiserver到扩展apiserver的认证。(base64编码)。当集群认证模式为authenticating_proxy时,此项必须填写。"
+          },
+          "privateKey": {
+            "type": "string",
+            "description": "authenticating_proxy模式配置的x509格式CA证书签发的客户端证书时对应的私钥,用于kube-apiserver到扩展apiserver的认证。Kubernetes集群使用的私钥尚不支持密码加密,请使用未加密的私钥。(base64编码)。当集群认证模式为authenticating_proxy时,此项必须填写。"
+          }
+        },
+        "description": "authenticatingProxy模式相关配置。认证模式为authenticating_proxy时必选",
+        "type": "object"
+      },
+      "DeleteStatus": {
+        "properties": {
+          "previous_total": {
+            "type": "integer",
+            "description": "集群删除时已经存在的集群资源记录总数"
+          },
+          "current_total": {
+            "type": "integer",
+            "description": "基于当前集群资源记录信息,生成实际最新资源记录总数"
+          },
+          "updated": {
+            "type": "integer",
+            "description": "集群删除时更新的资源记录总数"
+          },
+          "added": {
+            "type": "integer",
+            "description": "集群删除时更新的资源记录总数"
+          },
+          "deleted": {
+            "type": "integer",
+            "description": "集群删除时删除的资源记录总数"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "Volume": {
+        "required": [
+          "size",
+          "volumetype"
+        ],
+        "properties": {
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "description": "磁盘大小,单位为GB"
+          },
+          "volumetype": {
+            "type": "string",
+            "description": "磁盘类型,取值请参见创建云服务器 中“root_volume字段数据结构说明”。"
+          },
+          "iops": {
+            "type": "integer",
+            "format": "int32",
+            "description": "给云硬盘配置iops,购买GPSSD2、ESSD2类型的云硬盘时必填,其他类型不能设置。"
+          },
+          "throughput": {
+            "type": "integer",
+            "format": "int32",
+            "description": "给云硬盘配置吞吐量,单位是MiB/s,购买GPSSD2类型云硬盘时必填,其他类型不能设置。"
+          },
+          "extendParam": {
+            "type": "object",
+            "description": "磁盘扩展参数,取值请参见创建云服务器中“extendparam”参数的描述。",
+            "additionalProperties": {
+              "type": "object",
+              "description": ""
+            }
+          },
+          "cluster_id": {
+            "type": "string",
+            "description": "云服务器系统盘对应的存储池的ID。仅用作专属云集群,专属分布式存储DSS的存储池ID,即dssPoolID。"
+          },
+          "cluster_type": {
+            "type": "string",
+            "description": "云服务器系统盘对应的磁盘存储类型。仅用作专属云集群,固定取值为dss。"
+          },
+          "hw:passthrough": {
+            "type": "boolean",
+            "description": "- 使用SDI规格创建虚拟机时请关注该参数,如果该参数值为true,说明创建的为SCSI类型的卷"
+          },
+          "metadata": {
+            "description": "云硬盘加密信息,仅在创建节点系统盘或数据盘需加密时须填写。",
+            "$ref": "#/components/schemas/VolumeMetadata"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "NodeExtendParam": {
+        "description": "创建节点时的扩展参数。",
+        "properties": {
+          "ecs:performancetype": {
+            "type": "string",
+            "description": "云服务器规格的分类。响应中会返回此字段。"
+          },
+          "orderID": {
+            "type": "string",
+            "description": "订单ID,节点付费类型为自动付费包周期类型时,响应中会返回此字段(仅创建场景涉及)。"
+          },
+          "productID": {
+            "type": "string",
+            "description": "产品ID,节点付费类型为自动付费包周期类型时,响应中会返回此字段。"
+          },
+          "maxPods": {
+            "type": "integer",
+            "description": "节点最大允许创建的实例数(Pod),该数量包含系统默认实例,取值范围为16~256。"
+          },
+          "periodType": {
+            "type": "string",
+            "description": "- month:月"
+          },
+          "periodNum": {
+            "type": "integer",
+            "description": "订购周期数,取值范围:"
+          },
+          "isAutoRenew": {
+            "type": "string",
+            "description": "是否自动续订"
+          },
+          "isAutoPay": {
+            "type": "string",
+            "description": "是否自动扣款"
+          },
+          "DockerLVMConfigOverride": {
+            "type": "string",
+            "description": "Docker数据盘配置项(已废弃,请使用storage字段)。默认配置示例如下:"
+          },
+          "dockerBaseSize": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 500,
+            "description": "节点上单容器的可用磁盘空间大小,单位G。"
+          },
+          "publicKey": {
+            "type": "string",
+            "description": "节点的公钥。"
+          },
+          "alpha.cce/preInstall": {
+            "type": "string",
+            "description": "安装前执行脚本"
+          },
+          "alpha.cce/postInstall": {
+            "type": "string",
+            "description": "安装后执行脚本"
+          },
+          "alpha.cce/NodeImageID": {
+            "type": "string",
+            "description": "如果创建裸金属节点,需要使用自定义镜像时用此参数。"
+          },
+          "chargingMode": {
+            "type": "integer",
+            "format": "int32",
+            "description": "节点的计费模式。已废弃,请使用NodeSpec中的billingMode字段。"
+          },
+          "agency_name": {
+            "type": "string",
+            "description": "委托的名称。"
+          },
+          "kubeReservedMem": {
+            "type": "integer",
+            "format": "int32",
+            "description": "节点内存预留,Kubernetes相关组件预留值。随节点规格变动,具体请参见[节点预留资源策略说明](https://support.huaweicloud.com/usermanual-cce/cce_10_0178.html)。"
+          },
+          "systemReservedMem": {
+            "type": "integer",
+            "format": "int32",
+            "description": "节点内存预留,系统组件预留值。随节点规格变动,具体请参见[节点预留资源策略说明](https://support.huaweicloud.com/usermanual-cce/cce_10_0178.html)。"
+          },
+          "init-node-password": {
+            "type": "string",
+            "description": "节点密码,作为响应参数时,固定展示星号。",
+            "example": "******"
+          },
+          "securityReinforcementType": {
+            "type": "string",
+            "description": "**参数解释**:",
+            "enum": [
+              "null",
+              "cybersecurity"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "NodeNicSpec": {
+        "properties": {
+          "primaryNic": {
+            "description": "主网卡的描述信息。",
+            "$ref": "#/components/schemas/NicSpec"
+          },
+          "extNics": {
+            "type": "array",
+            "description": "扩展网卡",
+            "items": {
+              "description": "",
+              "$ref": "#/components/schemas/NicSpec"
+            }
+          }
+        },
+        "description": "节点网卡的描述信息。",
+        "type": "object"
+      },
+      "AlarmInfo": {
+        "type": "object",
+        "description": "**参数解释:**",
+        "required": [
+          "topics"
+        ],
+        "properties": {
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "**参数解释:**"
+          },
+          "alarmRuleTemplateId": {
+            "type": "string",
+            "description": "**参数解释:**"
+          },
+          "promInstanceID": {
+            "type": "string",
+            "description": "**参数解释:**"
+          },
+          "promEnterpriseProjectID": {
+            "type": "string",
+            "description": "**参数解释:**"
+          }
+        }
+      },
+      "ContainerCIDR": {
+        "required": [
+          "cidr"
+        ],
+        "properties": {
+          "cidr": {
+            "type": "string",
+            "description": "容器网络网段,建议使用网段10.0.0.0/12~19,172.16.0.0/16~19,192.168.0.0/16~19。"
+          }
+        },
+        "description": "容器网络网段,指定cidrs字段使用时必填。",
+        "type": "object"
+      },
+      "UserTag": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "云服务器标签的键。不得以\"CCE-\"或\"__type_baremetal\"开头",
+            "minLength": 1,
+            "maxLength": 36,
+            "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5-]{1,36}$"
+          },
+          "value": {
+            "type": "string",
+            "description": "云服务器标签的值",
+            "minLength": 0,
+            "maxLength": 43,
+            "pattern": "^[a-zA-Z0-9_\\u4e00-\\u9fa5.-]{0,43}$"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "Login": {
+        "properties": {
+          "sshKey": {
+            "type": "string",
+            "description": "选择密钥对方式登录时的密钥对名称。"
+          },
+          "userPassword": {
+            "description": "选择密码方式登录时的帐号密码信息,之后可通过此帐号密码登录节点。",
+            "$ref": "#/components/schemas/UserPassword"
+          }
+        },
+        "type": "object"
+      },
+      "NodePublicIP": {
+        "properties": {
+          "ids": {
+            "type": "array",
+            "description": "已有的弹性IP的ID列表。数量不得大于待创建节点数",
+            "items": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "要动态创建的弹性IP个数。"
+          },
+          "eip": {
+            "description": "弹性IP参数",
+            "$ref": "#/components/schemas/NodeEIPSpec"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "Storage": {
+        "description": "磁盘初始化配置管理参数。",
+        "required": [
+          "storageSelectors",
+          "storageGroups"
+        ],
+        "properties": {
+          "storageSelectors": {
+            "type": "array",
+            "description": "磁盘选择,根据matchLabels和storageType对匹配的磁盘进行管理。磁盘匹配存在先后顺序,靠前的匹配规则优先匹配。",
+            "items": {
+              "$ref": "#/components/schemas/StorageSelectors"
+            }
+          },
+          "storageGroups": {
+            "type": "array",
+            "description": "由多个存储设备组成的存储组,用于各个存储空间的划分。",
+            "items": {
+              "$ref": "#/components/schemas/StorageGroups"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "Runtime": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "容器运行时,默认场景:",
+            "enum": [
+              "docker",
+              "containerd"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "HostnameConfig": {
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "K8S节点名称配置类型, 默认为“privateIp”。",
+            "enum": [
+              "privateIp",
+              "cceNodeName"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "Taint": {
+        "required": [
+          "key",
+          "effect"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "键"
+          },
+          "value": {
+            "type": "string",
+            "description": "值",
+            "maxLength": 63
+          },
+          "effect": {
+            "type": "string",
+            "description": "作用效果",
+            "enum": [
+              "NoSchedule",
+              "PreferNoSchedule",
+              "NoExecute"
+            ]
+          }
+        },
+        "description": "如下字段不可使用:",
+        "type": "object"
+      },
+      "NodeOwnerReference": {
+        "properties": {
+          "nodepoolName": {
+            "type": "string",
+            "description": "节点池名称"
+          },
+          "nodepoolID": {
+            "type": "string",
+            "description": "节点池UID"
+          }
+        },
+        "description": "节点的属主对象信息",
+        "type": "object"
+      },
+      "ConfigurationItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "组件配置项名称"
+          },
+          "value": {
+            "type": "object",
+            "description": "组件配置项值",
+            "properties": {}
+          }
+        }
+      },
+      "StorageGroups": {
+        "required": [
+          "name",
+          "selectorNames",
+          "virtualSpaces"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "storageGroups的名字,作为虚拟存储组的名字,因此各个group名字不能重复。"
+          },
+          "cceManaged": {
+            "type": "boolean",
+            "description": "k8s及runtime所属存储空间。有且仅有一个group被设置为true,不填默认false。"
+          },
+          "selectorNames": {
+            "type": "array",
+            "description": "对应storageSelectors中的name,一个group可选择多个selector;但一个selector只能被一个group选择。",
+            "items": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "virtualSpaces": {
+            "description": "group中空间配置的详细管理。",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VirtualSpace"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "NicSpec": {
+        "properties": {
+          "subnetId": {
+            "type": "string",
+            "description": "网卡所在子网的网络ID。主网卡创建时若未指定subnetId,将使用集群子网。若节点池同时配置了subnetList,则节点池扩容子网以subnetList字段为准。扩展网卡创建时必须指定subnetId。",
+            "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$",
+            "example": "ca964acf-8468-4735-8229-97940ef6c881"
+          },
+          "fixedIps": {
+            "type": "array",
+            "description": "主网卡的IP将通过fixedIps指定,数量不得大于创建的节点数。fixedIps或ipBlock同时只能指定一个。扩展网卡不支持指定fiexdIps。",
+            "items": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "ipBlock": {
+            "type": "string",
+            "description": "主网卡的IP段的CIDR格式,创建的节点IP将属于该IP段内。fixedIps或ipBlock同时只能指定一个。"
+          },
+          "subnetList": {
+            "type": "array",
+            "description": "网卡所在子网的网络ID列表,支持节点池配置多个子网,最多支持配置20个子网。",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$"
+            },
+            "example": [
+              "7e767d10-7548-4df5-ad72-aeac1d08bd8a"
+            ]
+          }
+        },
+        "description": "主网卡的描述信息。",
+        "type": "object"
+      },
+      "UserPassword": {
+        "required": [
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "登录帐号,默认为“root”",
+            "default": "root"
+          },
+          "password": {
+            "type": "string",
+            "description": "登录密码,若创建节点通过用户名密码方式,即使用该字段,则响应体中该字段作屏蔽展示。"
+          }
+        },
+        "type": "object"
+      },
+      "NodeEIPSpec": {
+        "required": [
+          "iptype"
+        ],
+        "properties": {
+          "iptype": {
+            "type": "string",
+            "description": "弹性IP类型,取值请参见申请EIP接口中publicip.type说明。"
+          },
+          "bandwidth": {
+            "description": "弹性IP的带宽参数",
+            "$ref": "#/components/schemas/NodeBandwidth"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "StorageSelectors": {
+        "required": [
+          "name",
+          "storageType"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "selector的名字,作为storageGroup中selectorNames的索引,因此各个selector间的名字不能重复。"
+          },
+          "storageType": {
+            "type": "string",
+            "description": "存储类型,当前仅支持evs(云硬盘)或local(本地盘);local存储类型不支持磁盘选择,所有本地盘将被组成一个VG,因此也仅允许只有一个local类型的storageSelector。"
+          },
+          "matchLabels": {
+            "description": "evs盘的匹配字段,支持DataVolume中的size、volumeType、iops、throughput、metadataEncrypted、metadataCmkid、count字段。",
+            "properties": {
+              "size": {
+                "type": "string",
+                "description": "匹配的磁盘大小,不填则无磁盘大小限制。例如:100."
+              },
+              "volumeType": {
+                "type": "string",
+                "description": "云硬盘类型,目前支持SSD\\GPSSD\\SAS\\ESSD\\SATA等。"
+              },
+              "iops": {
+                "type": "string",
+                "description": "匹配的磁盘iops大小,不填则无磁盘iops大小限制。当需要选择GPSSD2或ESSD2类型磁盘时,配置iops来准确选择磁盘。例如:3000."
+              },
+              "throughput": {
+                "type": "string",
+                "description": "匹配的磁盘吞吐量大小,不填则无磁盘吞吐量大小限制。当需要选择GPSSD2类型磁盘时,配置throughput来准确选择磁盘。例如:125."
+              },
+              "metadataEncrypted": {
+                "type": "string",
+                "description": "磁盘加密标识符,0代表不加密,1代表加密。"
+              },
+              "metadataCmkid": {
+                "type": "string",
+                "description": "加密磁盘的用户主密钥ID,长度为36字节的字符串。"
+              },
+              "count": {
+                "type": "string",
+                "description": "磁盘选择个数,不填则选择所有此类磁盘。"
+              }
+            }
+          }
+        },
+        "type": "object"
+      },
+      "VolumeMetadata": {
+        "properties": {
+          "__system__encrypted": {
+            "type": "string",
+            "description": "表示云硬盘加密功能的字段,'0'代表不加密,'1'代表加密。"
+          },
+          "__system__cmkid": {
+            "type": "string",
+            "description": "用户主密钥ID,是metadata中的表示加密功能的字段,与__system__encrypted配合使用。"
+          }
+        },
+        "description": "云硬盘加密信息,仅在创建节点系统盘或数据盘需加密时须填写。",
+        "type": "object"
+      },
+      "VirtualSpace": {
+        "required": [
+          "name",
+          "size"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "virtualSpace的名称,当前仅支持四种类型:share、kubernetes、runtime、user。"
+          },
+          "size": {
+            "type": "string",
+            "description": "virtualSpace的大小,仅支持整数百分比。例如:90%。"
+          },
+          "lvmConfig": {
+            "description": "lvm配置管理,适用于share、kubernetes和user空间配置。 需要注意:一个virtualSpace仅支持一个config配置。",
+            "$ref": "#/components/schemas/LVMConfig"
+          },
+          "runtimeConfig": {
+            "description": "runtime配置管理,适用于运行时空间配置。 需要注意:一个virtualSpace仅支持一个config配置。",
+            "$ref": "#/components/schemas/RuntimeConfig"
+          }
+        },
+        "type": "object"
+      },
+      "NodeBandwidth": {
+        "properties": {
+          "chargemode": {
+            "type": "string",
+            "description": "带宽的计费类型:"
+          },
+          "size": {
+            "type": "integer",
+            "description": "带宽大小,取值请参见取值请参见申请EIP接口中bandwidth.size说明。"
+          },
+          "sharetype": {
+            "type": "string",
+            "description": "带宽的共享类型,共享类型枚举:PER,表示独享,目前仅支持独享。"
+          }
+        },
+        "description": "",
+        "type": "object"
+      },
+      "RuntimeConfig": {
+        "required": [
+          "lvType"
+        ],
+        "properties": {
+          "lvType": {
+            "type": "string",
+            "description": "LVM写入模式:linear、striped。linear:线性模式;striped:条带模式,使用多块磁盘组成条带模式,能够提升磁盘性能。"
+          }
+        },
+        "type": "object"
+      },
+      "LVMConfig": {
+        "required": [
+          "lvType"
+        ],
+        "properties": {
+          "lvType": {
+            "type": "string",
+            "description": "LVM写入模式:linear、striped。linear:线性模式;striped:条带模式,使用多块磁盘组成条带模式,能够提升磁盘性能。"
+          },
+          "path": {
+            "type": "string",
+            "description": "磁盘挂载路径。仅在用户配置中生效。支持包含:数字、大小写字母、点、中划线、下划线的绝对路径。"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "paths": {
+    "/ListClusters": {
+      "get": {
+        "tags": [
+          "集群管理"
+        ],
+        "summary": "获取指定项目下的集群",
+        "description": "该API用于获取指定项目下所有集群的详细信息。",
+        "operationId": "ListClusters",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "表示获取集群列表成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClusterList"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "description": "查询集群详细信息。",
+            "required": false,
+            "schema": {
+              "description": "查询集群详细信息。",
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "集群状态,取值如下",
+            "required": false,
+            "schema": {
+              "description": "集群状态,取值如下",
+              "type": "string",
+              "enum": [
+                "Available",
+                "Unavailable",
+                "ScalingUp",
+                "ScalingDown",
+                "Creating",
+                "Deleting",
+                "Upgrading",
+                "Resizing",
+                "RollingBack",
+                "RollbackFailed",
+                "Hibernating",
+                "Hibernation",
+                "Awaking",
+                "Empty"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "集群类型:",
+            "required": false,
+            "schema": {
+              "description": "集群类型:",
+              "type": "string",
+              "enum": [
+                "VirtualMachine",
+                "ARM64"
+              ]
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "集群版本过滤",
+            "required": false,
+            "schema": {
+              "example": "v1.15.11",
+              "description": "集群版本过滤",
+              "type": "string",
+              "maxLength": 20,
+              "minLength": 0
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ListClusters",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters"
+    },
+    "/ShowCluster": {
+      "get": {
+        "tags": [
+          "集群管理"
+        ],
+        "summary": "获取指定的集群",
+        "description": "该API用于获取指定集群的详细信息。",
+        "operationId": "ShowCluster",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "表示获取指定集群成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShowCluster"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_path_clusterid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "description": "查询集群详细信息。",
+            "required": false,
+            "schema": {
+              "description": "查询集群详细信息。",
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ShowCluster",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters/{cluster_id}"
+    },
+    "/ListNodes": {
+      "get": {
+        "tags": [
+          "节点管理"
+        ],
+        "summary": "获取集群下所有节点",
+        "description": "该API用于通过集群ID获取指定集群下所有节点的详细信息。",
+        "operationId": "ListNodes",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "表示获取集群下的节点列表成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NodeList"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_path_clusterid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          }
+        ]
+      },
+      "x-method": "get",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "ListNodes",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters/{cluster_id}/nodes"
+    },
+    "/HibernateCluster": {
+      "post": {
+        "tags": [
+          "集群管理"
+        ],
+        "summary": "集群休眠",
+        "description": "集群休眠用于将运行中的集群置于休眠状态,休眠后,将不再收取控制节点资源费用。",
+        "operationId": "HibernateCluster",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "表示集群休眠任务下发成功,需持续查询集群状态,当集群状态变为Hibernation后表示休眠成功"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_path_clusterid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          }
+        ]
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "HibernateCluster",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters/{cluster_id}/operation/hibernate"
+    },
+    "/AwakeCluster": {
+      "post": {
+        "tags": [
+          "集群管理"
+        ],
+        "summary": "集群唤醒",
+        "description": "集群唤醒用于唤醒已休眠的集群,唤醒后,将继续收取控制节点资源费用。",
+        "operationId": "AwakeCluster",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "表示集群唤醒任务下发成功,需持续查询集群状态,当集群状态变为Available后表示唤醒成功"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_path_clusterid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          }
+        ]
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "AwakeCluster",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters/{cluster_id}/operation/awake"
+    },
+    "/CreateCluster": {
+      "post": {
+        "tags": [
+          "集群管理"
+        ],
+        "summary": "创建集群",
+        "description": "该API用于创建一个空集群(即只有控制节点Master,没有工作节点Node)。请在调用本接口完成集群创建之后,通过[创建节点](cce_02_0242.xml)添加节点。",
+        "operationId": "CreateCluster",
+        "deprecated": false,
+        "responses": {
+          "201": {
+            "description": "表示创建集群作业下发成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cluster"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cluster"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "CreateCluster",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters"
+    },
+    "/CreateNode": {
+      "post": {
+        "tags": [
+          "节点管理"
+        ],
+        "summary": "创建节点",
+        "description": "该API用于在指定集群下创建节点。若要创建节点前需要提前准备好集群,可通过[创建集群](cce_02_0236.xml)先创建集群。",
+        "operationId": "CreateNode",
+        "deprecated": false,
+        "responses": {
+          "201": {
+            "description": "表示创建节点作业下发成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Node"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/param_path_projectid"
+          },
+          {
+            "$ref": "#/components/parameters/param_path_clusterid"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_content_type"
+          },
+          {
+            "$ref": "#/components/parameters/param_header_x_auth_token"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Node"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "x-method": "post",
+      "x-content-type": "application/json;charset=UTF-8",
+      "x-operationId": "CreateNode",
+      "x-url": "{endpoint}/api/v3/projects/{project_id}/clusters/{cluster_id}/nodes"
+    }
+  }
+}

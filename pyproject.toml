@@ -55,6 +55,7 @@ packages = [
     "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs",
     "huaweicloud_services_server.mcp_server_cc.src.mcp_server_cc",
     "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce",
+    "huaweicloud_services_server.mcp_server_cce_lite.src.mcp_server_cce_lite",
     "huaweicloud_services_server.mcp_server_cci.src.mcp_server_cci",
    "huaweicloud_services_server.mcp_server_ccm.src.mcp_server_ccm",
     "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm",
@@ -225,6 +226,7 @@ packages = [
  "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_cc.src.mcp_server_cc" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce" = ["config/*.yaml", "config/*.json"]
+ "huaweicloud_services_server.mcp_server_cce_lite.src.mcp_server_cce_lite" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_cci.src.mcp_server_cci" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_ccm.src.mcp_server_ccm" = ["config/*.yaml", "config/*.json"]
  "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm" = ["config/*.yaml", "config/*.json"]
@@ -396,6 +398,7 @@ mcp-server-cbh = "huaweicloud_services_server.mcp_server_cbh.src.mcp_server_cbh.
 mcp-server-cbr = "huaweicloud_services_server.mcp_server_cbr.src.mcp_server_cbr.run:main"
 mcp-server-cbs = "huaweicloud_services_server.mcp_server_cbs.src.mcp_server_cbs.run:main"
 mcp-server-cce = "huaweicloud_services_server.mcp_server_cce.src.mcp_server_cce.run:main"
+mcp-server-cce-lite = "huaweicloud_services_server.mcp_server_cce_lite.src.mcp_server_cce_lite.run:main"
 mcp-server-cci = "huaweicloud_services_server.mcp_server_cci.src.mcp_server_cci.run:main"
 mcp-server-ccm = "huaweicloud_services_server.mcp_server_ccm.src.mcp_server_ccm.run:main"
 mcp-server-cdm = "huaweicloud_services_server.mcp_server_cdm.src.mcp_server_cdm.run:main"
