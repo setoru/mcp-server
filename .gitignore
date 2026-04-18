@@ -8,3 +8,4 @@ test.py
 *.egg-info
 uv.lock
 .ace-tool/
+.opencode/

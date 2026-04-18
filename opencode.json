@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "huaweicloud-nat": {
+      "type": "local",
+      "command": [
+        "python",
+        "-m",
+        "huaweicloud_services_server.mcp_server_nat.src.mcp_server_nat.run"
+      ],
+      "enabled": true,
+      "timeout": 15000,
+      "environment": {
+        "HUAWEI_ACCESS_KEY": "{env:HUAWEI_ACCESS_KEY}",
+        "HUAWEI_SECRET_KEY": "{env:HUAWEI_SECRET_KEY}",
+        "MCP_SERVER_MODE": "stdio"
+      }
+    },
+    "huaweicloud-eip": {
+      "type": "local",
+      "command": [
+        "python",
+        "-m",
+        "huaweicloud_services_server.mcp_server_eip.src.mcp_server_eip.run"
+      ],
+      "enabled": true,
+      "timeout": 15000,
+      "environment": {
+        "HUAWEI_ACCESS_KEY": "{env:HUAWEI_ACCESS_KEY}",
+        "HUAWEI_SECRET_KEY": "{env:HUAWEI_SECRET_KEY}",
+        "MCP_SERVER_MODE": "stdio"
+      }
+    }
+  }
+}

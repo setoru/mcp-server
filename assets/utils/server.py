@@ -22,11 +22,14 @@ from starlette.routing import Mount, Route
 from starlette.types import Receive, Scope, Send
 
 from .hwc_tools import (
+    apply_default_scope,
     create_api_client,
     build_http_info,
     load_openapi,
     filter_parameters,
     load_config,
+    resolve_invocation_region,
+    resolve_service_host,
 )
 from .model import MCPConfig
 from .openapi import OpenAPIToToolsConverter
@@ -122,8 +125,10 @@ class MCPServer:
         async def call_tool(
             name: str, arguments: dict
         ) -> list[TextContent | ImageContent | EmbeddedResource]:
-            region = arguments.get("region") or "cn-north-4"
-            x_host = self.openapi_dict["info"]["x-host"]
+            invoked_tool = next((tool for tool in self.tools if tool.name == name), None)
+            arguments = apply_default_scope(arguments, invoked_tool, self.config)
+            region = resolve_invocation_region(arguments, self.config)
+            x_host = resolve_service_host(self.openapi_dict)
 
             ak = self.config.ak
             sk = self.config.sk
@@ -132,6 +137,13 @@ class MCPServer:
                 error_msg = {
                     "code": "MISSING_CREDENTIALS",
                     "message": "HUAWEI_ACCESS_KEY or HUAWEI_SECRET_KEY not configured",
+                }
+                raise ToolError(error_msg)
+
+            if not region:
+                error_msg = {
+                    "code": "MISSING_REGION",
+                    "message": "Region is required. Provide region explicitly or configure it in a Huawei scope file.",
                 }
                 raise ToolError(error_msg)
 
