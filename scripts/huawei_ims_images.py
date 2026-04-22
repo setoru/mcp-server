@@ -15,9 +15,9 @@ from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
 from huaweicloudsdkcore.utils import http_utils
 
+from huawei_scope import DEFAULT_SCOPE_PATH
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SCOPE_PATH = REPO_ROOT / ".opencode" / "huawei-scope-2.yaml"
+
 IMS_ENDPOINT_TEMPLATE = "ims.{region}.myhuaweicloud.com"
 DEFAULT_LIST_LIMIT = 1000
 
@@ -405,4 +405,3 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
