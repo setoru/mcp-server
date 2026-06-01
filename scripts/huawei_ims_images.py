@@ -160,9 +160,9 @@ class CustomClient(Client):
         return response
 
 
-def create_api_client(ak: str, sk: str, region: str):
+def create_api_client(ak: str, sk: str, region: str, *, project_id: str | None = None):
     endpoint = f"https://{IMS_ENDPOINT_TEMPLATE.replace('{region}', region)}"
-    credentials = BasicCredentials(ak, sk)
+    credentials = BasicCredentials(ak, sk, project_id) if project_id else BasicCredentials(ak, sk)
     return (
         ClientBuilder(CustomClient)
         .with_credentials(credentials)
@@ -182,6 +182,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Path to the Huawei scope YAML file.",
     )
     parser.add_argument("--region", help="Override the region from the scope file.")
+    parser.add_argument(
+        "--project-id",
+        help="Override the project_id from the scope file.",
+    )
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -332,6 +336,7 @@ def run(argv: Sequence[str] | None = None) -> int:
     region = args.region or str(scope_config.get("region", "")).strip() or None
     if not region:
         raise ValueError("Missing region. Set it in the scope file or pass --region.")
+    project_id = args.project_id or str(scope_config.get("project_id", "")).strip() or None
 
     if args.limit < 1:
         raise ValueError("--limit must be greater than or equal to 1.")
@@ -369,6 +374,8 @@ def run(argv: Sequence[str] | None = None) -> int:
     print(f"Action: {args.action}")
     print(f"Scope: {scope_path}")
     print(f"Region: {region}")
+    if project_id:
+        print(f"Project ID: {project_id}")
     print(f"Filters: __imagetype={imagetype or '-'} visibility={visibility or '-'} name={args.name or '-'} id={args.id or '-'}")
 
     if args.dry_run:
@@ -376,7 +383,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         print(json.dumps(query_params, indent=2, ensure_ascii=False))
         return 0
 
-    client = create_api_client(ak, sk, region)
+    client = create_api_client(ak, sk, region, project_id=project_id)
     response_data = request_json(
         client,
         method="GET",

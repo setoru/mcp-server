@@ -160,9 +160,9 @@ class CustomClient(Client):
         return response
 
 
-def create_api_client(ak: str, sk: str, region: str):
+def create_api_client(ak: str, sk: str, region: str, *, project_id: str | None = None):
     endpoint = f"https://{ECS_ENDPOINT_TEMPLATE.replace('{region}', region)}"
-    credentials = BasicCredentials(ak, sk)
+    credentials = BasicCredentials(ak, sk, project_id) if project_id else BasicCredentials(ak, sk)
     return (
         ClientBuilder(CustomClient)
         .with_credentials(credentials)
@@ -489,7 +489,7 @@ def run(argv: Sequence[str] | None = None) -> int:
 
     requested_server_ids = parse_server_id_args(args.server_ids)
     scope_server_ids = action_defaults.get("servers") or []
-    client = create_api_client(ak, sk, region)
+    client = create_api_client(ak, sk, region, project_id=project_id)
 
     if requested_server_ids:
         target_servers = fetch_servers_by_ids(
@@ -597,4 +597,3 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

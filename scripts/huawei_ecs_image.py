@@ -166,9 +166,16 @@ class CustomClient(Client):
         return response
 
 
-def create_api_client(ak: str, sk: str, region: str, *, endpoint_template: str):
+def create_api_client(
+    ak: str,
+    sk: str,
+    region: str,
+    *,
+    endpoint_template: str,
+    project_id: str | None = None,
+):
     endpoint = f"https://{endpoint_template.replace('{region}', region)}"
-    credentials = BasicCredentials(ak, sk)
+    credentials = BasicCredentials(ak, sk, project_id) if project_id else BasicCredentials(ak, sk)
     return (
         ClientBuilder(CustomClient)
         .with_credentials(credentials)
@@ -485,7 +492,13 @@ def run(argv: Sequence[str] | None = None) -> int:
     if args.limit < 1:
         raise ValueError("--limit must be greater than or equal to 1.")
 
-    ecs_client = create_api_client(ak, sk, region, endpoint_template=ECS_ENDPOINT_TEMPLATE)
+    ecs_client = create_api_client(
+        ak,
+        sk,
+        region,
+        endpoint_template=ECS_ENDPOINT_TEMPLATE,
+        project_id=project_id,
+    )
     server = fetch_server(
         ecs_client,
         project_id=project_id,
@@ -534,7 +547,13 @@ def run(argv: Sequence[str] | None = None) -> int:
         print(json.dumps(request_body, indent=2, ensure_ascii=False))
         return 0
 
-    ims_client = create_api_client(ak, sk, region, endpoint_template=IMS_ENDPOINT_TEMPLATE)
+    ims_client = create_api_client(
+        ak,
+        sk,
+        region,
+        endpoint_template=IMS_ENDPOINT_TEMPLATE,
+        project_id=project_id,
+    )
     response_data = request_json(
         ims_client,
         method="POST",

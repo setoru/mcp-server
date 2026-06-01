@@ -161,9 +161,9 @@ class CustomClient(Client):
         return response
 
 
-def create_api_client(ak: str, sk: str, region: str):
+def create_api_client(ak: str, sk: str, region: str, *, project_id: str | None = None):
     endpoint = f"https://{SWR_ENDPOINT_TEMPLATE.replace('{region}', region)}"
-    credentials = BasicCredentials(ak, sk)
+    credentials = BasicCredentials(ak, sk, project_id) if project_id else BasicCredentials(ak, sk)
     return (
         ClientBuilder(CustomClient)
         .with_credentials(credentials)
@@ -293,6 +293,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--region", help="Override the region from the scope file.")
     parser.add_argument(
+        "--project-id",
+        help="Override the project_id from the scope file.",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Print request parameters without sending the request.",
@@ -356,15 +360,16 @@ def run(argv: Sequence[str] | None = None) -> int:
     region = args.region or cleaned_str(scope_config.get("region"))
     if not region:
         raise ValueError("Missing region. Set it in the scope file or pass --region.")
+    project_id = args.project_id or cleaned_str(scope_config.get("project_id"))
 
     if args.limit < 1:
         raise ValueError("--limit must be greater than or equal to 1.")
 
-    client = create_api_client(ak, sk, region)
-
     print(f"Action: {args.action}")
     print(f"Scope: {scope_path}")
     print(f"Region: {region}")
+    if project_id:
+        print(f"Project ID: {project_id}")
 
     if args.action == "list":
         query_params: dict[str, Any] = {"limit": str(args.limit)}
@@ -390,6 +395,7 @@ def run(argv: Sequence[str] | None = None) -> int:
             print(json.dumps(query_params, indent=2, ensure_ascii=False))
             return 0
 
+        client = create_api_client(ak, sk, region, project_id=project_id)
         response_data = request_json(
             client,
             method="GET",
@@ -426,6 +432,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         )
         return 0
 
+    client = create_api_client(ak, sk, region, project_id=project_id)
     path_repository = swr_path_repository_name(repository)
     encoded_namespace = quote(namespace, safe="")
     encoded_repository = quote(path_repository, safe="")

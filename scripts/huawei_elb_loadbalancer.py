@@ -160,9 +160,9 @@ class CustomClient(Client):
         return response
 
 
-def create_api_client(ak: str, sk: str, region: str):
+def create_api_client(ak: str, sk: str, region: str, *, project_id: str | None = None):
     endpoint = f"https://{ELB_ENDPOINT_TEMPLATE.replace('{region}', region)}"
-    credentials = BasicCredentials(ak, sk)
+    credentials = BasicCredentials(ak, sk, project_id) if project_id else BasicCredentials(ak, sk)
     return (
         ClientBuilder(CustomClient)
         .with_credentials(credentials)
@@ -438,7 +438,7 @@ def run(argv: Sequence[str] | None = None) -> int:
     if args.limit < 1:
         raise ValueError("--limit must be greater than or equal to 1.")
 
-    client = create_api_client(ak, sk, region)
+    client = create_api_client(ak, sk, region, project_id=project_id)
 
     if args.action == "list":
         limit = args.limit
