@@ -208,7 +208,7 @@ def build_parser() -> argparse.ArgumentParser:
         dest="delete_publicip",
         action="store_true",
         default=None,
-        help="Delete associated public IP resources.",
+        help="Delete associated public IP resources (default).",
     )
     delete_publicip_group.add_argument(
         "--keep-publicip",
@@ -224,7 +224,7 @@ def build_parser() -> argparse.ArgumentParser:
         dest="delete_volume",
         action="store_true",
         default=None,
-        help="Delete associated data volumes.",
+        help="Delete associated data volumes (default).",
     )
     delete_volume_group.add_argument(
         "--keep-volume",
@@ -541,8 +541,8 @@ def run(argv: Sequence[str] | None = None) -> int:
         if args.delete_volume is not None
         else action_defaults.get("delete_volume")
     )
-    delete_publicip = bool(delete_publicip) if delete_publicip is not None else False
-    delete_volume = bool(delete_volume) if delete_volume is not None else False
+    delete_publicip = bool(delete_publicip) if delete_publicip is not None else True
+    delete_volume = bool(delete_volume) if delete_volume is not None else True
 
     target_server_ids = [str(server["id"]) for server in target_servers]
 

@@ -585,20 +585,29 @@ def build_parser() -> argparse.ArgumentParser:
         dest="loadbalancer_id",
         help="Target load balancer id for delete (recommended).",
     )
-    parser.add_argument(
+    delete_mode_group = parser.add_mutually_exclusive_group()
+    delete_mode_group.add_argument(
         "--cascade",
+        dest="cascade",
         action="store_true",
-        help="Use cascade deletion (also affects associated resources).",
+        help="Use cascade deletion (default, also affects associated resources).",
     )
+    delete_mode_group.add_argument(
+        "--no-cascade",
+        dest="cascade",
+        action="store_false",
+        help="Use standard delete instead of cascade deletion.",
+    )
+    parser.set_defaults(cascade=True)
     parser.add_argument(
         "--keep-public-ip",
         action="store_true",
-        help="When using --cascade, keep the associated public IP instead of deleting it.",
+        help="When using cascade deletion, keep the associated public IP instead of deleting it.",
     )
     parser.add_argument(
         "--keep-unbounded-pool",
         action="store_true",
-        help="When using --cascade, keep the associated unbounded pool instead of deleting it.",
+        help="When using cascade deletion, keep the associated unbounded pool instead of deleting it.",
     )
 
     return parser
@@ -861,6 +870,13 @@ def run(argv: Sequence[str] | None = None) -> int:
     print(f"Region: {region}")
     print(f"Project ID: {project_id}")
     print(f"Target Load Balancer ID: {loadbalancer_id}")
+
+    if args.keep_public_ip and not args.cascade:
+        raise ValueError("--keep-public-ip requires cascade deletion. Remove --no-cascade to use it.")
+    if args.keep_unbounded_pool and not args.cascade:
+        raise ValueError(
+            "--keep-unbounded-pool requires cascade deletion. Remove --no-cascade to use it."
+        )
 
     if args.cascade:
         cascade_body = {

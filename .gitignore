@@ -8,4 +8,6 @@ test.py
 *.egg-info
 uv.lock
 .ace-tool/
-.opencode/
+.opencode/huawei-scope.yaml
+.opencode/huawei-scope-2.yaml
+.opencode/package-lock.json
