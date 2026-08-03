@@ -1,7 +1,7 @@
 ---
 name: huawei-vpc-list-security-group-rules
-description: Query Huawei Cloud security group rules and optionally inspect one rule in detail through Huawei Cloud VPC MCP tools. Use when checking current inbound or outbound exposure, filtering by exact rule IDs or security group scope, or confirming one rule in a resolved region and project.
-compatibility: Prefers Huawei Cloud VPC MCP tools in the current environment. If they are unavailable but the repo-local VPC helper path is present, this skill may use that bounded fallback path instead. IAM MCP tools remain useful follow-ups for project discovery.
+description: Query Huawei Cloud VPC security group rules through the repo-local standalone helper in scripts/. Use when listing security-group rules, filtering by direction/protocol/ethertype or exact rule IDs, or confirming one rule in detail through scripts/huawei_vpc_security_group_rules.py.
+compatibility: Prefers the repo-local standalone VPC helper script and wrapper commands in scripts/. If it is unavailable but Huawei Cloud VPC MCP tools or the repo-local VPC OpenAPI execution path are exposed in the active runtime, this skill may use that bounded fallback path instead.
 metadata:
   domain: huaweicloud
   service: vpc
@@ -12,114 +12,118 @@ metadata:
 
 ## What this skill does
 
-- Query security group rules with read-only VPC operations.
-- Support narrow filters like `id`, `security_group_id`, `direction`, `protocol`, and remote-peer selectors.
-- Confirm one rule in detail when the target rule is already known.
+- Query security group rules through `scripts/huawei_vpc_security_group_rules.py`.
+- Support narrow filters such as `id`, `security_group_id`, `direction`, `protocol`, `ethertype`, `action`, `enabled`, `priority`, and remote-peer selectors.
+- Confirm one rule in detail with the `show` action when the target rule is already known.
 - Help avoid noisy project-wide enumeration when one security group or one rule ID is already available.
+- Return a concise rule summary without mutating any cloud resources.
 
 ## Tool assumptions
 
-Prefer the built-in Huawei Cloud MCP tools already exposed in this environment.
+Prefer the repo-local standalone helper path already used by the project VPC scripts.
 
-If `.opencode/huawei-scope.yaml` exists, read it first and extract `region`, `project_id`, and `enterprise_project_id` as defaults before proceeding. Apply any extracted value when the tool supports it and the current call omitted that field.
-Because `.opencode` is a hidden directory, do not rely only on glob results to decide this file is missing; prefer a direct read of the expected absolute path or a parent-directory lookup.
-The same scope file may also contain `name`, but that field is an AI-side fuzzy-match hint and must not be passed directly as an API filter unless it has already been normalized to an exact resource name.
+Primary execution paths:
 
-Primary tools:
+- `scripts/huawei_vpc_security_group_rules.py`
+- `scripts/query-sg-rules.cmd`
+- `scripts/show-sg-rule.cmd`
+- `scripts/huawei_scope.py`
 
-- `huaweicloud-vpc_ListSecurityGroupRules`
-- `huaweicloud-vpc_ShowSecurityGroupRule`
+Read `.opencode/huawei-scope-2.yaml` first when it exists, because the standalone helper defaults there. If that file is absent, check `.opencode/huawei-scope.yaml` next, or pass `--scope` explicitly.
 
-Useful follow-up tools when narrowing scope:
+Apply scope defaults only when the current call omitted them. Because `.opencode` is a hidden directory, do not rely only on glob results to decide the scope file is missing; prefer a direct read of the expected path or an equivalent parent-directory lookup.
 
-- `huaweicloud-iam_KeystoneListAuthProjects`
-- `huaweicloud-iam_KeystoneListProjects`
-- `huaweicloud-iam_KeystoneShowProject`
+The top-level `name` field in the scope file is an AI-side hint only. Do not pass it directly as a rule API filter unless it has already been normalized to an exact field.
 
 ## Runtime fallback when required tools are unavailable
 
-If the expected VPC MCP tools are not currently exposed in the active runtime, do not stop immediately. First check whether the repo-local VPC execution path is available, using one of:
+If the repo-local standalone VPC helper path is unavailable or broken, do not stop immediately. First check whether the active runtime exposes Huawei Cloud VPC MCP tools or whether the repo-local VPC OpenAPI execution path is available, using:
 
+- `scripts/huawei_vpc_security_group_rules.py`
+- `scripts/huawei_scope.py`
 - `huaweicloud_services_server/mcp_server_vpc/src/mcp_server_vpc/run.py`
-- `huaweicloud_services_server/mcp_server_vpc/src/mcp_server_vpc/config/config.yaml`
 - `huaweicloud_services_server/mcp_server_vpc/src/mcp_server_vpc/config/vpc.json`
-- `huaweicloud_services_server/mcp_server_vpc_lite/src/mcp_server_vpc_lite/run.py`
-- `huaweicloud_services_server/mcp_server_vpc_lite/src/mcp_server_vpc_lite/config/config.yaml`
-- `huaweicloud_services_server/mcp_server_vpc_lite/src/mcp_server_vpc_lite/config/vpc.json`
-- `assets/utils/server.py`
 - `assets/utils/hwc_tools.py`
 - `assets/utils/openapi.py`
 
-When one of those repo-local VPC specs is present and valid for the required operation, this skill may use the repo-local OpenAPI execution chain to complete the same bounded workflow instead of declaring an immediate blocker. Only report a blocker when neither the active MCP tool surface nor the repo-local VPC execution path can safely provide the required capability.
+When the standalone helper is present and valid, prefer it. If it is unavailable but the active MCP tool surface or repo-local VPC OpenAPI execution chain can safely perform the same bounded read-only workflow, that path is allowed instead. Only report a blocker when none of those paths can safely provide the required query capability.
 
 ## Required inputs
 
-- `project_id` (or enough region context to discover it with IAM first)
+Required directly or through scope defaults:
+
+- `region`
+- `project_id`
 
 Optional inputs:
 
-- `region` (if omitted, use the configured Huawei scope default when available)
 - `id`
 - `security_group_id`
-- `direction`
-- `action`
+- `direction` (`ingress` or `egress`)
+- `action` (`allow` or `deny`)
 - `protocol`
-- `ethertype`
+- `ethertype` (`IPv4` or `IPv6`)
 - `enabled`
 - `priority`
 - `remote_ip_prefix`
 - `remote_group_id`
 - `remote_address_group_id`
 - `description`
-- `limit`
 - `marker`
-- `security_group_rule_id` (when the user already knows the target rule and wants one detail lookup)
+- `limit`
+- `security_group_rule_id` (for the `show` action only)
+- `json_output`
 
 ## Default workflow
 
-1. Read `.opencode/huawei-scope.yaml` first.
-   - Prefer a direct read of the expected project-local path instead of hidden-directory globbing alone.
-   - If the file exists, extract `region`, `project_id`, and `enterprise_project_id` as defaults.
-   - Apply any extracted value when the caller omitted that field.
-   - If `region` is still missing after reading scope defaults, stop and ask for the target region.
-   - If `project_id` is missing, prefer discovering it with `huaweicloud-iam_KeystoneListAuthProjects({ region })` before querying rules.
-   - Do not silently mix a `project_id` from one region with a different `region`.
+1. Resolve scope defaults.
+   - Read `.opencode/huawei-scope-2.yaml` first.
+   - If it is absent, check `.opencode/huawei-scope.yaml`.
+   - If the desired defaults live somewhere else, pass `--scope <path>`.
+   - Apply `region` and `project_id` only when the caller omitted them. Do not silently mix a `project_id` from one region with a different `region`.
 
-2. Start with the rule list call.
-   - Call `huaweicloud-vpc_ListSecurityGroupRules({ project_id, region, ...filters })`.
-   - Prefer narrow filters like `id`, `security_group_id`, `direction`, or `protocol` instead of a wide unfiltered project-wide rule inventory call.
-   - If pagination is needed, continue with `marker` and `limit`.
+2. Choose the action.
+   - Inventory / filtered list: action `list`.
+   - One known rule in detail: action `show` with `--security-group-rule-id <rule_id>`.
 
-3. Confirm one rule only when needed.
-   - If the list result returns one likely target, or the user already provided a `security_group_rule_id`, call `huaweicloud-vpc_ShowSecurityGroupRule({ project_id, region, security_group_rule_id })`.
-   - Use this to confirm fields like `security_group_id`, `direction`, `protocol`, `ethertype`, `multiport`, and remote-peer selectors.
+3. Run the primary command.
+   - Ingress rules for one security group:
+     `python scripts/huawei_vpc_security_group_rules.py list --security-group-id <sg_id> --direction ingress`
+   - One rule by ID:
+     `python scripts/huawei_vpc_security_group_rules.py show --security-group-rule-id <rule_id> --json-output`
+   - By protocol:
+     `python scripts/huawei_vpc_security_group_rules.py list --protocol tcp`
+   - Prefer narrow filters (`--id`, `--security-group-id`, `--direction`, `--protocol`) over a wide unfiltered project-wide rule inventory call.
 
-4. Interpret remote peers carefully.
-   - For `direction=ingress`, `remote_ip_prefix` is the source CIDR or IP.
-   - For `direction=egress`, `remote_ip_prefix` is the destination CIDR or IP.
-   - `remote_group_id` and `remote_address_group_id` represent different peer selectors and should not be conflated with `remote_ip_prefix`.
+4. Summarize the result conservatively.
+   - Report the number of rules found.
+   - For each returned match, prefer `id`, `direction`, `ethertype`, `protocol`, `multiport`, `action`, and the remote peer selector.
 
 ## Interpretation rules
 
-- A successful `ListSecurityGroupRules` response with zero matches is not an auth failure by itself; it can simply mean there are no rules in that region/project scope or the filters are too narrow.
-- `project_id` is region-scoped in Huawei Cloud, so an otherwise valid `project_id` can still fail or return nothing if the `region` is wrong.
-- `ShowSecurityGroupRule` is better for final confirmation than for discovery.
-- If the user is only auditing ingress exposure, prefer `direction=ingress` and a specific `security_group_id` to avoid noisy mixed-scope results.
+- A successful `list` call with zero results is not an auth failure by itself; it can simply mean there are no rules in that region/project scope or the filters are too narrow.
+- `project_id` is region-scoped in Huawei Cloud, so an otherwise valid `project_id` can still return nothing if the `region` is wrong.
+- For `direction=ingress`, `remote_ip_prefix` is the source CIDR or IP; for `direction=egress`, it is the destination.
+- `remote_group_id` and `remote_address_group_id` are different peer selectors and must not be conflated with `remote_ip_prefix`.
+- The `show` action is better for final confirmation than for discovery.
+- When auditing ingress exposure, prefer `--direction ingress` plus a specific `--security-group-id` to avoid noisy mixed-scope results.
 
 ## Safety and scope
 
 - This skill is read-only.
 - Do not create, update, or delete security group rules or security groups.
-- Do not silently guess a different `project_id`, `region`, `security_group_id`, or `security_group_rule_id`.
-- Do not treat the top-level scope `name` hint as an API-safe exact filter unless it has already been normalized.
+- Do not silently guess a different `project_id` or `region`.
+- Do not print or expose secrets from the scope file.
 
 ## Output checklist
 
-1. region used
-2. project used
-3. filters applied
-4. number of rules found
-5. key rule fields for each match
-6. whether `ShowSecurityGroupRule` was used as follow-up
-7. exact blocker if the query failed
-8. execution path used: `mcp-tools` or `repo-helper`
+1. scope file used
+2. region used
+3. project used
+4. action used (`list` or `show`)
+5. filters applied
+6. number of rules found
+7. key fields for each returned rule
+8. whether `--json-output` was used
+9. exact blocker if the query failed
+10. execution path used: `script`, `mcp-tools`, `repo-helper`, `mixed`, or `not-run`
