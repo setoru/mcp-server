@@ -18,12 +18,12 @@ from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
 from huaweicloudsdkcore.utils import http_utils
 
-from huawei_scope import DEFAULT_SCOPE_PATH
-
-
-ECS_ENDPOINT_TEMPLATE = "ecs.{region}.myhuaweicloud.com"
-IMS_ENDPOINT_TEMPLATE = "ims.{region}.myhuaweicloud.com"
-DEFAULT_LIST_LIMIT = 1000
+from huawei_scope import (
+    DEFAULT_LIST_LIMIT,
+    DEFAULT_SCOPE_PATH,
+    ECS_ENDPOINT_TEMPLATE,
+    IMS_ENDPOINT_TEMPLATE,
+)
 
 
 class CustomClient(Client):

@@ -16,10 +16,7 @@ from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
 from huaweicloudsdkcore.utils import http_utils
 
-from huawei_scope import DEFAULT_SCOPE_PATH
-
-
-SWR_ENDPOINT_TEMPLATE = "swr-api.{region}.myhuaweicloud.com"
+from huawei_scope import DEFAULT_SCOPE_PATH, SWR_ENDPOINT_TEMPLATE
 
 
 class CustomClient(Client):

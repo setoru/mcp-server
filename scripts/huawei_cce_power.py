@@ -15,11 +15,7 @@ from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
 from huaweicloudsdkcore.utils import http_utils
 
-from huawei_scope import DEFAULT_SCOPE_PATH
-
-
-CCE_ENDPOINT_TEMPLATE = "cce.{region}.myhuaweicloud.com"
-DEFAULT_LIST_LIMIT = 1000
+from huawei_scope import CCE_ENDPOINT_TEMPLATE, DEFAULT_LIST_LIMIT, DEFAULT_SCOPE_PATH
 
 
 class CustomClient(Client):

@@ -15,13 +15,18 @@ from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
 from huaweicloudsdkcore.utils import http_utils
 
-from huawei_scope import DEFAULT_SCOPE_PATH
+from huawei_scope import (
+    DEFAULT_LIST_LIMIT_VPC,
+    DEFAULT_SCOPE_PATH,
+    EIP_IDLE_STATUSES,
+    EIP_VALID_STATUSES,
+    VPC_ENDPOINT_TEMPLATE,
+)
 
 
-VPC_ENDPOINT_TEMPLATE = "vpc.{region}.myhuaweicloud.com"
-DEFAULT_LIST_LIMIT = 2000
-IDLE_STATUSES = {"DOWN", "FREEZED", "ERROR"}
-VALID_STATUSES = {"FREEZED", "DOWN", "ACTIVE", "ERROR"}
+DEFAULT_LIST_LIMIT = DEFAULT_LIST_LIMIT_VPC
+IDLE_STATUSES = EIP_IDLE_STATUSES
+VALID_STATUSES = EIP_VALID_STATUSES
 
 
 class CustomClient(Client):

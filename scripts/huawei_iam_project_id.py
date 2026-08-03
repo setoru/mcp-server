@@ -12,12 +12,7 @@ import yaml
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkcore.sdk_request import SdkRequest
 
-from huawei_scope import DEFAULT_SCOPE_PATH
-
-
-IAM_ENDPOINT_TEMPLATE = "iam.{region}.myhuaweicloud.com"
-USER_AGENT = "huaweicloud-usdk-python/3.0"
-REQUEST_TIMEOUT = (60, 120)
+from huawei_scope import DEFAULT_SCOPE_PATH, IAM_ENDPOINT_TEMPLATE, REQUEST_TIMEOUT, USER_AGENT
 
 
 def build_signed_iam_request(

@@ -18,13 +18,13 @@ from huaweicloudsdkcore.sdk_request import SdkRequest
 from huaweicloudsdkcore.sdk_response import FutureSdkResponse
 from huaweicloudsdkcore.utils import http_utils
 
-from huawei_scope import DEFAULT_SCOPE_PATH
-
-
-ELB_ENDPOINT_TEMPLATE = "elb.{region}.myhuaweicloud.com"
-DEFAULT_LIST_LIMIT = 1000
-DEFAULT_CREATE_COUNT = 1
-DEFAULT_RANDOM_NAME_PREFIX = "elb"
+from huawei_scope import (
+    DEFAULT_CREATE_COUNT,
+    DEFAULT_LIST_LIMIT,
+    DEFAULT_RANDOM_NAME_PREFIX,
+    DEFAULT_SCOPE_PATH,
+    ELB_ENDPOINT_TEMPLATE,
+)
 
 
 class CustomClient(Client):

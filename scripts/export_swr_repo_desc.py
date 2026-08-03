@@ -11,10 +11,12 @@ from pathlib import Path
 from typing import Any, Sequence
 
 
-DEFAULT_NAMESPACE = "huaweicloud"
-DEFAULT_REPOSITORY = "cce/kruise-game-manager"
-DEFAULT_CHUNK_SIZE = 30000
-DEFAULT_EXPORT_ROOT = Path("C:/SWRDescriptionExports")
+from huawei_scope import (
+    DEFAULT_CHUNK_SIZE,
+    DEFAULT_EXPORT_ROOT,
+    DEFAULT_NAMESPACE,
+    DEFAULT_REPOSITORY,
+)
 
 
 def safe_path_name(value: str) -> str:
