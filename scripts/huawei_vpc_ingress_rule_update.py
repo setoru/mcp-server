@@ -24,7 +24,6 @@ from huawei_scope import (
 
 
 SCOPE_SECTION = VPC_INGRESS_RULE_UPDATE_SECTION
-VALID_ETHERTYPES = {"IPv4", "IPv6"}
 VALID_ACTIONS = {"allow", "deny"}
 PORTED_PROTOCOLS = {"tcp", "udp"}
 
@@ -253,7 +252,6 @@ def resolve_action_defaults(scope_config: dict[str, Any]) -> dict[str, Any]:
         "project_id": section.get("project_id") or scope_config.get("project_id"),
         "security_group_rule_id": section.get("security_group_rule_id"),
         "security_group_id": section.get("security_group_id"),
-        "ethertype": section.get("ethertype"),
         "protocol": section.get("protocol"),
         "multiport": section.get("multiport"),
         "action": section.get("action"),
@@ -300,48 +298,62 @@ def build_update_payload(
     defaults: dict[str, Any],
     existing: dict[str, Any],
 ) -> dict[str, Any]:
-    """Merge CLI flags + scope defaults over the existing rule to form the PUT body.
+    """Build the PUT body for an ingress-rule update.
 
-    Huawei's PUT replaces the whole rule, so we start from `existing` and only
-    overlay fields the caller actually wanted to change. Direction is pinned to
-    ingress and never editable here.
+    Huawei's VPC PUT /security-group-rules/{id} is whitelist-based: it accepts
+    only mutable rule fields (direction, protocol, multiport, action, priority,
+    enabled, description, and one peer selector) and rejects every identity /
+    metadata field (id, security_group_id, ethertype, created_at, updated_at,
+    tenant_id, project_id). So instead of starting from the full existing rule
+    and stripping fields, we build the payload from the explicitly-allowed
+    fields, reading each from the override (CLI / scope default) and falling
+    back to the existing rule's current value so untouched fields survive.
+    Direction is pinned to ingress here.
     """
     if not isinstance(existing, dict):
         raise ValueError("Existing rule response is not an object.")
 
-    payload: dict[str, Any] = {
-        key: value
-        for key, value in existing.items()
-        if key not in {"id", "created_at", "updated_at", "tenant_id", "project_id"}
-    }
-    payload["direction"] = DEFAULT_SG_DIRECTION
+    existing_protocol = cleaned_str(existing.get("protocol"))
+    existing_multiport = cleaned_str(existing.get("multiport"))
+    existing_action = cleaned_str(existing.get("action"))
+    existing_priority = existing.get("priority")
+    existing_enabled = existing.get("enabled")
+    existing_description = cleaned_str(existing.get("description"))
+    existing_remote_ip = cleaned_str(existing.get("remote_ip_prefix"))
+    existing_remote_group = cleaned_str(existing.get("remote_group_id"))
+    existing_remote_addr_group = cleaned_str(existing.get("remote_address_group_id"))
 
-    ethertype = args.ethertype or cleaned_str(defaults.get("ethertype"))
-    if ethertype:
-        if ethertype not in VALID_ETHERTYPES:
-            raise ValueError(
-                f"Unsupported ethertype: {ethertype}. "
-                f"Supported: {', '.join(sorted(VALID_ETHERTYPES))}."
-            )
-        payload["ethertype"] = ethertype
+    payload: dict[str, Any] = {"direction": DEFAULT_SG_DIRECTION}
 
-    protocol = args.protocol or cleaned_str(defaults.get("protocol"))
-    if protocol:
+    # --- protocol / multiport ----------------------------------------------
+    protocol = args.protocol or cleaned_str(defaults.get("protocol")) or existing_protocol
+    if protocol is not None:
         protocol_lower = protocol.lower()
         if protocol_lower not in {"tcp", "udp", "icmp", "icmpv6", "any"}:
             raise ValueError(
                 f"Unsupported protocol: {protocol}. Supported: tcp, udp, icmp, icmpv6, any."
             )
-        # Huawei VPC rejects the literal "any"; "all protocols" is expressed by
-        # omitting the field entirely, so drop protocol (and multiport, which is
-        # meaningless for all protocols) from the PUT body.
         if protocol_lower == "any":
-            payload.pop("protocol", None)
-            payload.pop("multiport", None)
+            # "any" => omit protocol (and multiport, meaningless for all protocols)
+            multiport = None
         else:
             payload["protocol"] = protocol_lower
+            multiport = args.multiport or cleaned_str(defaults.get("multiport")) or existing_multiport
+            if not multiport:
+                raise ValueError(
+                    f"Protocol {protocol_lower} requires --multiport "
+                    "(for example 8080 or 8000-9000)."
+                )
+            payload["multiport"] = multiport
+    else:
+        # Protocol stays "any"; refuse a multiport override as meaningless.
+        if args.multiport is not None or cleaned_str(defaults.get("multiport")):
+            raise ValueError(
+                "Protocol any means all protocols/ports; do not combine it with --multiport."
+            )
 
-    action = args.action_filter or cleaned_str(defaults.get("action"))
+    # --- action -------------------------------------------------------------
+    action = args.action_filter or cleaned_str(defaults.get("action")) or existing_action
     if action:
         if action not in VALID_ACTIONS:
             raise ValueError(
@@ -350,41 +362,35 @@ def build_update_payload(
             )
         payload["action"] = action
 
-    multiport = args.multiport or cleaned_str(defaults.get("multiport"))
-    # An absent/null protocol means "all protocols" (any). Treat that as a ported
-    # protocol only for the multiport-required check when the rule actually has a
-    # concrete ported protocol set.
-    effective_protocol = str(payload.get("protocol", "")).lower()
-    if effective_protocol in PORTED_PROTOCOLS and not (multiport or payload.get("multiport")):
-        raise ValueError(
-            f"Protocol {effective_protocol} requires --multiport "
-            "(for example 8080 or 8000-9000)."
-        )
-    if multiport is not None:
-        payload["multiport"] = multiport
-    if not effective_protocol and (multiport or payload.get("multiport")):
-        raise ValueError(
-            "Protocol any means all protocols/ports; do not combine it with --multiport."
-        )
-
+    # --- priority -----------------------------------------------------------
     priority = normalize_int(
         args.priority if args.priority is not None else defaults.get("priority"),
         field="priority",
     )
+    if priority is None and existing_priority is not None:
+        priority = normalize_int(existing_priority, field="priority")
     if priority is not None:
         if not (0 <= priority <= 100):
             raise ValueError("priority must be in the range 0..100.")
         payload["priority"] = priority
 
+    # --- enabled ------------------------------------------------------------
     if args.enabled is not None:
         payload["enabled"] = normalize_scope_bool(args.enabled, field="enabled")
     elif defaults.get("enabled") is not None:
         payload["enabled"] = normalize_scope_bool(defaults.get("enabled"), field="enabled")
+    elif existing_enabled is not None:
+        payload["enabled"] = bool(existing_enabled)
 
-    description = args.description if args.description is not None else defaults.get("description")
-    if description is not None:
-        payload["description"] = cleaned_str(description) or ""
+    # --- description --------------------------------------------------------
+    if args.description is not None:
+        payload["description"] = cleaned_str(args.description) or ""
+    elif defaults.get("description") is not None:
+        payload["description"] = cleaned_str(defaults.get("description")) or ""
+    elif existing_description is not None:
+        payload["description"] = existing_description
 
+    # --- peer selector (exactly one) ---------------------------------------
     remote_ip_prefix = (
         args.remote_ip_prefix if args.remote_ip_prefix is not None
         else cleaned_str(defaults.get("remote_ip_prefix"))
@@ -402,42 +408,46 @@ def build_update_payload(
         value for value in (remote_ip_prefix, remote_group_id, remote_address_group_id)
         if value is not None
     ]
-    if len(provided) > 1:
-        raise ValueError(
-            "Use at most one of --remote-ip-prefix, --remote-group-id, "
-            "--remote-address-group-id."
-        )
-
-    payload.pop("remote_ip_prefix", None)
-    payload.pop("remote_group_id", None)
-    payload.pop("remote_address_group_id", None)
-    if remote_ip_prefix is not None:
-        payload["remote_ip_prefix"] = remote_ip_prefix
-    elif remote_group_id is not None:
-        payload["remote_group_id"] = remote_group_id
-    elif remote_address_group_id is not None:
-        payload["remote_address_group_id"] = remote_address_group_id
+    if provided:
+        # An explicit peer override was supplied.
+        if len(provided) > 1:
+            raise ValueError(
+                "Use at most one of --remote-ip-prefix, --remote-group-id, "
+                "--remote-address-group-id."
+            )
+        if remote_ip_prefix is not None:
+            payload["remote_ip_prefix"] = remote_ip_prefix
+        elif remote_group_id is not None:
+            payload["remote_group_id"] = remote_group_id
+        else:
+            payload["remote_address_group_id"] = remote_address_group_id
     else:
-        # No peer override supplied: carry over the existing peer selector.
-        if cleaned_str(existing.get("remote_ip_prefix")):
-            payload["remote_ip_prefix"] = existing["remote_ip_prefix"]
-        elif cleaned_str(existing.get("remote_group_id")):
-            payload["remote_group_id"] = existing["remote_group_id"]
-        elif cleaned_str(existing.get("remote_address_group_id")):
-            payload["remote_address_group_id"] = existing["remote_address_group_id"]
+        # No override: carry over the existing peer selector unchanged.
+        if existing_remote_ip:
+            payload["remote_ip_prefix"] = existing_remote_ip
+        elif existing_remote_group:
+            payload["remote_group_id"] = existing_remote_group
+        elif existing_remote_addr_group:
+            payload["remote_address_group_id"] = existing_remote_addr_group
         else:
             raise ValueError(
                 "An ingress rule requires exactly one of --remote-ip-prefix, "
                 "--remote-group-id, or --remote-address-group-id."
             )
 
-    security_group_id = (
+    # --- security_group_id guard (immutable; not part of PUT body) ----------
+    target_security_group_id = cleaned_str(existing.get("security_group_id"))
+    override_security_group_id = (
         args.security_group_id or cleaned_str(defaults.get("security_group_id"))
-        or cleaned_str(existing.get("security_group_id"))
     )
-    if not security_group_id:
-        raise ValueError("Missing security_group_id on the existing and override rule.")
-    payload["security_group_id"] = security_group_id
+    if override_security_group_id and override_security_group_id != target_security_group_id:
+        raise ValueError(
+            f"--security-group-id {override_security_group_id} does not match the "
+            f"rule's parent group {target_security_group_id or '-'}. A rule's "
+            "security_group_id is immutable; create a new rule instead."
+        )
+    if not target_security_group_id:
+        raise ValueError("Existing rule is missing security_group_id; refusing to update.")
 
     return payload
 
@@ -467,12 +477,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--security-group-id",
         dest="security_group_id",
-        help="Override the parent security group ID carried in the PUT body.",
-    )
-    parser.add_argument(
-        "--ethertype",
-        choices=tuple(sorted(VALID_ETHERTYPES)),
-        help="Update the ethernet type.",
+        help="Optional guard: refuse to update if it does not match the rule's parent group.",
     )
     parser.add_argument(
         "--protocol",
@@ -574,8 +579,18 @@ def run(argv: Sequence[str] | None = None) -> int:
     response_data = update_security_group_rule(
         client, project_id=project_id, security_group_rule_id=rule_id, rule=payload
     )
+    updated_rule = response_data.get("security_group_rule", {})
+    new_rule_id = cleaned_str(updated_rule.get("id")) if isinstance(updated_rule, dict) else None
     print("Updated rule:")
     print(json.dumps(response_data, indent=2, ensure_ascii=False))
+    # Huawei VPC implements a rule update as delete-old + create-new, so the
+    # returned rule has a NEW id and the original id is no longer valid. Surface
+    # that so the caller does not keep using the stale id.
+    if new_rule_id and new_rule_id != rule_id:
+        print(
+            f"Note: the rule's ID changed {rule_id} -> {new_rule_id}. "
+            "Huawei VPC replaces the rule on update, so the old ID is no longer valid."
+        )
     return 0
 
 
