@@ -1,0 +1,29 @@
+# Copy this file to .opencode/huawei-scope-2.yaml or pass it with --scope.
+# Keep real AK/SK and resource IDs out of committed files.
+
+ak: "<access-key>"
+sk: "<secret-key>"
+region: "cn-north-4"
+project_id: "<project-id>"
+cluster_id: "<cce-cluster-id>"
+
+cce_node_create:
+  project_id: "<project-id>"
+  cluster_id: "<cce-cluster-id>"
+  node:
+    metadata:
+      name: "<node-name>"
+    spec:
+      flavor: "c7n.large.2"
+      az: "random"
+      login:
+        sshKey: "<keypair-name>"
+      rootVolume:
+        size: 40
+        volumetype: "SSD"
+      dataVolumes:
+        - size: 100
+          volumetype: "SSD"
+      count: 1
+      runtime:
+        name: "containerd"
