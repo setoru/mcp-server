@@ -42,6 +42,7 @@ VPC_SECURITY_GROUPS_SECTION = "vpc_security_groups"
 VPC_SECURITY_GROUP_RULES_SECTION = "vpc_security_group_rules"
 VPC_INGRESS_RULE_CREATE_SECTION = "vpc_ingress_rule_create"
 VPC_INGRESS_RULE_UPDATE_SECTION = "vpc_ingress_rule_update"
+VPC_INGRESS_RULE_DELETE_SECTION = "vpc_ingress_rule_delete"
 
 # Defaults for VPC security-group rule operations.
 DEFAULT_SG_DIRECTION = "ingress"
