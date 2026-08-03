@@ -37,6 +37,20 @@ DEFAULT_EXPORT_ROOT = Path("C:/SWRDescriptionExports")
 # Scope section name consumed by cce_node_create.
 CCE_NODE_CREATE_SCOPE_SECTION = "cce_node_create"
 
+# Scope section names consumed by the VPC security-group scripts.
+VPC_SECURITY_GROUPS_SECTION = "vpc_security_groups"
+VPC_SECURITY_GROUP_RULES_SECTION = "vpc_security_group_rules"
+VPC_INGRESS_RULE_CREATE_SECTION = "vpc_ingress_rule_create"
+VPC_INGRESS_RULE_UPDATE_SECTION = "vpc_ingress_rule_update"
+
+# Defaults for VPC security-group rule operations.
+DEFAULT_SG_DIRECTION = "ingress"
+DEFAULT_SG_ETHERTYPE = "IPv4"
+DEFAULT_SG_ACTION = "allow"
+DEFAULT_SG_PROTOCOL = "tcp"
+DEFAULT_SG_ENABLED = True
+DEFAULT_SG_PRIORITY = 1
+
 # --- request defaults --------------------------------------------------------
 USER_AGENT = "huaweicloud-usdk-python/3.0"
 REQUEST_TIMEOUT = (60, 120)
