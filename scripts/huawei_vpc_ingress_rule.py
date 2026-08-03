@@ -279,7 +279,7 @@ def list_security_groups(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-groups",
+        resource_path=f"/v3/{project_id}/vpc/security-groups",
         query_params={"id": security_group_id},
     )
     groups = response_data.get("security_groups", [])
@@ -324,6 +324,10 @@ def build_rule_payload(args: argparse.Namespace, defaults: dict[str, Any]) -> di
         raise ValueError(
             f"Protocol {protocol} requires --multiport (for example 8080 or 8000-9000)."
         )
+    if protocol_lower == "any" and multiport:
+        raise ValueError(
+            "Protocol any means all protocols/ports; do not combine it with --multiport."
+        )
 
     remote_ip_prefix = args.remote_ip_prefix or cleaned_str(defaults.get("remote_ip_prefix"))
     remote_group_id = args.remote_group_id or cleaned_str(defaults.get("remote_group_id"))
@@ -361,10 +365,13 @@ def build_rule_payload(args: argparse.Namespace, defaults: dict[str, Any]) -> di
         "security_group_id": security_group_id,
         "direction": DEFAULT_SG_DIRECTION,
         "ethertype": ethertype,
-        "protocol": protocol_lower,
         "action": action,
         "enabled": enabled,
     }
+    # Huawei VPC treats an omitted/null `protocol` as "all protocols". The
+    # string "any" is rejected by the API, so map it to an omitted field.
+    if protocol_lower != "any":
+        rule["protocol"] = protocol_lower
     if multiport:
         rule["multiport"] = multiport
     if priority is not None:
@@ -390,7 +397,7 @@ def show_security_group_rule(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-group-rules/{security_group_rule_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}",
     )
     return response_data.get("security_group_rule", response_data)
 
@@ -404,7 +411,7 @@ def create_security_group_rule(
     return request_json(
         client,
         method="POST",
-        resource_path=f"/v3/{project_id}/security-group-rules",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules",
         body={"security_group_rule": rule},
     )
 
@@ -510,7 +517,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         raise ValueError("Missing project_id. Set it in the scope file or pass --project-id.")
 
     rule = build_rule_payload(args, defaults)
-    resource_path = f"/v3/{project_id}/security-group-rules"
+    resource_path = f"/v3/{project_id}/vpc/security-group-rules"
 
     print(f"Action: {args.action}")
     print(f"Scope: {scope_path}")

@@ -268,7 +268,7 @@ def list_security_group_rules(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-group-rules",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules",
         query_params=query_params,
     )
     rules = response_data.get("security_group_rules", [])
@@ -288,7 +288,7 @@ def show_security_group_rule(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-group-rules/{security_group_rule_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}",
     )
     return response_data.get("security_group_rule", response_data)
 
@@ -446,7 +446,7 @@ def run(argv: Sequence[str] | None = None) -> int:
                 "Show requires a security group rule ID. Pass --security-group-rule-id "
                 f"or set {SCOPE_SECTION}.security_group_rule_id."
             )
-        resource_path = f"/v3/{project_id}/security-group-rules/{rule_id}"
+        resource_path = f"/v3/{project_id}/vpc/security-group-rules/{rule_id}"
         print(f"Action: {args.action}")
         print(f"Scope: {scope_path}")
         print(f"Region: {region}")

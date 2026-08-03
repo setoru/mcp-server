@@ -237,7 +237,7 @@ def show_security_group_rule(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-group-rules/{security_group_rule_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}",
     )
     return response_data.get("security_group_rule", response_data)
 
@@ -251,7 +251,7 @@ def delete_security_group_rule(
     return request_json(
         client,
         method="DELETE",
-        resource_path=f"/v3/{project_id}/security-group-rules/{security_group_rule_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}",
     )
 
 
@@ -355,7 +355,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         defaults.get("security_group_id")
     )
 
-    delete_path = f"/v3/{project_id}/security-group-rules/{rule_id}"
+    delete_path = f"/v3/{project_id}/vpc/security-group-rules/{rule_id}"
 
     print(f"Action: {args.action}")
     print(f"Scope: {scope_path}")

@@ -275,7 +275,7 @@ def show_security_group_rule(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-group-rules/{security_group_rule_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}",
     )
     return response_data.get("security_group_rule", response_data)
 
@@ -290,7 +290,7 @@ def update_security_group_rule(
     return request_json(
         client,
         method="PUT",
-        resource_path=f"/v3/{project_id}/security-group-rules/{security_group_rule_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-group-rules/{security_group_rule_id}",
         body={"security_group_rule": rule},
     )
 
@@ -332,7 +332,14 @@ def build_update_payload(
             raise ValueError(
                 f"Unsupported protocol: {protocol}. Supported: tcp, udp, icmp, icmpv6, any."
             )
-        payload["protocol"] = protocol_lower
+        # Huawei VPC rejects the literal "any"; "all protocols" is expressed by
+        # omitting the field entirely, so drop protocol (and multiport, which is
+        # meaningless for all protocols) from the PUT body.
+        if protocol_lower == "any":
+            payload.pop("protocol", None)
+            payload.pop("multiport", None)
+        else:
+            payload["protocol"] = protocol_lower
 
     action = args.action_filter or cleaned_str(defaults.get("action"))
     if action:
@@ -344,6 +351,9 @@ def build_update_payload(
         payload["action"] = action
 
     multiport = args.multiport or cleaned_str(defaults.get("multiport"))
+    # An absent/null protocol means "all protocols" (any). Treat that as a ported
+    # protocol only for the multiport-required check when the rule actually has a
+    # concrete ported protocol set.
     effective_protocol = str(payload.get("protocol", "")).lower()
     if effective_protocol in PORTED_PROTOCOLS and not (multiport or payload.get("multiport")):
         raise ValueError(
@@ -352,6 +362,10 @@ def build_update_payload(
         )
     if multiport is not None:
         payload["multiport"] = multiport
+    if not effective_protocol and (multiport or payload.get("multiport")):
+        raise ValueError(
+            "Protocol any means all protocols/ports; do not combine it with --multiport."
+        )
 
     priority = normalize_int(
         args.priority if args.priority is not None else defaults.get("priority"),
@@ -530,7 +544,7 @@ def run(argv: Sequence[str] | None = None) -> int:
         raise ValueError("Missing project_id. Set it in the scope file or pass --project-id.")
 
     rule_id = args.security_group_rule_id
-    resource_path = f"/v3/{project_id}/security-group-rules/{rule_id}"
+    resource_path = f"/v3/{project_id}/vpc/security-group-rules/{rule_id}"
 
     print(f"Action: {args.action}")
     print(f"Scope: {scope_path}")

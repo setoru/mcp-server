@@ -255,7 +255,7 @@ def list_security_groups(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-groups",
+        resource_path=f"/v3/{project_id}/vpc/security-groups",
         query_params=query_params,
     )
     groups = response_data.get("security_groups", [])
@@ -275,7 +275,7 @@ def show_security_group(
     response_data = request_json(
         client,
         method="GET",
-        resource_path=f"/v3/{project_id}/security-groups/{security_group_id}",
+        resource_path=f"/v3/{project_id}/vpc/security-groups/{security_group_id}",
     )
     return response_data.get("security_group", response_data)
 
@@ -310,7 +310,7 @@ def print_security_groups(groups: list[dict[str, Any]], *, as_json: bool) -> Non
         group_id = cleaned_str(group.get("id")) or "-"
         name = cleaned_str(group.get("name")) or "-"
         description = cleaned_str(group.get("description")) or "-"
-        vpc_id = cleaned_str(group.get("vpc_id")) or "-"
+        vpc_id = cleaned_str(group.get("vpc_id")) or cleaned_str(group.get("vpc_id_id")) or "-"
         print(f"{index}. {name} | id={group_id} | vpc={vpc_id} | desc={description}")
         ingress_rules = group.get("ingress_rules") or []
         egress_rules = group.get("egress_rules") or []
@@ -403,7 +403,7 @@ def run(argv: Sequence[str] | None = None) -> int:
                 "Show requires a security group ID. Pass --security-group-id or set "
                 f"{SCOPE_SECTION}.security_group_id."
             )
-        resource_path = f"/v3/{project_id}/security-groups/{security_group_id}"
+        resource_path = f"/v3/{project_id}/vpc/security-groups/{security_group_id}"
         print(f"Action: {args.action}")
         print(f"Scope: {scope_path}")
         print(f"Region: {region}")
